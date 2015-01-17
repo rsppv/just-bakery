@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8779cbead554d52bee5464e6d70a2c8" Name="Diagram1">
+        <EntityTypeShape EntityType="BakeryDataModel.Cклады" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Аккаунты" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Аккаунты___Роли" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Личности" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Пекарни" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Покупатели" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Поставщики" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Продукция" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Рецепты" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Роли_пользователей" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Состав_рецепта" Width="1.5" PointX="6" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Сотрудники" Width="1.5" PointX="8" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Сырье" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Справочник_должностей" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_операций" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_продукции" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_сырья" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Журнал_учета_продукции" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Журнал_учета_сырья" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Остатки_продукции_на_складе" Width="1.5" PointX="10.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Остатки_сырья_на_складе" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Состав_операций_по_продукции" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_продукции_Склады" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_сырья_Склады" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Остатки_продукции_на_складе_Склады" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Остатки_сырья_на_складе_Склады" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Склад_Пекарня" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Аккаунты_Личности" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Покупатели_Личности" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Поставщики_Личности" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Сотрудники_Личности" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Сотрудники_Пекарни" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_продукции_Покупатели" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_сырья_Поставщики" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Остатки_продукции_на_складе_Продукция" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Продукция_Справочник_типов_продукции" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Рецепты_Продукция" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Состав_операций_по_продукции_Продукция" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Состав_рецепта_Рецепты" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Состав_рецепта_Справочник_типов_сырья" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_продукции_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_сырья_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Сотрудники_Справочник_должностей" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Остатки_сырья_на_складе_Сырье" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Сырье_Справочник_типов_сырья" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_продукции_Справочник_типов_операций" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_сырья_Справочник_типов_операций" ManuallyRouted="false" />
+        <AssociationConnector Association="BakeryDataModel.FK_Состав_операций_по_продукции_Журнал_учета_продукции" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

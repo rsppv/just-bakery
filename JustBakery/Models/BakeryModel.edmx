@@ -1,0 +1,1628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BakeryDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cклады">
+          <Key>
+            <PropertyRef Name="ID_Склада" />
+          </Key>
+          <Property Name="ID_Склада" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Тип склада" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ID_Пекарни" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Аккаунты">
+          <Key>
+            <PropertyRef Name="ID_Аккаунта" />
+          </Key>
+          <Property Name="ID_Аккаунта" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Личности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Дата регистрации" Type="datetime" Nullable="false" />
+          <Property Name="Соль" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Аккаунты - Роли">
+          <Key>
+            <PropertyRef Name="ID_Аккаунта" />
+            <PropertyRef Name="ID_Роли" />
+          </Key>
+          <Property Name="ID_Аккаунта" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Роли" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Личности">
+          <Key>
+            <PropertyRef Name="ID_Личности" />
+          </Key>
+          <Property Name="ID_Личности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="150" />
+          <Property Name="Дата рождения" Type="datetime" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar(max)" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Пекарни">
+          <Key>
+            <PropertyRef Name="ID_Пекарни" />
+          </Key>
+          <Property Name="ID_Пекарни" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Полный адрес" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Покупатели">
+          <Key>
+            <PropertyRef Name="ID_Покупателя" />
+          </Key>
+          <Property Name="ID_Покупателя" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Личности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Сумма на счете" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Поставщики">
+          <Key>
+            <PropertyRef Name="ID_Поставщика" />
+          </Key>
+          <Property Name="ID_Поставщика" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Контактного лица" Type="uniqueidentifier" />
+          <Property Name="ИНН" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Краткое название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Полное название" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Адрес" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Рабочий телефон" Type="nvarchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Продукция">
+          <Key>
+            <PropertyRef Name="ID_Продукции" />
+          </Key>
+          <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Типа продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Цена" Type="int" />
+          <Property Name="Ед. измерения" Type="nvarchar" MaxLength="50" />
+          <Property Name="Изображение" Type="varbinary(max)" />
+          <Property Name="Название" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Рецепты">
+          <Key>
+            <PropertyRef Name="ID_Рецепта" />
+          </Key>
+          <Property Name="ID_Рецепта" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Роли пользователей">
+          <Key>
+            <PropertyRef Name="ID_роли" />
+          </Key>
+          <Property Name="ID_роли" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Роль" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Состав рецепта">
+          <Key>
+            <PropertyRef Name="ID_Состава рецепта" />
+          </Key>
+          <Property Name="ID_Состава рецепта" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Рецепта" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Типа сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ед. измерения" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="ID_Сотрудника" />
+          </Key>
+          <Property Name="ID_Сотрудника" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Личности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Должности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Пекарни" Type="uniqueidentifier" />
+          <Property Name="Дата заступления на должность" Type="datetime" Nullable="false" />
+          <Property Name="Дата увольнения" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Сырье">
+          <Key>
+            <PropertyRef Name="ID_Сырья" />
+          </Key>
+          <Property Name="ID_Сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Типа сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Цена" Type="int" />
+          <Property Name="Ед. измерения" Type="nvarchar" MaxLength="50" />
+          <Property Name="Название" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Справочник должностей">
+          <Key>
+            <PropertyRef Name="ID_Должности" />
+          </Key>
+          <Property Name="ID_Должности" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Краткое название" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Полное название" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Количество мест" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Справочник типов операций">
+          <Key>
+            <PropertyRef Name="ID_Типа операции" />
+          </Key>
+          <Property Name="ID_Типа операции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Тип операции" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Справочник типов продукции">
+          <Key>
+            <PropertyRef Name="ID_Типа продукции" />
+          </Key>
+          <Property Name="ID_Типа продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Тип продукции" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Справочник типов сырья">
+          <Key>
+            <PropertyRef Name="ID_Типа сырья" />
+          </Key>
+          <Property Name="ID_Типа сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Тип сырья" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Журнал учета продукции">
+          <Key>
+            <PropertyRef Name="ID_Записи журнала продукции" />
+          </Key>
+          <Property Name="ID_Записи журнала продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Типа операции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Склада" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Покупателя" Type="uniqueidentifier" />
+          <Property Name="ID_Сотрудника" Type="uniqueidentifier" />
+          <Property Name="Дата операции" Type="datetime" Nullable="false" />
+          <Property Name="Удалена" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Журнал учета сырья">
+          <Key>
+            <PropertyRef Name="ID_Записи журнала сырья" />
+          </Key>
+          <Property Name="ID_Записи журнала сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Типа операции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Склада" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Поставщика" Type="uniqueidentifier" />
+          <Property Name="ID_Сотрудника" Type="uniqueidentifier" />
+          <Property Name="Дата операции" Type="datetime" Nullable="false" />
+          <Property Name="Удалена" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Остатки продукции на складе">
+          <Key>
+            <PropertyRef Name="ID_Остатка продукции" />
+          </Key>
+          <Property Name="ID_Остатка продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Склада" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Остатки сырья на складе">
+          <Key>
+            <PropertyRef Name="ID_Остатка сырья" />
+          </Key>
+          <Property Name="ID_Остатка сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Склада" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Состав операций по продукции">
+          <Key>
+            <PropertyRef Name="ID_Состава операции по продукции" />
+          </Key>
+          <Property Name="ID_Состава операции по продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Записи журнала продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "Bakery.dbo.СлучайнаяДатаНачалаРаботы" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="СлучайнаяДатаНачалаРаботы">
+          <Property Name="V" Type="datetime" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "Bakery.dbo.СлучайнаяДатаРождения" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="СлучайнаяДатаРождения">
+          <Property Name="V" Type="datetime" />
+        </EntityType>-->
+        <Association Name="FK_Аккаунты_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Аккаунты" Type="Self.Аккаунты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Аккаунты">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета продукции_Покупатели">
+          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="0..1" />
+          <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Покупатели">
+              <PropertyRef Name="ID_Покупателя" />
+            </Principal>
+            <Dependent Role="Журнал учета продукции">
+              <PropertyRef Name="ID_Покупателя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета продукции_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Журнал учета продукции">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета продукции_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
+          <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Principal>
+            <Dependent Role="Журнал учета продукции">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета продукции_Справочник типов операций">
+          <End Role="Справочник типов операций" Type="Self.Справочник типов операций" Multiplicity="1" />
+          <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник типов операций">
+              <PropertyRef Name="ID_Типа операции" />
+            </Principal>
+            <Dependent Role="Журнал учета продукции">
+              <PropertyRef Name="ID_Типа операции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета сырья_Поставщики">
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="0..1" />
+          <End Role="Журнал учета сырья" Type="Self.Журнал учета сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="ID_Поставщика" />
+            </Principal>
+            <Dependent Role="Журнал учета сырья">
+              <PropertyRef Name="ID_Поставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета сырья_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Журнал учета сырья" Type="Self.Журнал учета сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Журнал учета сырья">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета сырья_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
+          <End Role="Журнал учета сырья" Type="Self.Журнал учета сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Principal>
+            <Dependent Role="Журнал учета сырья">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал учета сырья_Справочник типов операций">
+          <End Role="Справочник типов операций" Type="Self.Справочник типов операций" Multiplicity="1" />
+          <End Role="Журнал учета сырья" Type="Self.Журнал учета сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник типов операций">
+              <PropertyRef Name="ID_Типа операции" />
+            </Principal>
+            <Dependent Role="Журнал учета сырья">
+              <PropertyRef Name="ID_Типа операции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки продукции на складе_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Остатки продукции на складе" Type="Self.Остатки продукции на складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Остатки продукции на складе">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки продукции на складе_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Остатки продукции на складе" Type="Self.Остатки продукции на складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Остатки продукции на складе">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки сырья на складе_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Остатки сырья на складе" Type="Self.Остатки сырья на складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Остатки сырья на складе">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки сырья на складе_Сырье">
+          <End Role="Сырье" Type="Self.Сырье" Multiplicity="1" />
+          <End Role="Остатки сырья на складе" Type="Self.Остатки сырья на складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сырье">
+              <PropertyRef Name="ID_Сырья" />
+            </Principal>
+            <Dependent Role="Остатки сырья на складе">
+              <PropertyRef Name="ID_Сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Покупатели_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Покупатели">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Поставщики_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="0..1" />
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Поставщики">
+              <PropertyRef Name="ID_Контактного лица" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Продукция_Справочник типов продукции">
+          <End Role="Справочник типов продукции" Type="Self.Справочник типов продукции" Multiplicity="1" />
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник типов продукции">
+              <PropertyRef Name="ID_Типа продукции" />
+            </Principal>
+            <Dependent Role="Продукция">
+              <PropertyRef Name="ID_Типа продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Рецепты_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Рецепты">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Склад_Пекарня">
+          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пекарни">
+              <PropertyRef Name="ID_Пекарни" />
+            </Principal>
+            <Dependent Role="Cклады">
+              <PropertyRef Name="ID_Пекарни" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав операций по продукции_Журнал учета продукции">
+          <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="1" />
+          <End Role="Состав операций по продукции" Type="Self.Состав операций по продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Журнал учета продукции">
+              <PropertyRef Name="ID_Записи журнала продукции" />
+            </Principal>
+            <Dependent Role="Состав операций по продукции">
+              <PropertyRef Name="ID_Записи журнала продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав операций по продукции_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Состав операций по продукции" Type="Self.Состав операций по продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Состав операций по продукции">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав рецепта_Рецепты">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="1" />
+          <End Role="Состав рецепта" Type="Self.Состав рецепта" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="ID_Рецепта" />
+            </Principal>
+            <Dependent Role="Состав рецепта">
+              <PropertyRef Name="ID_Рецепта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав рецепта_Справочник типов сырья">
+          <End Role="Справочник типов сырья" Type="Self.Справочник типов сырья" Multiplicity="1" />
+          <End Role="Состав рецепта" Type="Self.Состав рецепта" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник типов сырья">
+              <PropertyRef Name="ID_Типа сырья" />
+            </Principal>
+            <Dependent Role="Состав рецепта">
+              <PropertyRef Name="ID_Типа сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Пекарни">
+          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пекарни">
+              <PropertyRef Name="ID_Пекарни" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Пекарни" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Справочник должностей">
+          <End Role="Справочник должностей" Type="Self.Справочник должностей" Multiplicity="1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник должностей">
+              <PropertyRef Name="ID_Должности" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Должности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сырье_Справочник типов сырья">
+          <End Role="Справочник типов сырья" Type="Self.Справочник типов сырья" Multiplicity="1" />
+          <End Role="Сырье" Type="Self.Сырье" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник типов сырья">
+              <PropertyRef Name="ID_Типа сырья" />
+            </Principal>
+            <Dependent Role="Сырье">
+              <PropertyRef Name="ID_Типа сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Случайная_Дата_Начала_Работы" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Случайная Дата Начала Работы" ReturnType="nvarchar" />
+        <Function Name="Случайная_Дата_Рождения" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Случайная Дата Рождения" ReturnType="nvarchar" />
+        <EntityContainer Name="Хранилище BakeryDataModelContainer">
+          <EntitySet Name="Cклады" EntityType="Self.Cклады" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Аккаунты" EntityType="Self.Аккаунты" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Аккаунты - Роли" EntityType="Self.Аккаунты - Роли" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Личности" EntityType="Self.Личности" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Пекарни" EntityType="Self.Пекарни" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Покупатели" EntityType="Self.Покупатели" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Поставщики" EntityType="Self.Поставщики" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Продукция" EntityType="Self.Продукция" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Рецепты" EntityType="Self.Рецепты" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Роли пользователей" EntityType="Self.Роли пользователей" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Состав рецепта" EntityType="Self.Состав рецепта" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Сырье" EntityType="Self.Сырье" Schema="Class" store:Type="Tables" />
+          <EntitySet Name="Справочник должностей" EntityType="Self.Справочник должностей" Schema="Dict" store:Type="Tables" />
+          <EntitySet Name="Справочник типов операций" EntityType="Self.Справочник типов операций" Schema="Dict" store:Type="Tables" />
+          <EntitySet Name="Справочник типов продукции" EntityType="Self.Справочник типов продукции" Schema="Dict" store:Type="Tables" />
+          <EntitySet Name="Справочник типов сырья" EntityType="Self.Справочник типов сырья" Schema="Dict" store:Type="Tables" />
+          <EntitySet Name="Журнал учета продукции" EntityType="Self.Журнал учета продукции" Schema="Reg" store:Type="Tables" />
+          <EntitySet Name="Журнал учета сырья" EntityType="Self.Журнал учета сырья" Schema="Reg" store:Type="Tables" />
+          <EntitySet Name="Остатки продукции на складе" EntityType="Self.Остатки продукции на складе" Schema="Reg" store:Type="Tables" />
+          <EntitySet Name="Остатки сырья на складе" EntityType="Self.Остатки сырья на складе" Schema="Reg" store:Type="Tables" />
+          <EntitySet Name="Состав операций по продукции" EntityType="Self.Состав операций по продукции" Schema="Reg" store:Type="Tables" />
+          <AssociationSet Name="FK_Аккаунты_Личности" Association="Self.FK_Аккаунты_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Аккаунты" EntitySet="Аккаунты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета продукции_Покупатели" Association="Self.FK_Журнал учета продукции_Покупатели">
+            <End Role="Покупатели" EntitySet="Покупатели" />
+            <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета продукции_Склады" Association="Self.FK_Журнал учета продукции_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета продукции_Сотрудники" Association="Self.FK_Журнал учета продукции_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета продукции_Справочник типов операций" Association="Self.FK_Журнал учета продукции_Справочник типов операций">
+            <End Role="Справочник типов операций" EntitySet="Справочник типов операций" />
+            <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета сырья_Поставщики" Association="Self.FK_Журнал учета сырья_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="Журнал учета сырья" EntitySet="Журнал учета сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета сырья_Склады" Association="Self.FK_Журнал учета сырья_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Журнал учета сырья" EntitySet="Журнал учета сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета сырья_Сотрудники" Association="Self.FK_Журнал учета сырья_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Журнал учета сырья" EntitySet="Журнал учета сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал учета сырья_Справочник типов операций" Association="Self.FK_Журнал учета сырья_Справочник типов операций">
+            <End Role="Справочник типов операций" EntitySet="Справочник типов операций" />
+            <End Role="Журнал учета сырья" EntitySet="Журнал учета сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки продукции на складе_Продукция" Association="Self.FK_Остатки продукции на складе_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Остатки продукции на складе" EntitySet="Остатки продукции на складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки продукции на складе_Склады" Association="Self.FK_Остатки продукции на складе_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Остатки продукции на складе" EntitySet="Остатки продукции на складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки сырья на складе_Склады" Association="Self.FK_Остатки сырья на складе_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Остатки сырья на складе" EntitySet="Остатки сырья на складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки сырья на складе_Сырье" Association="Self.FK_Остатки сырья на складе_Сырье">
+            <End Role="Сырье" EntitySet="Сырье" />
+            <End Role="Остатки сырья на складе" EntitySet="Остатки сырья на складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Покупатели_Личности" Association="Self.FK_Покупатели_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Покупатели" EntitySet="Покупатели" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Поставщики_Личности" Association="Self.FK_Поставщики_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Поставщики" EntitySet="Поставщики" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Продукция_Справочник типов продукции" Association="Self.FK_Продукция_Справочник типов продукции">
+            <End Role="Справочник типов продукции" EntitySet="Справочник типов продукции" />
+            <End Role="Продукция" EntitySet="Продукция" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Рецепты_Продукция" Association="Self.FK_Рецепты_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Рецепты" EntitySet="Рецепты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Склад_Пекарня" Association="Self.FK_Склад_Пекарня">
+            <End Role="Пекарни" EntitySet="Пекарни" />
+            <End Role="Cклады" EntitySet="Cклады" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав операций по продукции_Журнал учета продукции" Association="Self.FK_Состав операций по продукции_Журнал учета продукции">
+            <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
+            <End Role="Состав операций по продукции" EntitySet="Состав операций по продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав операций по продукции_Продукция" Association="Self.FK_Состав операций по продукции_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Состав операций по продукции" EntitySet="Состав операций по продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав рецепта_Рецепты" Association="Self.FK_Состав рецепта_Рецепты">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="Состав рецепта" EntitySet="Состав рецепта" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав рецепта_Справочник типов сырья" Association="Self.FK_Состав рецепта_Справочник типов сырья">
+            <End Role="Справочник типов сырья" EntitySet="Справочник типов сырья" />
+            <End Role="Состав рецепта" EntitySet="Состав рецепта" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Личности" Association="Self.FK_Сотрудники_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Пекарни" Association="Self.FK_Сотрудники_Пекарни">
+            <End Role="Пекарни" EntitySet="Пекарни" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Справочник должностей" Association="Self.FK_Сотрудники_Справочник должностей">
+            <End Role="Справочник должностей" EntitySet="Справочник должностей" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сырье_Справочник типов сырья" Association="Self.FK_Сырье_Справочник типов сырья">
+            <End Role="Справочник типов сырья" EntitySet="Справочник типов сырья" />
+            <End Role="Сырье" EntitySet="Сырье" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BakeryDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cклады">
+          <Key>
+            <PropertyRef Name="ID_Склада" />
+          </Key>
+          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
+          <Property Name="Тип_склада" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Пекарни" Type="Guid" />
+          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Cклады" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Cклады" ToRole="Журнал_учета_сырья" />
+          <NavigationProperty Name="Остатки_продукции_на_складе" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_продукции_на_складе" />
+          <NavigationProperty Name="Остатки_сырья_на_складе" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_сырья_на_складе" />
+          <NavigationProperty Name="Пекарни" Relationship="Self.FK_Склад_Пекарня" FromRole="Cклады" ToRole="Пекарни" />
+        </EntityType>
+        <EntityType Name="Аккаунты">
+          <Key>
+            <PropertyRef Name="ID_Аккаунта" />
+          </Key>
+          <Property Name="ID_Аккаунта" Type="Guid" Nullable="false" />
+          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
+          <Property Name="Логин" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_регистрации" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Соль" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Личности" Relationship="Self.FK_Аккаунты_Личности" FromRole="Аккаунты" ToRole="Личности" />
+        </EntityType>
+        <EntityType Name="Аккаунты___Роли">
+          <Key>
+            <PropertyRef Name="ID_Аккаунта" />
+            <PropertyRef Name="ID_Роли" />
+          </Key>
+          <Property Name="ID_Аккаунта" Type="Guid" Nullable="false" />
+          <Property Name="ID_Роли" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Личности">
+          <Key>
+            <PropertyRef Name="ID_Личности" />
+          </Key>
+          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Имя" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Адрес" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Аккаунты" Relationship="Self.FK_Аккаунты_Личности" FromRole="Личности" ToRole="Аккаунты" />
+          <NavigationProperty Name="Покупатели" Relationship="Self.FK_Покупатели_Личности" FromRole="Личности" ToRole="Покупатели" />
+          <NavigationProperty Name="Поставщики" Relationship="Self.FK_Поставщики_Личности" FromRole="Личности" ToRole="Поставщики" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Личности" FromRole="Личности" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Пекарни">
+          <Key>
+            <PropertyRef Name="ID_Пекарни" />
+          </Key>
+          <Property Name="ID_Пекарни" Type="Guid" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Полный_адрес" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cклады" Relationship="Self.FK_Склад_Пекарня" FromRole="Пекарни" ToRole="Cклады" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Пекарни" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Покупатели">
+          <Key>
+            <PropertyRef Name="ID_Покупателя" />
+          </Key>
+          <Property Name="ID_Покупателя" Type="Guid" Nullable="false" />
+          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
+          <Property Name="Сумма_на_счете" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Личности" Relationship="Self.FK_Покупатели_Личности" FromRole="Покупатели" ToRole="Личности" />
+          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Покупатели" ToRole="Журнал_учета_продукции" />
+        </EntityType>
+        <EntityType Name="Поставщики">
+          <Key>
+            <PropertyRef Name="ID_Поставщика" />
+          </Key>
+          <Property Name="ID_Поставщика" Type="Guid" Nullable="false" />
+          <Property Name="ID_Контактного_лица" Type="Guid" />
+          <Property Name="ИНН" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Краткое_название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Полное_название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Адрес" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Рабочий_телефон" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Личности" Relationship="Self.FK_Поставщики_Личности" FromRole="Поставщики" ToRole="Личности" />
+          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Поставщики" ToRole="Журнал_учета_сырья" />
+        </EntityType>
+        <EntityType Name="Продукция">
+          <Key>
+            <PropertyRef Name="ID_Продукции" />
+          </Key>
+          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Типа_продукции" Type="Guid" Nullable="false" />
+          <Property Name="Цена" Type="Int32" />
+          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Изображение" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Остатки_продукции_на_складе" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Продукция" ToRole="Остатки_продукции_на_складе" />
+          <NavigationProperty Name="Справочник_типов_продукции" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Продукция" ToRole="Справочник_типов_продукции" />
+          <NavigationProperty Name="Рецепты" Relationship="Self.FK_Рецепты_Продукция" FromRole="Продукция" ToRole="Рецепты" />
+          <NavigationProperty Name="Состав_операций_по_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Продукция" ToRole="Состав_операций_по_продукции" />
+        </EntityType>
+        <EntityType Name="Рецепты">
+          <Key>
+            <PropertyRef Name="ID_Рецепта" />
+          </Key>
+          <Property Name="ID_Рецепта" Type="Guid" Nullable="false" />
+          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Продукция" Relationship="Self.FK_Рецепты_Продукция" FromRole="Рецепты" ToRole="Продукция" />
+          <NavigationProperty Name="Состав_рецепта" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Рецепты" ToRole="Состав_рецепта" />
+        </EntityType>
+        <EntityType Name="Роли_пользователей">
+          <Key>
+            <PropertyRef Name="ID_роли" />
+          </Key>
+          <Property Name="ID_роли" Type="Guid" Nullable="false" />
+          <Property Name="Роль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Состав_рецепта">
+          <Key>
+            <PropertyRef Name="ID_Состава_рецепта" />
+          </Key>
+          <Property Name="ID_Состава_рецепта" Type="Guid" Nullable="false" />
+          <Property Name="ID_Рецепта" Type="Guid" Nullable="false" />
+          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
+          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количество" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Рецепты" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Состав_рецепта" ToRole="Рецепты" />
+          <NavigationProperty Name="Справочник_типов_сырья" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Состав_рецепта" ToRole="Справочник_типов_сырья" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="ID_Сотрудника" />
+          </Key>
+          <Property Name="ID_Сотрудника" Type="Guid" Nullable="false" />
+          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
+          <Property Name="ID_Должности" Type="Guid" Nullable="false" />
+          <Property Name="ID_Пекарни" Type="Guid" />
+          <Property Name="Дата_заступления_на_должность" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Дата_увольнения" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Личности" Relationship="Self.FK_Сотрудники_Личности" FromRole="Сотрудники" ToRole="Личности" />
+          <NavigationProperty Name="Пекарни" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Сотрудники" ToRole="Пекарни" />
+          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_сырья" />
+          <NavigationProperty Name="Справочник_должностей" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Сотрудники" ToRole="Справочник_должностей" />
+        </EntityType>
+        <EntityType Name="Сырье">
+          <Key>
+            <PropertyRef Name="ID_Сырья" />
+          </Key>
+          <Property Name="ID_Сырья" Type="Guid" Nullable="false" />
+          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
+          <Property Name="Цена" Type="Int32" />
+          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Остатки_сырья_на_складе" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Сырье" ToRole="Остатки_сырья_на_складе" />
+          <NavigationProperty Name="Справочник_типов_сырья" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Сырье" ToRole="Справочник_типов_сырья" />
+        </EntityType>
+        <EntityType Name="Справочник_должностей">
+          <Key>
+            <PropertyRef Name="ID_Должности" />
+          </Key>
+          <Property Name="ID_Должности" Type="Guid" Nullable="false" />
+          <Property Name="Краткое_название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Полное_название" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количество_мест" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Справочник_должностей" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Справочник_типов_операций">
+          <Key>
+            <PropertyRef Name="ID_Типа_операции" />
+          </Key>
+          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
+          <Property Name="Тип_операции" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_сырья" />
+        </EntityType>
+        <EntityType Name="Справочник_типов_продукции">
+          <Key>
+            <PropertyRef Name="ID_Типа_продукции" />
+          </Key>
+          <Property Name="ID_Типа_продукции" Type="Guid" Nullable="false" />
+          <Property Name="Тип_продукции" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Продукция" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Справочник_типов_продукции" ToRole="Продукция" />
+        </EntityType>
+        <EntityType Name="Справочник_типов_сырья">
+          <Key>
+            <PropertyRef Name="ID_Типа_сырья" />
+          </Key>
+          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
+          <Property Name="Тип_сырья" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Состав_рецепта" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Состав_рецепта" />
+          <NavigationProperty Name="Сырье" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Сырье" />
+        </EntityType>
+        <EntityType Name="Журнал_учета_продукции">
+          <Key>
+            <PropertyRef Name="ID_Записи_журнала_продукции" />
+          </Key>
+          <Property Name="ID_Записи_журнала_продукции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
+          <Property Name="ID_Покупателя" Type="Guid" />
+          <Property Name="ID_Сотрудника" Type="Guid" />
+          <Property Name="Дата_операции" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Удалена" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cклады" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Журнал_учета_продукции" ToRole="Cклады" />
+          <NavigationProperty Name="Покупатели" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Журнал_учета_продукции" ToRole="Покупатели" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Журнал_учета_продукции" ToRole="Сотрудники" />
+          <NavigationProperty Name="Справочник_типов_операций" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Журнал_учета_продукции" ToRole="Справочник_типов_операций" />
+          <NavigationProperty Name="Состав_операций_по_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Журнал_учета_продукции" ToRole="Состав_операций_по_продукции" />
+        </EntityType>
+        <EntityType Name="Журнал_учета_сырья">
+          <Key>
+            <PropertyRef Name="ID_Записи_журнала_сырья" />
+          </Key>
+          <Property Name="ID_Записи_журнала_сырья" Type="Guid" Nullable="false" />
+          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
+          <Property Name="ID_Поставщика" Type="Guid" />
+          <Property Name="ID_Сотрудника" Type="Guid" />
+          <Property Name="Дата_операции" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Удалена" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cклады" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Журнал_учета_сырья" ToRole="Cклады" />
+          <NavigationProperty Name="Поставщики" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Журнал_учета_сырья" ToRole="Поставщики" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Журнал_учета_сырья" ToRole="Сотрудники" />
+          <NavigationProperty Name="Справочник_типов_операций" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Журнал_учета_сырья" ToRole="Справочник_типов_операций" />
+        </EntityType>
+        <EntityType Name="Остатки_продукции_на_складе">
+          <Key>
+            <PropertyRef Name="ID_Остатка_продукции" />
+          </Key>
+          <Property Name="ID_Остатка_продукции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
+          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
+          <Property Name="Количество" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cклады" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Остатки_продукции_на_складе" ToRole="Cклады" />
+          <NavigationProperty Name="Продукция" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Остатки_продукции_на_складе" ToRole="Продукция" />
+        </EntityType>
+        <EntityType Name="Остатки_сырья_на_складе">
+          <Key>
+            <PropertyRef Name="ID_Остатка_сырья" />
+          </Key>
+          <Property Name="ID_Остатка_сырья" Type="Guid" Nullable="false" />
+          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
+          <Property Name="ID_Сырья" Type="Guid" Nullable="false" />
+          <Property Name="Количество" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cклады" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Остатки_сырья_на_складе" ToRole="Cклады" />
+          <NavigationProperty Name="Сырье" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Остатки_сырья_на_складе" ToRole="Сырье" />
+        </EntityType>
+        <EntityType Name="Состав_операций_по_продукции">
+          <Key>
+            <PropertyRef Name="ID_Состава_операции_по_продукции" />
+          </Key>
+          <Property Name="ID_Состава_операции_по_продукции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Записи_журнала_продукции" Type="Guid" Nullable="false" />
+          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
+          <Property Name="Количество" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Продукция" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Состав_операций_по_продукции" ToRole="Продукция" />
+          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Состав_операций_по_продукции" ToRole="Журнал_учета_продукции" />
+        </EntityType>
+        <Association Name="FK_Журнал_учета_продукции_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Журнал_учета_продукции">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_сырья_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Журнал_учета_сырья">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки_продукции_на_складе_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Остатки_продукции_на_складе" Type="Self.Остатки_продукции_на_складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Остатки_продукции_на_складе">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки_сырья_на_складе_Склады">
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
+          <End Role="Остатки_сырья_на_складе" Type="Self.Остатки_сырья_на_складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cклады">
+              <PropertyRef Name="ID_Склада" />
+            </Principal>
+            <Dependent Role="Остатки_сырья_на_складе">
+              <PropertyRef Name="ID_Склада" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Склад_Пекарня">
+          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
+          <End Role="Cклады" Type="Self.Cклады" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пекарни">
+              <PropertyRef Name="ID_Пекарни" />
+            </Principal>
+            <Dependent Role="Cклады">
+              <PropertyRef Name="ID_Пекарни" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Аккаунты_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Аккаунты" Type="Self.Аккаунты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Аккаунты">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Покупатели_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Покупатели">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Поставщики_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="0..1" />
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Поставщики">
+              <PropertyRef Name="ID_Контактного_лица" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Личности">
+          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Личности">
+              <PropertyRef Name="ID_Личности" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Личности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Пекарни">
+          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пекарни">
+              <PropertyRef Name="ID_Пекарни" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Пекарни" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_продукции_Покупатели">
+          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="0..1" />
+          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Покупатели">
+              <PropertyRef Name="ID_Покупателя" />
+            </Principal>
+            <Dependent Role="Журнал_учета_продукции">
+              <PropertyRef Name="ID_Покупателя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_сырья_Поставщики">
+          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="0..1" />
+          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Поставщики">
+              <PropertyRef Name="ID_Поставщика" />
+            </Principal>
+            <Dependent Role="Журнал_учета_сырья">
+              <PropertyRef Name="ID_Поставщика" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки_продукции_на_складе_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Остатки_продукции_на_складе" Type="Self.Остатки_продукции_на_складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Остатки_продукции_на_складе">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Продукция_Справочник_типов_продукции">
+          <End Role="Справочник_типов_продукции" Type="Self.Справочник_типов_продукции" Multiplicity="1" />
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_типов_продукции">
+              <PropertyRef Name="ID_Типа_продукции" />
+            </Principal>
+            <Dependent Role="Продукция">
+              <PropertyRef Name="ID_Типа_продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Рецепты_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Рецепты">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_операций_по_продукции_Продукция">
+          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
+          <End Role="Состав_операций_по_продукции" Type="Self.Состав_операций_по_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Продукция">
+              <PropertyRef Name="ID_Продукции" />
+            </Principal>
+            <Dependent Role="Состав_операций_по_продукции">
+              <PropertyRef Name="ID_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_рецепта_Рецепты">
+          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="1" />
+          <End Role="Состав_рецепта" Type="Self.Состав_рецепта" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Рецепты">
+              <PropertyRef Name="ID_Рецепта" />
+            </Principal>
+            <Dependent Role="Состав_рецепта">
+              <PropertyRef Name="ID_Рецепта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_рецепта_Справочник_типов_сырья">
+          <End Role="Справочник_типов_сырья" Type="Self.Справочник_типов_сырья" Multiplicity="1" />
+          <End Role="Состав_рецепта" Type="Self.Состав_рецепта" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_типов_сырья">
+              <PropertyRef Name="ID_Типа_сырья" />
+            </Principal>
+            <Dependent Role="Состав_рецепта">
+              <PropertyRef Name="ID_Типа_сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_продукции_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
+          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Principal>
+            <Dependent Role="Журнал_учета_продукции">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_сырья_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
+          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Principal>
+            <Dependent Role="Журнал_учета_сырья">
+              <PropertyRef Name="ID_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сотрудники_Справочник_должностей">
+          <End Role="Справочник_должностей" Type="Self.Справочник_должностей" Multiplicity="1" />
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_должностей">
+              <PropertyRef Name="ID_Должности" />
+            </Principal>
+            <Dependent Role="Сотрудники">
+              <PropertyRef Name="ID_Должности" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Остатки_сырья_на_складе_Сырье">
+          <End Role="Сырье" Type="Self.Сырье" Multiplicity="1" />
+          <End Role="Остатки_сырья_на_складе" Type="Self.Остатки_сырья_на_складе" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сырье">
+              <PropertyRef Name="ID_Сырья" />
+            </Principal>
+            <Dependent Role="Остатки_сырья_на_складе">
+              <PropertyRef Name="ID_Сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сырье_Справочник_типов_сырья">
+          <End Role="Справочник_типов_сырья" Type="Self.Справочник_типов_сырья" Multiplicity="1" />
+          <End Role="Сырье" Type="Self.Сырье" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_типов_сырья">
+              <PropertyRef Name="ID_Типа_сырья" />
+            </Principal>
+            <Dependent Role="Сырье">
+              <PropertyRef Name="ID_Типа_сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_продукции_Справочник_типов_операций">
+          <End Role="Справочник_типов_операций" Type="Self.Справочник_типов_операций" Multiplicity="1" />
+          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_типов_операций">
+              <PropertyRef Name="ID_Типа_операции" />
+            </Principal>
+            <Dependent Role="Журнал_учета_продукции">
+              <PropertyRef Name="ID_Типа_операции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Журнал_учета_сырья_Справочник_типов_операций">
+          <End Role="Справочник_типов_операций" Type="Self.Справочник_типов_операций" Multiplicity="1" />
+          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Справочник_типов_операций">
+              <PropertyRef Name="ID_Типа_операции" />
+            </Principal>
+            <Dependent Role="Журнал_учета_сырья">
+              <PropertyRef Name="ID_Типа_операции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_операций_по_продукции_Журнал_учета_продукции">
+          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="1" />
+          <End Role="Состав_операций_по_продукции" Type="Self.Состав_операций_по_продукции" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Журнал_учета_продукции">
+              <PropertyRef Name="ID_Записи_журнала_продукции" />
+            </Principal>
+            <Dependent Role="Состав_операций_по_продукции">
+              <PropertyRef Name="ID_Записи_журнала_продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BakeryEntitiesHome" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cклады" EntityType="Self.Cклады" />
+          <EntitySet Name="Аккаунты" EntityType="Self.Аккаунты" />
+          <EntitySet Name="Аккаунты___Роли" EntityType="Self.Аккаунты___Роли" />
+          <EntitySet Name="Личности" EntityType="Self.Личности" />
+          <EntitySet Name="Пекарни" EntityType="Self.Пекарни" />
+          <EntitySet Name="Покупатели" EntityType="Self.Покупатели" />
+          <EntitySet Name="Поставщики" EntityType="Self.Поставщики" />
+          <EntitySet Name="Продукция" EntityType="Self.Продукция" />
+          <EntitySet Name="Рецепты" EntityType="Self.Рецепты" />
+          <EntitySet Name="Роли_пользователей" EntityType="Self.Роли_пользователей" />
+          <EntitySet Name="Состав_рецепта" EntityType="Self.Состав_рецепта" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+          <EntitySet Name="Сырье" EntityType="Self.Сырье" />
+          <EntitySet Name="Справочник_должностей" EntityType="Self.Справочник_должностей" />
+          <EntitySet Name="Справочник_типов_операций" EntityType="Self.Справочник_типов_операций" />
+          <EntitySet Name="Справочник_типов_продукции" EntityType="Self.Справочник_типов_продукции" />
+          <EntitySet Name="Справочник_типов_сырья" EntityType="Self.Справочник_типов_сырья" />
+          <EntitySet Name="Журнал_учета_продукции" EntityType="Self.Журнал_учета_продукции" />
+          <EntitySet Name="Журнал_учета_сырья" EntityType="Self.Журнал_учета_сырья" />
+          <EntitySet Name="Остатки_продукции_на_складе" EntityType="Self.Остатки_продукции_на_складе" />
+          <EntitySet Name="Остатки_сырья_на_складе" EntityType="Self.Остатки_сырья_на_складе" />
+          <EntitySet Name="Состав_операций_по_продукции" EntityType="Self.Состав_операций_по_продукции" />
+          <AssociationSet Name="FK_Журнал_учета_продукции_Склады" Association="Self.FK_Журнал_учета_продукции_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_сырья_Склады" Association="Self.FK_Журнал_учета_сырья_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки_продукции_на_складе_Склады" Association="Self.FK_Остатки_продукции_на_складе_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Остатки_продукции_на_складе" EntitySet="Остатки_продукции_на_складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки_сырья_на_складе_Склады" Association="Self.FK_Остатки_сырья_на_складе_Склады">
+            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Остатки_сырья_на_складе" EntitySet="Остатки_сырья_на_складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Склад_Пекарня" Association="Self.FK_Склад_Пекарня">
+            <End Role="Пекарни" EntitySet="Пекарни" />
+            <End Role="Cклады" EntitySet="Cклады" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Аккаунты_Личности" Association="Self.FK_Аккаунты_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Аккаунты" EntitySet="Аккаунты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Покупатели_Личности" Association="Self.FK_Покупатели_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Покупатели" EntitySet="Покупатели" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Поставщики_Личности" Association="Self.FK_Поставщики_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Поставщики" EntitySet="Поставщики" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Личности" Association="Self.FK_Сотрудники_Личности">
+            <End Role="Личности" EntitySet="Личности" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Пекарни" Association="Self.FK_Сотрудники_Пекарни">
+            <End Role="Пекарни" EntitySet="Пекарни" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_продукции_Покупатели" Association="Self.FK_Журнал_учета_продукции_Покупатели">
+            <End Role="Покупатели" EntitySet="Покупатели" />
+            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_сырья_Поставщики" Association="Self.FK_Журнал_учета_сырья_Поставщики">
+            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки_продукции_на_складе_Продукция" Association="Self.FK_Остатки_продукции_на_складе_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Остатки_продукции_на_складе" EntitySet="Остатки_продукции_на_складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Продукция_Справочник_типов_продукции" Association="Self.FK_Продукция_Справочник_типов_продукции">
+            <End Role="Справочник_типов_продукции" EntitySet="Справочник_типов_продукции" />
+            <End Role="Продукция" EntitySet="Продукция" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Рецепты_Продукция" Association="Self.FK_Рецепты_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Рецепты" EntitySet="Рецепты" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_операций_по_продукции_Продукция" Association="Self.FK_Состав_операций_по_продукции_Продукция">
+            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Состав_операций_по_продукции" EntitySet="Состав_операций_по_продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_рецепта_Рецепты" Association="Self.FK_Состав_рецепта_Рецепты">
+            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="Состав_рецепта" EntitySet="Состав_рецепта" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_рецепта_Справочник_типов_сырья" Association="Self.FK_Состав_рецепта_Справочник_типов_сырья">
+            <End Role="Справочник_типов_сырья" EntitySet="Справочник_типов_сырья" />
+            <End Role="Состав_рецепта" EntitySet="Состав_рецепта" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_продукции_Сотрудники" Association="Self.FK_Журнал_учета_продукции_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_сырья_Сотрудники" Association="Self.FK_Журнал_учета_сырья_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сотрудники_Справочник_должностей" Association="Self.FK_Сотрудники_Справочник_должностей">
+            <End Role="Справочник_должностей" EntitySet="Справочник_должностей" />
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Остатки_сырья_на_складе_Сырье" Association="Self.FK_Остатки_сырья_на_складе_Сырье">
+            <End Role="Сырье" EntitySet="Сырье" />
+            <End Role="Остатки_сырья_на_складе" EntitySet="Остатки_сырья_на_складе" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сырье_Справочник_типов_сырья" Association="Self.FK_Сырье_Справочник_типов_сырья">
+            <End Role="Справочник_типов_сырья" EntitySet="Справочник_типов_сырья" />
+            <End Role="Сырье" EntitySet="Сырье" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_продукции_Справочник_типов_операций" Association="Self.FK_Журнал_учета_продукции_Справочник_типов_операций">
+            <End Role="Справочник_типов_операций" EntitySet="Справочник_типов_операций" />
+            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Журнал_учета_сырья_Справочник_типов_операций" Association="Self.FK_Журнал_учета_сырья_Справочник_типов_операций">
+            <End Role="Справочник_типов_операций" EntitySet="Справочник_типов_операций" />
+            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_операций_по_продукции_Журнал_учета_продукции" Association="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции">
+            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+            <End Role="Состав_операций_по_продукции" EntitySet="Состав_операций_по_продукции" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BakeryDataModelContainer" CdmEntityContainer="BakeryEntitiesHome">
+          <EntitySetMapping Name="Cклады">
+            <EntityTypeMapping TypeName="BakeryDataModel.Cклады">
+              <MappingFragment StoreEntitySet="Cклады">
+                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
+                <ScalarProperty Name="Тип_склада" ColumnName="Тип склада" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Аккаунты">
+            <EntityTypeMapping TypeName="BakeryDataModel.Аккаунты">
+              <MappingFragment StoreEntitySet="Аккаунты">
+                <ScalarProperty Name="ID_Аккаунта" ColumnName="ID_Аккаунта" />
+                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="Дата_регистрации" ColumnName="Дата регистрации" />
+                <ScalarProperty Name="Соль" ColumnName="Соль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Аккаунты___Роли">
+            <EntityTypeMapping TypeName="BakeryDataModel.Аккаунты___Роли">
+              <MappingFragment StoreEntitySet="Аккаунты - Роли">
+                <ScalarProperty Name="ID_Аккаунта" ColumnName="ID_Аккаунта" />
+                <ScalarProperty Name="ID_Роли" ColumnName="ID_Роли" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Личности">
+            <EntityTypeMapping TypeName="BakeryDataModel.Личности">
+              <MappingFragment StoreEntitySet="Личности">
+                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Дата_рождения" ColumnName="Дата рождения" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пекарни">
+            <EntityTypeMapping TypeName="BakeryDataModel.Пекарни">
+              <MappingFragment StoreEntitySet="Пекарни">
+                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Полный_адрес" ColumnName="Полный адрес" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Покупатели">
+            <EntityTypeMapping TypeName="BakeryDataModel.Покупатели">
+              <MappingFragment StoreEntitySet="Покупатели">
+                <ScalarProperty Name="ID_Покупателя" ColumnName="ID_Покупателя" />
+                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
+                <ScalarProperty Name="Сумма_на_счете" ColumnName="Сумма на счете" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Поставщики">
+            <EntityTypeMapping TypeName="BakeryDataModel.Поставщики">
+              <MappingFragment StoreEntitySet="Поставщики">
+                <ScalarProperty Name="ID_Поставщика" ColumnName="ID_Поставщика" />
+                <ScalarProperty Name="ID_Контактного_лица" ColumnName="ID_Контактного лица" />
+                <ScalarProperty Name="ИНН" ColumnName="ИНН" />
+                <ScalarProperty Name="Краткое_название" ColumnName="Краткое название" />
+                <ScalarProperty Name="Полное_название" ColumnName="Полное название" />
+                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
+                <ScalarProperty Name="Рабочий_телефон" ColumnName="Рабочий телефон" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Продукция">
+            <EntityTypeMapping TypeName="BakeryDataModel.Продукция">
+              <MappingFragment StoreEntitySet="Продукция">
+                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="ID_Типа_продукции" ColumnName="ID_Типа продукции" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Изображение" ColumnName="Изображение" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Рецепты">
+            <EntityTypeMapping TypeName="BakeryDataModel.Рецепты">
+              <MappingFragment StoreEntitySet="Рецепты">
+                <ScalarProperty Name="ID_Рецепта" ColumnName="ID_Рецепта" />
+                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли_пользователей">
+            <EntityTypeMapping TypeName="BakeryDataModel.Роли_пользователей">
+              <MappingFragment StoreEntitySet="Роли пользователей">
+                <ScalarProperty Name="ID_роли" ColumnName="ID_роли" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состав_рецепта">
+            <EntityTypeMapping TypeName="BakeryDataModel.Состав_рецепта">
+              <MappingFragment StoreEntitySet="Состав рецепта">
+                <ScalarProperty Name="ID_Состава_рецепта" ColumnName="ID_Состава рецепта" />
+                <ScalarProperty Name="ID_Рецепта" ColumnName="ID_Рецепта" />
+                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудники">
+            <EntityTypeMapping TypeName="BakeryDataModel.Сотрудники">
+              <MappingFragment StoreEntitySet="Сотрудники">
+                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
+                <ScalarProperty Name="ID_Должности" ColumnName="ID_Должности" />
+                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="Дата_заступления_на_должность" ColumnName="Дата заступления на должность" />
+                <ScalarProperty Name="Дата_увольнения" ColumnName="Дата увольнения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сырье">
+            <EntityTypeMapping TypeName="BakeryDataModel.Сырье">
+              <MappingFragment StoreEntitySet="Сырье">
+                <ScalarProperty Name="ID_Сырья" ColumnName="ID_Сырья" />
+                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Справочник_должностей">
+            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_должностей">
+              <MappingFragment StoreEntitySet="Справочник должностей">
+                <ScalarProperty Name="ID_Должности" ColumnName="ID_Должности" />
+                <ScalarProperty Name="Краткое_название" ColumnName="Краткое название" />
+                <ScalarProperty Name="Полное_название" ColumnName="Полное название" />
+                <ScalarProperty Name="Количество_мест" ColumnName="Количество мест" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Справочник_типов_операций">
+            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_операций">
+              <MappingFragment StoreEntitySet="Справочник типов операций">
+                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="Тип_операции" ColumnName="Тип операции" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Справочник_типов_продукции">
+            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_продукции">
+              <MappingFragment StoreEntitySet="Справочник типов продукции">
+                <ScalarProperty Name="ID_Типа_продукции" ColumnName="ID_Типа продукции" />
+                <ScalarProperty Name="Тип_продукции" ColumnName="Тип продукции" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Справочник_типов_сырья">
+            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_сырья">
+              <MappingFragment StoreEntitySet="Справочник типов сырья">
+                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Тип_сырья" ColumnName="Тип сырья" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Журнал_учета_продукции">
+            <EntityTypeMapping TypeName="BakeryDataModel.Журнал_учета_продукции">
+              <MappingFragment StoreEntitySet="Журнал учета продукции">
+                <ScalarProperty Name="ID_Записи_журнала_продукции" ColumnName="ID_Записи журнала продукции" />
+                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
+                <ScalarProperty Name="ID_Покупателя" ColumnName="ID_Покупателя" />
+                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="Дата_операции" ColumnName="Дата операции" />
+                <ScalarProperty Name="Удалена" ColumnName="Удалена" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Журнал_учета_сырья">
+            <EntityTypeMapping TypeName="BakeryDataModel.Журнал_учета_сырья">
+              <MappingFragment StoreEntitySet="Журнал учета сырья">
+                <ScalarProperty Name="ID_Записи_журнала_сырья" ColumnName="ID_Записи журнала сырья" />
+                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
+                <ScalarProperty Name="ID_Поставщика" ColumnName="ID_Поставщика" />
+                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="Дата_операции" ColumnName="Дата операции" />
+                <ScalarProperty Name="Удалена" ColumnName="Удалена" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Остатки_продукции_на_складе">
+            <EntityTypeMapping TypeName="BakeryDataModel.Остатки_продукции_на_складе">
+              <MappingFragment StoreEntitySet="Остатки продукции на складе">
+                <ScalarProperty Name="ID_Остатка_продукции" ColumnName="ID_Остатка продукции" />
+                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
+                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Остатки_сырья_на_складе">
+            <EntityTypeMapping TypeName="BakeryDataModel.Остатки_сырья_на_складе">
+              <MappingFragment StoreEntitySet="Остатки сырья на складе">
+                <ScalarProperty Name="ID_Остатка_сырья" ColumnName="ID_Остатка сырья" />
+                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
+                <ScalarProperty Name="ID_Сырья" ColumnName="ID_Сырья" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состав_операций_по_продукции">
+            <EntityTypeMapping TypeName="BakeryDataModel.Состав_операций_по_продукции">
+              <MappingFragment StoreEntitySet="Состав операций по продукции">
+                <ScalarProperty Name="ID_Состава_операции_по_продукции" ColumnName="ID_Состава операции по продукции" />
+                <ScalarProperty Name="ID_Записи_журнала_продукции" ColumnName="ID_Записи журнала продукции" />
+                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
