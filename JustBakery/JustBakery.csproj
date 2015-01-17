@@ -164,10 +164,20 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountRole.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Bakery.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BakeryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,71 +193,62 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BakeryModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cклады.cs">
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailProductOperation.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Аккаунты.cs">
+    <Compile Include="Models\OperationType.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Аккаунты___Роли.cs">
+    <Compile Include="Models\Person.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Журнал_учета_продукции.cs">
+    <Compile Include="Models\Position.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Журнал_учета_сырья.cs">
+    <Compile Include="Models\Product.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Личности.cs">
+    <Compile Include="Models\ProductAccountingLog.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Остатки_продукции_на_складе.cs">
+    <Compile Include="Models\ProductResidue.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Остатки_сырья_на_складе.cs">
+    <Compile Include="Models\ProductType.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Пекарни.cs">
+    <Compile Include="Models\Raw.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Покупатели.cs">
+    <Compile Include="Models\RawAccountingLog.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Поставщики.cs">
+    <Compile Include="Models\RawResidue.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Продукция.cs">
+    <Compile Include="Models\RawType.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Рецепты.cs">
+    <Compile Include="Models\Recipe.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Роли_пользователей.cs">
+    <Compile Include="Models\RecipeComposition.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Состав_операций_по_продукции.cs">
+    <Compile Include="Models\Stock.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Состав_рецепта.cs">
+    <Compile Include="Models\Supplier.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Сотрудники.cs">
-      <DependentUpon>BakeryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Справочник_должностей.cs">
-      <DependentUpon>BakeryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Справочник_типов_операций.cs">
-      <DependentUpon>BakeryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Справочник_типов_продукции.cs">
-      <DependentUpon>BakeryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Справочник_типов_сырья.cs">
-      <DependentUpon>BakeryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Сырье.cs">
+    <Compile Include="Models\UserRole.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -316,6 +317,11 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -669,703 +669,703 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BakeryDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Cклады">
+        <EntityType Name="Stock">
           <Key>
-            <PropertyRef Name="ID_Склада" />
+            <PropertyRef Name="StockID" />
           </Key>
-          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
-          <Property Name="Тип_склада" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Адрес" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ID_Пекарни" Type="Guid" />
-          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Cклады" ToRole="Журнал_учета_продукции" />
-          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Cклады" ToRole="Журнал_учета_сырья" />
-          <NavigationProperty Name="Остатки_продукции_на_складе" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_продукции_на_складе" />
-          <NavigationProperty Name="Остатки_сырья_на_складе" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_сырья_на_складе" />
-          <NavigationProperty Name="Пекарни" Relationship="Self.FK_Склад_Пекарня" FromRole="Cклады" ToRole="Пекарни" />
+          <Property Name="StockID" Type="Guid" Nullable="false" />
+          <Property Name="StockType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BakeryID" Type="Guid" />
+          <NavigationProperty Name="ProductAccountingLog" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Cклады" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="RawAccountingLog" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Cклады" ToRole="Журнал_учета_сырья" />
+          <NavigationProperty Name="ProductResidue" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_продукции_на_складе" />
+          <NavigationProperty Name="RawResidue" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_сырья_на_складе" />
+          <NavigationProperty Name="Bakery" Relationship="Self.FK_Склад_Пекарня" FromRole="Cклады" ToRole="Пекарни" />
         </EntityType>
-        <EntityType Name="Аккаунты">
+        <EntityType Name="Account">
           <Key>
-            <PropertyRef Name="ID_Аккаунта" />
+            <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="ID_Аккаунта" Type="Guid" Nullable="false" />
-          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
-          <Property Name="Логин" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Пароль" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Дата_регистрации" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Соль" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Личности" Relationship="Self.FK_Аккаунты_Личности" FromRole="Аккаунты" ToRole="Личности" />
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="PersonID" Type="Guid" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegestrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Salt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Аккаунты_Личности" FromRole="Аккаунты" ToRole="Личности" />
         </EntityType>
-        <EntityType Name="Аккаунты___Роли">
+        <EntityType Name="AccountRole">
           <Key>
-            <PropertyRef Name="ID_Аккаунта" />
-            <PropertyRef Name="ID_Роли" />
+            <PropertyRef Name="AccountID" />
+            <PropertyRef Name="RoleID" />
           </Key>
-          <Property Name="ID_Аккаунта" Type="Guid" Nullable="false" />
-          <Property Name="ID_Роли" Type="Guid" Nullable="false" />
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="RoleID" Type="Guid" Nullable="false" />
         </EntityType>
-        <EntityType Name="Личности">
+        <EntityType Name="Person">
           <Key>
-            <PropertyRef Name="ID_Личности" />
+            <PropertyRef Name="PersonID" />
           </Key>
-          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
-          <Property Name="Фамилия" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Имя" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Отчество" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Адрес" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Телефон" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Аккаунты" Relationship="Self.FK_Аккаунты_Личности" FromRole="Личности" ToRole="Аккаунты" />
-          <NavigationProperty Name="Покупатели" Relationship="Self.FK_Покупатели_Личности" FromRole="Личности" ToRole="Покупатели" />
-          <NavigationProperty Name="Поставщики" Relationship="Self.FK_Поставщики_Личности" FromRole="Личности" ToRole="Поставщики" />
-          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Личности" FromRole="Личности" ToRole="Сотрудники" />
+          <Property Name="PersonID" Type="Guid" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Аккаунты_Личности" FromRole="Личности" ToRole="Аккаунты" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Покупатели_Личности" FromRole="Личности" ToRole="Покупатели" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Поставщики_Личности" FromRole="Личности" ToRole="Поставщики" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Сотрудники_Личности" FromRole="Личности" ToRole="Сотрудники" />
         </EntityType>
-        <EntityType Name="Пекарни">
+        <EntityType Name="Bakery">
           <Key>
-            <PropertyRef Name="ID_Пекарни" />
+            <PropertyRef Name="BakeryID" />
           </Key>
-          <Property Name="ID_Пекарни" Type="Guid" Nullable="false" />
-          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Полный_адрес" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Cклады" Relationship="Self.FK_Склад_Пекарня" FromRole="Пекарни" ToRole="Cклады" />
-          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Пекарни" ToRole="Сотрудники" />
+          <Property Name="BakeryID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Склад_Пекарня" FromRole="Пекарни" ToRole="Cклады" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Пекарни" ToRole="Сотрудники" />
         </EntityType>
-        <EntityType Name="Покупатели">
+        <EntityType Name="Customer">
           <Key>
-            <PropertyRef Name="ID_Покупателя" />
+            <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="ID_Покупателя" Type="Guid" Nullable="false" />
-          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
-          <Property Name="Сумма_на_счете" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Личности" Relationship="Self.FK_Покупатели_Личности" FromRole="Покупатели" ToRole="Личности" />
-          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Покупатели" ToRole="Журнал_учета_продукции" />
+          <Property Name="CustomerID" Type="Guid" Nullable="false" />
+          <Property Name="PersonID" Type="Guid" Nullable="false" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Покупатели_Личности" FromRole="Покупатели" ToRole="Личности" />
+          <NavigationProperty Name="ProductAccountingLog" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Покупатели" ToRole="Журнал_учета_продукции" />
         </EntityType>
-        <EntityType Name="Поставщики">
+        <EntityType Name="Supplier">
           <Key>
-            <PropertyRef Name="ID_Поставщика" />
+            <PropertyRef Name="SupplierID" />
           </Key>
-          <Property Name="ID_Поставщика" Type="Guid" Nullable="false" />
-          <Property Name="ID_Контактного_лица" Type="Guid" />
-          <Property Name="ИНН" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Краткое_название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Полное_название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Адрес" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Рабочий_телефон" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Личности" Relationship="Self.FK_Поставщики_Личности" FromRole="Поставщики" ToRole="Личности" />
-          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Поставщики" ToRole="Журнал_учета_сырья" />
+          <Property Name="SupplierID" Type="Guid" Nullable="false" />
+          <Property Name="ContactPersonID" Type="Guid" />
+          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfficePhone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Поставщики_Личности" FromRole="Поставщики" ToRole="Личности" />
+          <NavigationProperty Name="RawAccountingLog" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Поставщики" ToRole="Журнал_учета_сырья" />
         </EntityType>
-        <EntityType Name="Продукция">
+        <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="ID_Продукции" />
+            <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Типа_продукции" Type="Guid" Nullable="false" />
-          <Property Name="Цена" Type="Int32" />
-          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Изображение" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Остатки_продукции_на_складе" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Продукция" ToRole="Остатки_продукции_на_складе" />
-          <NavigationProperty Name="Справочник_типов_продукции" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Продукция" ToRole="Справочник_типов_продукции" />
-          <NavigationProperty Name="Рецепты" Relationship="Self.FK_Рецепты_Продукция" FromRole="Продукция" ToRole="Рецепты" />
-          <NavigationProperty Name="Состав_операций_по_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Продукция" ToRole="Состав_операций_по_продукции" />
+          <Property Name="ProductID" Type="Guid" Nullable="false" />
+          <Property Name="ProductTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductResidue" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Продукция" ToRole="Остатки_продукции_на_складе" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Продукция" ToRole="Справочник_типов_продукции" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Рецепты_Продукция" FromRole="Продукция" ToRole="Рецепты" />
+          <NavigationProperty Name="DetailProductOperation" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Продукция" ToRole="Состав_операций_по_продукции" />
         </EntityType>
-        <EntityType Name="Рецепты">
+        <EntityType Name="Recipe">
           <Key>
-            <PropertyRef Name="ID_Рецепта" />
+            <PropertyRef Name="RecipeID" />
           </Key>
-          <Property Name="ID_Рецепта" Type="Guid" Nullable="false" />
-          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
-          <Property Name="Название" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Продукция" Relationship="Self.FK_Рецепты_Продукция" FromRole="Рецепты" ToRole="Продукция" />
-          <NavigationProperty Name="Состав_рецепта" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Рецепты" ToRole="Состав_рецепта" />
+          <Property Name="RecipeID" Type="Guid" Nullable="false" />
+          <Property Name="ProductID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Рецепты_Продукция" FromRole="Рецепты" ToRole="Продукция" />
+          <NavigationProperty Name="RecipeComposition" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Рецепты" ToRole="Состав_рецепта" />
         </EntityType>
-        <EntityType Name="Роли_пользователей">
+        <EntityType Name="UserRole">
           <Key>
-            <PropertyRef Name="ID_роли" />
+            <PropertyRef Name="RoleID" />
           </Key>
-          <Property Name="ID_роли" Type="Guid" Nullable="false" />
-          <Property Name="Роль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Состав_рецепта">
+        <EntityType Name="RecipeComposition">
           <Key>
-            <PropertyRef Name="ID_Состава_рецепта" />
+            <PropertyRef Name="RacipeCompositionID" />
           </Key>
-          <Property Name="ID_Состава_рецепта" Type="Guid" Nullable="false" />
-          <Property Name="ID_Рецепта" Type="Guid" Nullable="false" />
-          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
-          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Количество" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Рецепты" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Состав_рецепта" ToRole="Рецепты" />
-          <NavigationProperty Name="Справочник_типов_сырья" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Состав_рецепта" ToRole="Справочник_типов_сырья" />
+          <Property Name="RacipeCompositionID" Type="Guid" Nullable="false" />
+          <Property Name="RecipeID" Type="Guid" Nullable="false" />
+          <Property Name="RawTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Состав_рецепта" ToRole="Рецепты" />
+          <NavigationProperty Name="RawType" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Состав_рецепта" ToRole="Справочник_типов_сырья" />
         </EntityType>
-        <EntityType Name="Сотрудники">
+        <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="ID_Сотрудника" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="ID_Сотрудника" Type="Guid" Nullable="false" />
-          <Property Name="ID_Личности" Type="Guid" Nullable="false" />
-          <Property Name="ID_Должности" Type="Guid" Nullable="false" />
-          <Property Name="ID_Пекарни" Type="Guid" />
-          <Property Name="Дата_заступления_на_должность" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Дата_увольнения" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Личности" Relationship="Self.FK_Сотрудники_Личности" FromRole="Сотрудники" ToRole="Личности" />
-          <NavigationProperty Name="Пекарни" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Сотрудники" ToRole="Пекарни" />
-          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_продукции" />
-          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_сырья" />
-          <NavigationProperty Name="Справочник_должностей" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Сотрудники" ToRole="Справочник_должностей" />
+          <Property Name="EmployeeID" Type="Guid" Nullable="false" />
+          <Property Name="PersonID" Type="Guid" Nullable="false" />
+          <Property Name="PositionID" Type="Guid" Nullable="false" />
+          <Property Name="BakeryID" Type="Guid" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DismissalDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Сотрудники_Личности" FromRole="Сотрудники" ToRole="Личности" />
+          <NavigationProperty Name="Bakery" Relationship="Self.FK_Сотрудники_Пекарни" FromRole="Сотрудники" ToRole="Пекарни" />
+          <NavigationProperty Name="ProductAccuntingLog" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="RawAccountingLog" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Сотрудники" ToRole="Журнал_учета_сырья" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Сотрудники" ToRole="Справочник_должностей" />
         </EntityType>
-        <EntityType Name="Сырье">
+        <EntityType Name="Raw">
           <Key>
-            <PropertyRef Name="ID_Сырья" />
+            <PropertyRef Name="RawID" />
           </Key>
-          <Property Name="ID_Сырья" Type="Guid" Nullable="false" />
-          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
-          <Property Name="Цена" Type="Int32" />
-          <Property Name="Ед__измерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Остатки_сырья_на_складе" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Сырье" ToRole="Остатки_сырья_на_складе" />
-          <NavigationProperty Name="Справочник_типов_сырья" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Сырье" ToRole="Справочник_типов_сырья" />
+          <Property Name="RawID" Type="Guid" Nullable="false" />
+          <Property Name="RawTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RawResidue" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Сырье" ToRole="Остатки_сырья_на_складе" />
+          <NavigationProperty Name="RawType" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Сырье" ToRole="Справочник_типов_сырья" />
         </EntityType>
-        <EntityType Name="Справочник_должностей">
+        <EntityType Name="Position">
           <Key>
-            <PropertyRef Name="ID_Должности" />
+            <PropertyRef Name="PositionID" />
           </Key>
-          <Property Name="ID_Должности" Type="Guid" Nullable="false" />
-          <Property Name="Краткое_название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Полное_название" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Количество_мест" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Справочник_должностей" ToRole="Сотрудники" />
+          <Property Name="PositionID" Type="Guid" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountWorkplases" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Сотрудники_Справочник_должностей" FromRole="Справочник_должностей" ToRole="Сотрудники" />
         </EntityType>
-        <EntityType Name="Справочник_типов_операций">
+        <EntityType Name="OperationType">
           <Key>
-            <PropertyRef Name="ID_Типа_операции" />
+            <PropertyRef Name="OperationTypeID" />
           </Key>
-          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
-          <Property Name="Тип_операции" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_продукции" />
-          <NavigationProperty Name="Журнал_учета_сырья" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_сырья" />
+          <Property Name="OperationTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductAccountingLog" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_продукции" />
+          <NavigationProperty Name="RawAccountingLog" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Справочник_типов_операций" ToRole="Журнал_учета_сырья" />
         </EntityType>
-        <EntityType Name="Справочник_типов_продукции">
+        <EntityType Name="ProductType">
           <Key>
-            <PropertyRef Name="ID_Типа_продукции" />
+            <PropertyRef Name="ProductTypeID" />
           </Key>
-          <Property Name="ID_Типа_продукции" Type="Guid" Nullable="false" />
-          <Property Name="Тип_продукции" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Продукция" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Справочник_типов_продукции" ToRole="Продукция" />
+          <Property Name="ProductTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Справочник_типов_продукции" ToRole="Продукция" />
         </EntityType>
-        <EntityType Name="Справочник_типов_сырья">
+        <EntityType Name="RawType">
           <Key>
-            <PropertyRef Name="ID_Типа_сырья" />
+            <PropertyRef Name="RawTypeID" />
           </Key>
-          <Property Name="ID_Типа_сырья" Type="Guid" Nullable="false" />
-          <Property Name="Тип_сырья" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Состав_рецепта" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Состав_рецепта" />
-          <NavigationProperty Name="Сырье" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Сырье" />
+          <Property Name="RawTypeID" Type="Guid" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RecipeComposition" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Состав_рецепта" />
+          <NavigationProperty Name="Raw" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Сырье" />
         </EntityType>
-        <EntityType Name="Журнал_учета_продукции">
+        <EntityType Name="ProductAccountingLog">
           <Key>
-            <PropertyRef Name="ID_Записи_журнала_продукции" />
+            <PropertyRef Name="LogRecordID" />
           </Key>
-          <Property Name="ID_Записи_журнала_продукции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
-          <Property Name="ID_Покупателя" Type="Guid" />
-          <Property Name="ID_Сотрудника" Type="Guid" />
-          <Property Name="Дата_операции" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Удалена" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cклады" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Журнал_учета_продукции" ToRole="Cклады" />
-          <NavigationProperty Name="Покупатели" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Журнал_учета_продукции" ToRole="Покупатели" />
-          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Журнал_учета_продукции" ToRole="Сотрудники" />
-          <NavigationProperty Name="Справочник_типов_операций" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Журнал_учета_продукции" ToRole="Справочник_типов_операций" />
-          <NavigationProperty Name="Состав_операций_по_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Журнал_учета_продукции" ToRole="Состав_операций_по_продукции" />
+          <Property Name="LogRecordID" Type="Guid" Nullable="false" />
+          <Property Name="OperationTypeID" Type="Guid" Nullable="false" />
+          <Property Name="StockID" Type="Guid" Nullable="false" />
+          <Property Name="CustomerID" Type="Guid" />
+          <Property Name="EmployeeID" Type="Guid" />
+          <Property Name="OperationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Журнал_учета_продукции_Склады" FromRole="Журнал_учета_продукции" ToRole="Cклады" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Журнал_учета_продукции_Покупатели" FromRole="Журнал_учета_продукции" ToRole="Покупатели" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Журнал_учета_продукции_Сотрудники" FromRole="Журнал_учета_продукции" ToRole="Сотрудники" />
+          <NavigationProperty Name="OperationType" Relationship="Self.FK_Журнал_учета_продукции_Справочник_типов_операций" FromRole="Журнал_учета_продукции" ToRole="Справочник_типов_операций" />
+          <NavigationProperty Name="DetailProductOperation" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Журнал_учета_продукции" ToRole="Состав_операций_по_продукции" />
         </EntityType>
-        <EntityType Name="Журнал_учета_сырья">
+        <EntityType Name="RawAccountingLog">
           <Key>
-            <PropertyRef Name="ID_Записи_журнала_сырья" />
+            <PropertyRef Name="LogRecordID" />
           </Key>
-          <Property Name="ID_Записи_журнала_сырья" Type="Guid" Nullable="false" />
-          <Property Name="ID_Типа_операции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
-          <Property Name="ID_Поставщика" Type="Guid" />
-          <Property Name="ID_Сотрудника" Type="Guid" />
-          <Property Name="Дата_операции" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Удалена" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cклады" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Журнал_учета_сырья" ToRole="Cклады" />
-          <NavigationProperty Name="Поставщики" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Журнал_учета_сырья" ToRole="Поставщики" />
-          <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Журнал_учета_сырья" ToRole="Сотрудники" />
-          <NavigationProperty Name="Справочник_типов_операций" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Журнал_учета_сырья" ToRole="Справочник_типов_операций" />
+          <Property Name="LogRecordID" Type="Guid" Nullable="false" />
+          <Property Name="OperationTypeID" Type="Guid" Nullable="false" />
+          <Property Name="StockID" Type="Guid" Nullable="false" />
+          <Property Name="SupplierID" Type="Guid" />
+          <Property Name="EmployeeID" Type="Guid" />
+          <Property Name="OperationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Журнал_учета_сырья_Склады" FromRole="Журнал_учета_сырья" ToRole="Cклады" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Журнал_учета_сырья" ToRole="Поставщики" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Журнал_учета_сырья" ToRole="Сотрудники" />
+          <NavigationProperty Name="OperationType" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Журнал_учета_сырья" ToRole="Справочник_типов_операций" />
         </EntityType>
-        <EntityType Name="Остатки_продукции_на_складе">
+        <EntityType Name="ProductResidue">
           <Key>
-            <PropertyRef Name="ID_Остатка_продукции" />
+            <PropertyRef Name="ProductResidueID" />
           </Key>
-          <Property Name="ID_Остатка_продукции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
-          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
-          <Property Name="Количество" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cклады" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Остатки_продукции_на_складе" ToRole="Cклады" />
-          <NavigationProperty Name="Продукция" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Остатки_продукции_на_складе" ToRole="Продукция" />
+          <Property Name="ProductResidueID" Type="Guid" Nullable="false" />
+          <Property Name="StockID" Type="Guid" Nullable="false" />
+          <Property Name="ProductID" Type="Guid" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Остатки_продукции_на_складе_Склады" FromRole="Остатки_продукции_на_складе" ToRole="Cклады" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Остатки_продукции_на_складе" ToRole="Продукция" />
         </EntityType>
-        <EntityType Name="Остатки_сырья_на_складе">
+        <EntityType Name="RawResidue">
           <Key>
-            <PropertyRef Name="ID_Остатка_сырья" />
+            <PropertyRef Name="RawResidueID" />
           </Key>
-          <Property Name="ID_Остатка_сырья" Type="Guid" Nullable="false" />
-          <Property Name="ID_Склада" Type="Guid" Nullable="false" />
-          <Property Name="ID_Сырья" Type="Guid" Nullable="false" />
-          <Property Name="Количество" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cклады" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Остатки_сырья_на_складе" ToRole="Cклады" />
-          <NavigationProperty Name="Сырье" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Остатки_сырья_на_складе" ToRole="Сырье" />
+          <Property Name="RawResidueID" Type="Guid" Nullable="false" />
+          <Property Name="StockID" Type="Guid" Nullable="false" />
+          <Property Name="RawID" Type="Guid" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stocks" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Остатки_сырья_на_складе" ToRole="Cклады" />
+          <NavigationProperty Name="Raw" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Остатки_сырья_на_складе" ToRole="Сырье" />
         </EntityType>
-        <EntityType Name="Состав_операций_по_продукции">
+        <EntityType Name="DetailProductOperation">
           <Key>
-            <PropertyRef Name="ID_Состава_операции_по_продукции" />
+            <PropertyRef Name="RecordID" />
           </Key>
-          <Property Name="ID_Состава_операции_по_продукции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Записи_журнала_продукции" Type="Guid" Nullable="false" />
-          <Property Name="ID_Продукции" Type="Guid" Nullable="false" />
-          <Property Name="Количество" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Продукция" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Состав_операций_по_продукции" ToRole="Продукция" />
-          <NavigationProperty Name="Журнал_учета_продукции" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Состав_операций_по_продукции" ToRole="Журнал_учета_продукции" />
+          <Property Name="RecordID" Type="Guid" Nullable="false" />
+          <Property Name="ProductLogRecordID" Type="Guid" Nullable="false" />
+          <Property Name="ProductID" Type="Guid" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Состав_операций_по_продукции" ToRole="Продукция" />
+          <NavigationProperty Name="ProductAccountingLog" Relationship="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции" FromRole="Состав_операций_по_продукции" ToRole="Журнал_учета_продукции" />
         </EntityType>
         <Association Name="FK_Журнал_учета_продукции_Склады">
-          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
-          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <End Role="Cклады" Type="BakeryDataModel.Stock" Multiplicity="1" />
+          <End Role="Журнал_учета_продукции" Type="BakeryDataModel.ProductAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cклады">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Principal>
             <Dependent Role="Журнал_учета_продукции">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_сырья_Склады">
-          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
-          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <End Role="Cклады" Type="BakeryDataModel.Stock" Multiplicity="1" />
+          <End Role="Журнал_учета_сырья" Type="BakeryDataModel.RawAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cклады">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Principal>
             <Dependent Role="Журнал_учета_сырья">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Остатки_продукции_на_складе_Склады">
-          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
-          <End Role="Остатки_продукции_на_складе" Type="Self.Остатки_продукции_на_складе" Multiplicity="*" />
+          <End Role="Cклады" Type="BakeryDataModel.Stock" Multiplicity="1" />
+          <End Role="Остатки_продукции_на_складе" Type="BakeryDataModel.ProductResidue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cклады">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Principal>
             <Dependent Role="Остатки_продукции_на_складе">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Остатки_сырья_на_складе_Склады">
-          <End Role="Cклады" Type="Self.Cклады" Multiplicity="1" />
-          <End Role="Остатки_сырья_на_складе" Type="Self.Остатки_сырья_на_складе" Multiplicity="*" />
+          <End Role="Cклады" Type="BakeryDataModel.Stock" Multiplicity="1" />
+          <End Role="Остатки_сырья_на_складе" Type="BakeryDataModel.RawResidue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cклады">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Principal>
             <Dependent Role="Остатки_сырья_на_складе">
-              <PropertyRef Name="ID_Склада" />
+              <PropertyRef Name="StockID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Склад_Пекарня">
-          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
-          <End Role="Cклады" Type="Self.Cклады" Multiplicity="*" />
+          <End Role="Пекарни" Type="BakeryDataModel.Bakery" Multiplicity="0..1" />
+          <End Role="Cклады" Type="BakeryDataModel.Stock" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Пекарни">
-              <PropertyRef Name="ID_Пекарни" />
+              <PropertyRef Name="BakeryID" />
             </Principal>
             <Dependent Role="Cклады">
-              <PropertyRef Name="ID_Пекарни" />
+              <PropertyRef Name="BakeryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Аккаунты_Личности">
-          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
-          <End Role="Аккаунты" Type="Self.Аккаунты" Multiplicity="*" />
+          <End Role="Личности" Type="BakeryDataModel.Person" Multiplicity="1" />
+          <End Role="Аккаунты" Type="BakeryDataModel.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Личности">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Principal>
             <Dependent Role="Аккаунты">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Покупатели_Личности">
-          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
-          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="*" />
+          <End Role="Личности" Type="BakeryDataModel.Person" Multiplicity="1" />
+          <End Role="Покупатели" Type="BakeryDataModel.Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Личности">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Principal>
             <Dependent Role="Покупатели">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Поставщики_Личности">
-          <End Role="Личности" Type="Self.Личности" Multiplicity="0..1" />
-          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="*" />
+          <End Role="Личности" Type="BakeryDataModel.Person" Multiplicity="0..1" />
+          <End Role="Поставщики" Type="BakeryDataModel.Supplier" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Личности">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Principal>
             <Dependent Role="Поставщики">
-              <PropertyRef Name="ID_Контактного_лица" />
+              <PropertyRef Name="ContactPersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Сотрудники_Личности">
-          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
-          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <End Role="Личности" Type="BakeryDataModel.Person" Multiplicity="1" />
+          <End Role="Сотрудники" Type="BakeryDataModel.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Личности">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Principal>
             <Dependent Role="Сотрудники">
-              <PropertyRef Name="ID_Личности" />
+              <PropertyRef Name="PersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Сотрудники_Пекарни">
-          <End Role="Пекарни" Type="Self.Пекарни" Multiplicity="0..1" />
-          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <End Role="Пекарни" Type="BakeryDataModel.Bakery" Multiplicity="0..1" />
+          <End Role="Сотрудники" Type="BakeryDataModel.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Пекарни">
-              <PropertyRef Name="ID_Пекарни" />
+              <PropertyRef Name="BakeryID" />
             </Principal>
             <Dependent Role="Сотрудники">
-              <PropertyRef Name="ID_Пекарни" />
+              <PropertyRef Name="BakeryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_продукции_Покупатели">
-          <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="0..1" />
-          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <End Role="Покупатели" Type="BakeryDataModel.Customer" Multiplicity="0..1" />
+          <End Role="Журнал_учета_продукции" Type="BakeryDataModel.ProductAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Покупатели">
-              <PropertyRef Name="ID_Покупателя" />
+              <PropertyRef Name="CustomerID" />
             </Principal>
             <Dependent Role="Журнал_учета_продукции">
-              <PropertyRef Name="ID_Покупателя" />
+              <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_сырья_Поставщики">
-          <End Role="Поставщики" Type="Self.Поставщики" Multiplicity="0..1" />
-          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <End Role="Поставщики" Type="BakeryDataModel.Supplier" Multiplicity="0..1" />
+          <End Role="Журнал_учета_сырья" Type="BakeryDataModel.RawAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Поставщики">
-              <PropertyRef Name="ID_Поставщика" />
+              <PropertyRef Name="SupplierID" />
             </Principal>
             <Dependent Role="Журнал_учета_сырья">
-              <PropertyRef Name="ID_Поставщика" />
+              <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Остатки_продукции_на_складе_Продукция">
-          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
-          <End Role="Остатки_продукции_на_складе" Type="Self.Остатки_продукции_на_складе" Multiplicity="*" />
+          <End Role="Продукция" Type="BakeryDataModel.Product" Multiplicity="1" />
+          <End Role="Остатки_продукции_на_складе" Type="BakeryDataModel.ProductResidue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Продукция">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Остатки_продукции_на_складе">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Продукция_Справочник_типов_продукции">
-          <End Role="Справочник_типов_продукции" Type="Self.Справочник_типов_продукции" Multiplicity="1" />
-          <End Role="Продукция" Type="Self.Продукция" Multiplicity="*" />
+          <End Role="Справочник_типов_продукции" Type="BakeryDataModel.ProductType" Multiplicity="1" />
+          <End Role="Продукция" Type="BakeryDataModel.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_продукции">
-              <PropertyRef Name="ID_Типа_продукции" />
+              <PropertyRef Name="ProductTypeID" />
             </Principal>
             <Dependent Role="Продукция">
-              <PropertyRef Name="ID_Типа_продукции" />
+              <PropertyRef Name="ProductTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Рецепты_Продукция">
-          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
-          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="*" />
+          <End Role="Продукция" Type="BakeryDataModel.Product" Multiplicity="1" />
+          <End Role="Рецепты" Type="BakeryDataModel.Recipe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Продукция">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Рецепты">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Состав_операций_по_продукции_Продукция">
-          <End Role="Продукция" Type="Self.Продукция" Multiplicity="1" />
-          <End Role="Состав_операций_по_продукции" Type="Self.Состав_операций_по_продукции" Multiplicity="*" />
+          <End Role="Продукция" Type="BakeryDataModel.Product" Multiplicity="1" />
+          <End Role="Состав_операций_по_продукции" Type="BakeryDataModel.DetailProductOperation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Продукция">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Состав_операций_по_продукции">
-              <PropertyRef Name="ID_Продукции" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Состав_рецепта_Рецепты">
-          <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="1" />
-          <End Role="Состав_рецепта" Type="Self.Состав_рецепта" Multiplicity="*" />
+          <End Role="Рецепты" Type="BakeryDataModel.Recipe" Multiplicity="1" />
+          <End Role="Состав_рецепта" Type="BakeryDataModel.RecipeComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Рецепты">
-              <PropertyRef Name="ID_Рецепта" />
+              <PropertyRef Name="RecipeID" />
             </Principal>
             <Dependent Role="Состав_рецепта">
-              <PropertyRef Name="ID_Рецепта" />
+              <PropertyRef Name="RecipeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Состав_рецепта_Справочник_типов_сырья">
-          <End Role="Справочник_типов_сырья" Type="Self.Справочник_типов_сырья" Multiplicity="1" />
-          <End Role="Состав_рецепта" Type="Self.Состав_рецепта" Multiplicity="*" />
+          <End Role="Справочник_типов_сырья" Type="BakeryDataModel.RawType" Multiplicity="1" />
+          <End Role="Состав_рецепта" Type="BakeryDataModel.RecipeComposition" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_сырья">
-              <PropertyRef Name="ID_Типа_сырья" />
+              <PropertyRef Name="RawTypeID" />
             </Principal>
             <Dependent Role="Состав_рецепта">
-              <PropertyRef Name="ID_Типа_сырья" />
+              <PropertyRef Name="RawTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_продукции_Сотрудники">
-          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
-          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <End Role="Сотрудники" Type="BakeryDataModel.Employee" Multiplicity="0..1" />
+          <End Role="Журнал_учета_продукции" Type="BakeryDataModel.ProductAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Сотрудники">
-              <PropertyRef Name="ID_Сотрудника" />
+              <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="Журнал_учета_продукции">
-              <PropertyRef Name="ID_Сотрудника" />
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_сырья_Сотрудники">
-          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="0..1" />
-          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <End Role="Сотрудники" Type="BakeryDataModel.Employee" Multiplicity="0..1" />
+          <End Role="Журнал_учета_сырья" Type="BakeryDataModel.RawAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Сотрудники">
-              <PropertyRef Name="ID_Сотрудника" />
+              <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="Журнал_учета_сырья">
-              <PropertyRef Name="ID_Сотрудника" />
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Сотрудники_Справочник_должностей">
-          <End Role="Справочник_должностей" Type="Self.Справочник_должностей" Multiplicity="1" />
-          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="*" />
+          <End Role="Справочник_должностей" Type="BakeryDataModel.Position" Multiplicity="1" />
+          <End Role="Сотрудники" Type="BakeryDataModel.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_должностей">
-              <PropertyRef Name="ID_Должности" />
+              <PropertyRef Name="PositionID" />
             </Principal>
             <Dependent Role="Сотрудники">
-              <PropertyRef Name="ID_Должности" />
+              <PropertyRef Name="PositionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Остатки_сырья_на_складе_Сырье">
-          <End Role="Сырье" Type="Self.Сырье" Multiplicity="1" />
-          <End Role="Остатки_сырья_на_складе" Type="Self.Остатки_сырья_на_складе" Multiplicity="*" />
+          <End Role="Сырье" Type="BakeryDataModel.Raw" Multiplicity="1" />
+          <End Role="Остатки_сырья_на_складе" Type="BakeryDataModel.RawResidue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Сырье">
-              <PropertyRef Name="ID_Сырья" />
+              <PropertyRef Name="RawID" />
             </Principal>
             <Dependent Role="Остатки_сырья_на_складе">
-              <PropertyRef Name="ID_Сырья" />
+              <PropertyRef Name="RawID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Сырье_Справочник_типов_сырья">
-          <End Role="Справочник_типов_сырья" Type="Self.Справочник_типов_сырья" Multiplicity="1" />
-          <End Role="Сырье" Type="Self.Сырье" Multiplicity="*" />
+          <End Role="Справочник_типов_сырья" Type="BakeryDataModel.RawType" Multiplicity="1" />
+          <End Role="Сырье" Type="BakeryDataModel.Raw" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_сырья">
-              <PropertyRef Name="ID_Типа_сырья" />
+              <PropertyRef Name="RawTypeID" />
             </Principal>
             <Dependent Role="Сырье">
-              <PropertyRef Name="ID_Типа_сырья" />
+              <PropertyRef Name="RawTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_продукции_Справочник_типов_операций">
-          <End Role="Справочник_типов_операций" Type="Self.Справочник_типов_операций" Multiplicity="1" />
-          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="*" />
+          <End Role="Справочник_типов_операций" Type="BakeryDataModel.OperationType" Multiplicity="1" />
+          <End Role="Журнал_учета_продукции" Type="BakeryDataModel.ProductAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_операций">
-              <PropertyRef Name="ID_Типа_операции" />
+              <PropertyRef Name="OperationTypeID" />
             </Principal>
             <Dependent Role="Журнал_учета_продукции">
-              <PropertyRef Name="ID_Типа_операции" />
+              <PropertyRef Name="OperationTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Журнал_учета_сырья_Справочник_типов_операций">
-          <End Role="Справочник_типов_операций" Type="Self.Справочник_типов_операций" Multiplicity="1" />
-          <End Role="Журнал_учета_сырья" Type="Self.Журнал_учета_сырья" Multiplicity="*" />
+          <End Role="Справочник_типов_операций" Type="BakeryDataModel.OperationType" Multiplicity="1" />
+          <End Role="Журнал_учета_сырья" Type="BakeryDataModel.RawAccountingLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_операций">
-              <PropertyRef Name="ID_Типа_операции" />
+              <PropertyRef Name="OperationTypeID" />
             </Principal>
             <Dependent Role="Журнал_учета_сырья">
-              <PropertyRef Name="ID_Типа_операции" />
+              <PropertyRef Name="OperationTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Состав_операций_по_продукции_Журнал_учета_продукции">
-          <End Role="Журнал_учета_продукции" Type="Self.Журнал_учета_продукции" Multiplicity="1" />
-          <End Role="Состав_операций_по_продукции" Type="Self.Состав_операций_по_продукции" Multiplicity="*" />
+          <End Role="Журнал_учета_продукции" Type="BakeryDataModel.ProductAccountingLog" Multiplicity="1" />
+          <End Role="Состав_операций_по_продукции" Type="BakeryDataModel.DetailProductOperation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Журнал_учета_продукции">
-              <PropertyRef Name="ID_Записи_журнала_продукции" />
+              <PropertyRef Name="LogRecordID" />
             </Principal>
             <Dependent Role="Состав_операций_по_продукции">
-              <PropertyRef Name="ID_Записи_журнала_продукции" />
+              <PropertyRef Name="ProductLogRecordID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BakeryEntitiesHome" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cклады" EntityType="Self.Cклады" />
-          <EntitySet Name="Аккаунты" EntityType="Self.Аккаунты" />
-          <EntitySet Name="Аккаунты___Роли" EntityType="Self.Аккаунты___Роли" />
-          <EntitySet Name="Личности" EntityType="Self.Личности" />
-          <EntitySet Name="Пекарни" EntityType="Self.Пекарни" />
-          <EntitySet Name="Покупатели" EntityType="Self.Покупатели" />
-          <EntitySet Name="Поставщики" EntityType="Self.Поставщики" />
-          <EntitySet Name="Продукция" EntityType="Self.Продукция" />
-          <EntitySet Name="Рецепты" EntityType="Self.Рецепты" />
-          <EntitySet Name="Роли_пользователей" EntityType="Self.Роли_пользователей" />
-          <EntitySet Name="Состав_рецепта" EntityType="Self.Состав_рецепта" />
-          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
-          <EntitySet Name="Сырье" EntityType="Self.Сырье" />
-          <EntitySet Name="Справочник_должностей" EntityType="Self.Справочник_должностей" />
-          <EntitySet Name="Справочник_типов_операций" EntityType="Self.Справочник_типов_операций" />
-          <EntitySet Name="Справочник_типов_продукции" EntityType="Self.Справочник_типов_продукции" />
-          <EntitySet Name="Справочник_типов_сырья" EntityType="Self.Справочник_типов_сырья" />
-          <EntitySet Name="Журнал_учета_продукции" EntityType="Self.Журнал_учета_продукции" />
-          <EntitySet Name="Журнал_учета_сырья" EntityType="Self.Журнал_учета_сырья" />
-          <EntitySet Name="Остатки_продукции_на_складе" EntityType="Self.Остатки_продукции_на_складе" />
-          <EntitySet Name="Остатки_сырья_на_складе" EntityType="Self.Остатки_сырья_на_складе" />
-          <EntitySet Name="Состав_операций_по_продукции" EntityType="Self.Состав_операций_по_продукции" />
+          <EntitySet Name="Stocks" EntityType="BakeryDataModel.Stock" />
+          <EntitySet Name="Accounts" EntityType="BakeryDataModel.Account" />
+          <EntitySet Name="AccountsRoles" EntityType="BakeryDataModel.AccountRole" />
+          <EntitySet Name="Persons" EntityType="BakeryDataModel.Person" />
+          <EntitySet Name="Bakeries" EntityType="BakeryDataModel.Bakery" />
+          <EntitySet Name="Customers" EntityType="BakeryDataModel.Customer" />
+          <EntitySet Name="Suppliers" EntityType="BakeryDataModel.Supplier" />
+          <EntitySet Name="Products" EntityType="BakeryDataModel.Product" />
+          <EntitySet Name="Recipies" EntityType="BakeryDataModel.Recipe" />
+          <EntitySet Name="UserRoles" EntityType="BakeryDataModel.UserRole" />
+          <EntitySet Name="RecipeCompositions" EntityType="BakeryDataModel.RecipeComposition" />
+          <EntitySet Name="Employees" EntityType="BakeryDataModel.Employee" />
+          <EntitySet Name="Raw" EntityType="BakeryDataModel.Raw" />
+          <EntitySet Name="Positions" EntityType="BakeryDataModel.Position" />
+          <EntitySet Name="OperationTypes" EntityType="BakeryDataModel.OperationType" />
+          <EntitySet Name="ProductTypes" EntityType="BakeryDataModel.ProductType" />
+          <EntitySet Name="RawTypes" EntityType="BakeryDataModel.RawType" />
+          <EntitySet Name="ProductAccountingLogs" EntityType="BakeryDataModel.ProductAccountingLog" />
+          <EntitySet Name="RawAccountingLogs" EntityType="BakeryDataModel.RawAccountingLog" />
+          <EntitySet Name="ProductResidues" EntityType="BakeryDataModel.ProductResidue" />
+          <EntitySet Name="RawResidues" EntityType="BakeryDataModel.RawResidue" />
+          <EntitySet Name="DetailsProductOperation" EntityType="BakeryDataModel.DetailProductOperation" />
           <AssociationSet Name="FK_Журнал_учета_продукции_Склады" Association="Self.FK_Журнал_учета_продукции_Склады">
-            <End Role="Cклады" EntitySet="Cклады" />
-            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+            <End Role="Cклады" EntitySet="Stocks" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Склады" Association="Self.FK_Журнал_учета_сырья_Склады">
-            <End Role="Cклады" EntitySet="Cклады" />
-            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+            <End Role="Cклады" EntitySet="Stocks" />
+            <End Role="Журнал_учета_сырья" EntitySet="RawAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Остатки_продукции_на_складе_Склады" Association="Self.FK_Остатки_продукции_на_складе_Склады">
-            <End Role="Cклады" EntitySet="Cклады" />
-            <End Role="Остатки_продукции_на_складе" EntitySet="Остатки_продукции_на_складе" />
+            <End Role="Cклады" EntitySet="Stocks" />
+            <End Role="Остатки_продукции_на_складе" EntitySet="ProductResidues" />
           </AssociationSet>
           <AssociationSet Name="FK_Остатки_сырья_на_складе_Склады" Association="Self.FK_Остатки_сырья_на_складе_Склады">
-            <End Role="Cклады" EntitySet="Cклады" />
-            <End Role="Остатки_сырья_на_складе" EntitySet="Остатки_сырья_на_складе" />
+            <End Role="Cклады" EntitySet="Stocks" />
+            <End Role="Остатки_сырья_на_складе" EntitySet="RawResidues" />
           </AssociationSet>
           <AssociationSet Name="FK_Склад_Пекарня" Association="Self.FK_Склад_Пекарня">
-            <End Role="Пекарни" EntitySet="Пекарни" />
-            <End Role="Cклады" EntitySet="Cклады" />
+            <End Role="Пекарни" EntitySet="Bakeries" />
+            <End Role="Cклады" EntitySet="Stocks" />
           </AssociationSet>
           <AssociationSet Name="FK_Аккаунты_Личности" Association="Self.FK_Аккаунты_Личности">
-            <End Role="Личности" EntitySet="Личности" />
-            <End Role="Аккаунты" EntitySet="Аккаунты" />
+            <End Role="Личности" EntitySet="Persons" />
+            <End Role="Аккаунты" EntitySet="Accounts" />
           </AssociationSet>
           <AssociationSet Name="FK_Покупатели_Личности" Association="Self.FK_Покупатели_Личности">
-            <End Role="Личности" EntitySet="Личности" />
-            <End Role="Покупатели" EntitySet="Покупатели" />
+            <End Role="Личности" EntitySet="Persons" />
+            <End Role="Покупатели" EntitySet="Customers" />
           </AssociationSet>
           <AssociationSet Name="FK_Поставщики_Личности" Association="Self.FK_Поставщики_Личности">
-            <End Role="Личности" EntitySet="Личности" />
-            <End Role="Поставщики" EntitySet="Поставщики" />
+            <End Role="Личности" EntitySet="Persons" />
+            <End Role="Поставщики" EntitySet="Suppliers" />
           </AssociationSet>
           <AssociationSet Name="FK_Сотрудники_Личности" Association="Self.FK_Сотрудники_Личности">
-            <End Role="Личности" EntitySet="Личности" />
-            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Личности" EntitySet="Persons" />
+            <End Role="Сотрудники" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_Сотрудники_Пекарни" Association="Self.FK_Сотрудники_Пекарни">
-            <End Role="Пекарни" EntitySet="Пекарни" />
-            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Пекарни" EntitySet="Bakeries" />
+            <End Role="Сотрудники" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Покупатели" Association="Self.FK_Журнал_учета_продукции_Покупатели">
-            <End Role="Покупатели" EntitySet="Покупатели" />
-            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+            <End Role="Покупатели" EntitySet="Customers" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Поставщики" Association="Self.FK_Журнал_учета_сырья_Поставщики">
-            <End Role="Поставщики" EntitySet="Поставщики" />
-            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+            <End Role="Поставщики" EntitySet="Suppliers" />
+            <End Role="Журнал_учета_сырья" EntitySet="RawAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Остатки_продукции_на_складе_Продукция" Association="Self.FK_Остатки_продукции_на_складе_Продукция">
-            <End Role="Продукция" EntitySet="Продукция" />
-            <End Role="Остатки_продукции_на_складе" EntitySet="Остатки_продукции_на_складе" />
+            <End Role="Продукция" EntitySet="Products" />
+            <End Role="Остатки_продукции_на_складе" EntitySet="ProductResidues" />
           </AssociationSet>
           <AssociationSet Name="FK_Продукция_Справочник_типов_продукции" Association="Self.FK_Продукция_Справочник_типов_продукции">
-            <End Role="Справочник_типов_продукции" EntitySet="Справочник_типов_продукции" />
-            <End Role="Продукция" EntitySet="Продукция" />
+            <End Role="Справочник_типов_продукции" EntitySet="ProductTypes" />
+            <End Role="Продукция" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Рецепты_Продукция" Association="Self.FK_Рецепты_Продукция">
-            <End Role="Продукция" EntitySet="Продукция" />
-            <End Role="Рецепты" EntitySet="Рецепты" />
+            <End Role="Продукция" EntitySet="Products" />
+            <End Role="Рецепты" EntitySet="Recipies" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_операций_по_продукции_Продукция" Association="Self.FK_Состав_операций_по_продукции_Продукция">
-            <End Role="Продукция" EntitySet="Продукция" />
-            <End Role="Состав_операций_по_продукции" EntitySet="Состав_операций_по_продукции" />
+            <End Role="Продукция" EntitySet="Products" />
+            <End Role="Состав_операций_по_продукции" EntitySet="DetailsProductOperation" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_рецепта_Рецепты" Association="Self.FK_Состав_рецепта_Рецепты">
-            <End Role="Рецепты" EntitySet="Рецепты" />
-            <End Role="Состав_рецепта" EntitySet="Состав_рецепта" />
+            <End Role="Рецепты" EntitySet="Recipies" />
+            <End Role="Состав_рецепта" EntitySet="RecipeCompositions" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_рецепта_Справочник_типов_сырья" Association="Self.FK_Состав_рецепта_Справочник_типов_сырья">
-            <End Role="Справочник_типов_сырья" EntitySet="Справочник_типов_сырья" />
-            <End Role="Состав_рецепта" EntitySet="Состав_рецепта" />
+            <End Role="Справочник_типов_сырья" EntitySet="RawTypes" />
+            <End Role="Состав_рецепта" EntitySet="RecipeCompositions" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Сотрудники" Association="Self.FK_Журнал_учета_продукции_Сотрудники">
-            <End Role="Сотрудники" EntitySet="Сотрудники" />
-            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+            <End Role="Сотрудники" EntitySet="Employees" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Сотрудники" Association="Self.FK_Журнал_учета_сырья_Сотрудники">
-            <End Role="Сотрудники" EntitySet="Сотрудники" />
-            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+            <End Role="Сотрудники" EntitySet="Employees" />
+            <End Role="Журнал_учета_сырья" EntitySet="RawAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Сотрудники_Справочник_должностей" Association="Self.FK_Сотрудники_Справочник_должностей">
-            <End Role="Справочник_должностей" EntitySet="Справочник_должностей" />
-            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Справочник_должностей" EntitySet="Positions" />
+            <End Role="Сотрудники" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_Остатки_сырья_на_складе_Сырье" Association="Self.FK_Остатки_сырья_на_складе_Сырье">
-            <End Role="Сырье" EntitySet="Сырье" />
-            <End Role="Остатки_сырья_на_складе" EntitySet="Остатки_сырья_на_складе" />
+            <End Role="Сырье" EntitySet="Raw" />
+            <End Role="Остатки_сырья_на_складе" EntitySet="RawResidues" />
           </AssociationSet>
           <AssociationSet Name="FK_Сырье_Справочник_типов_сырья" Association="Self.FK_Сырье_Справочник_типов_сырья">
-            <End Role="Справочник_типов_сырья" EntitySet="Справочник_типов_сырья" />
-            <End Role="Сырье" EntitySet="Сырье" />
+            <End Role="Справочник_типов_сырья" EntitySet="RawTypes" />
+            <End Role="Сырье" EntitySet="Raw" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Справочник_типов_операций" Association="Self.FK_Журнал_учета_продукции_Справочник_типов_операций">
-            <End Role="Справочник_типов_операций" EntitySet="Справочник_типов_операций" />
-            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
+            <End Role="Справочник_типов_операций" EntitySet="OperationTypes" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Справочник_типов_операций" Association="Self.FK_Журнал_учета_сырья_Справочник_типов_операций">
-            <End Role="Справочник_типов_операций" EntitySet="Справочник_типов_операций" />
-            <End Role="Журнал_учета_сырья" EntitySet="Журнал_учета_сырья" />
+            <End Role="Справочник_типов_операций" EntitySet="OperationTypes" />
+            <End Role="Журнал_учета_сырья" EntitySet="RawAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_операций_по_продукции_Журнал_учета_продукции" Association="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции">
-            <End Role="Журнал_учета_продукции" EntitySet="Журнал_учета_продукции" />
-            <End Role="Состав_операций_по_продукции" EntitySet="Состав_операций_по_продукции" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Состав_операций_по_продукции" EntitySet="DetailsProductOperation" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1374,231 +1374,231 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище BakeryDataModelContainer" CdmEntityContainer="BakeryEntitiesHome">
-          <EntitySetMapping Name="Cклады">
-            <EntityTypeMapping TypeName="BakeryDataModel.Cклады">
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="BakeryDataModel.Stock">
               <MappingFragment StoreEntitySet="Cклады">
-                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
-                <ScalarProperty Name="Тип_склада" ColumnName="Тип склада" />
-                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
-                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="StockID" ColumnName="ID_Склада" />
+                <ScalarProperty Name="StockType" ColumnName="Тип склада" />
+                <ScalarProperty Name="Address" ColumnName="Адрес" />
+                <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Аккаунты">
-            <EntityTypeMapping TypeName="BakeryDataModel.Аккаунты">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="BakeryDataModel.Account">
               <MappingFragment StoreEntitySet="Аккаунты">
-                <ScalarProperty Name="ID_Аккаунта" ColumnName="ID_Аккаунта" />
-                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
-                <ScalarProperty Name="Логин" ColumnName="Логин" />
-                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
-                <ScalarProperty Name="Дата_регистрации" ColumnName="Дата регистрации" />
-                <ScalarProperty Name="Соль" ColumnName="Соль" />
+                <ScalarProperty Name="AccountID" ColumnName="ID_Аккаунта" />
+                <ScalarProperty Name="PersonID" ColumnName="ID_Личности" />
+                <ScalarProperty Name="Login" ColumnName="Логин" />
+                <ScalarProperty Name="Pass" ColumnName="Пароль" />
+                <ScalarProperty Name="RegestrationDate" ColumnName="Дата регистрации" />
+                <ScalarProperty Name="Salt" ColumnName="Соль" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Аккаунты___Роли">
-            <EntityTypeMapping TypeName="BakeryDataModel.Аккаунты___Роли">
+          <EntitySetMapping Name="AccountsRoles">
+            <EntityTypeMapping TypeName="BakeryDataModel.AccountRole">
               <MappingFragment StoreEntitySet="Аккаунты - Роли">
-                <ScalarProperty Name="ID_Аккаунта" ColumnName="ID_Аккаунта" />
-                <ScalarProperty Name="ID_Роли" ColumnName="ID_Роли" />
+                <ScalarProperty Name="AccountID" ColumnName="ID_Аккаунта" />
+                <ScalarProperty Name="RoleID" ColumnName="ID_Роли" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Личности">
-            <EntityTypeMapping TypeName="BakeryDataModel.Личности">
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="BakeryDataModel.Person">
               <MappingFragment StoreEntitySet="Личности">
-                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
-                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
-                <ScalarProperty Name="Имя" ColumnName="Имя" />
-                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
-                <ScalarProperty Name="Дата_рождения" ColumnName="Дата рождения" />
-                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
-                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="PersonID" ColumnName="ID_Личности" />
+                <ScalarProperty Name="LastName" ColumnName="Фамилия" />
+                <ScalarProperty Name="FirstName" ColumnName="Имя" />
+                <ScalarProperty Name="MiddleName" ColumnName="Отчество" />
+                <ScalarProperty Name="BirthDay" ColumnName="Дата рождения" />
+                <ScalarProperty Name="Address" ColumnName="Адрес" />
+                <ScalarProperty Name="Phone" ColumnName="Телефон" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Пекарни">
-            <EntityTypeMapping TypeName="BakeryDataModel.Пекарни">
+          <EntitySetMapping Name="Bakeries">
+            <EntityTypeMapping TypeName="BakeryDataModel.Bakery">
               <MappingFragment StoreEntitySet="Пекарни">
-                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
-                <ScalarProperty Name="Название" ColumnName="Название" />
-                <ScalarProperty Name="Полный_адрес" ColumnName="Полный адрес" />
+                <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="Name" ColumnName="Название" />
+                <ScalarProperty Name="FullAddress" ColumnName="Полный адрес" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Покупатели">
-            <EntityTypeMapping TypeName="BakeryDataModel.Покупатели">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BakeryDataModel.Customer">
               <MappingFragment StoreEntitySet="Покупатели">
-                <ScalarProperty Name="ID_Покупателя" ColumnName="ID_Покупателя" />
-                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
-                <ScalarProperty Name="Сумма_на_счете" ColumnName="Сумма на счете" />
+                <ScalarProperty Name="CustomerID" ColumnName="ID_Покупателя" />
+                <ScalarProperty Name="PersonID" ColumnName="ID_Личности" />
+                <ScalarProperty Name="Balance" ColumnName="Сумма на счете" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Поставщики">
-            <EntityTypeMapping TypeName="BakeryDataModel.Поставщики">
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="BakeryDataModel.Supplier">
               <MappingFragment StoreEntitySet="Поставщики">
-                <ScalarProperty Name="ID_Поставщика" ColumnName="ID_Поставщика" />
-                <ScalarProperty Name="ID_Контактного_лица" ColumnName="ID_Контактного лица" />
-                <ScalarProperty Name="ИНН" ColumnName="ИНН" />
-                <ScalarProperty Name="Краткое_название" ColumnName="Краткое название" />
-                <ScalarProperty Name="Полное_название" ColumnName="Полное название" />
-                <ScalarProperty Name="Адрес" ColumnName="Адрес" />
-                <ScalarProperty Name="Рабочий_телефон" ColumnName="Рабочий телефон" />
+                <ScalarProperty Name="SupplierID" ColumnName="ID_Поставщика" />
+                <ScalarProperty Name="ContactPersonID" ColumnName="ID_Контактного лица" />
+                <ScalarProperty Name="INN" ColumnName="ИНН" />
+                <ScalarProperty Name="ShortName" ColumnName="Краткое название" />
+                <ScalarProperty Name="FullName" ColumnName="Полное название" />
+                <ScalarProperty Name="Address" ColumnName="Адрес" />
+                <ScalarProperty Name="OfficePhone" ColumnName="Рабочий телефон" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Продукция">
-            <EntityTypeMapping TypeName="BakeryDataModel.Продукция">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BakeryDataModel.Product">
               <MappingFragment StoreEntitySet="Продукция">
-                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
-                <ScalarProperty Name="ID_Типа_продукции" ColumnName="ID_Типа продукции" />
-                <ScalarProperty Name="Цена" ColumnName="Цена" />
-                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
-                <ScalarProperty Name="Изображение" ColumnName="Изображение" />
-                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ID_Типа продукции" />
+                <ScalarProperty Name="Cost" ColumnName="Цена" />
+                <ScalarProperty Name="Units" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Image" ColumnName="Изображение" />
+                <ScalarProperty Name="Name" ColumnName="Название" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Рецепты">
-            <EntityTypeMapping TypeName="BakeryDataModel.Рецепты">
+          <EntitySetMapping Name="Recipies">
+            <EntityTypeMapping TypeName="BakeryDataModel.Recipe">
               <MappingFragment StoreEntitySet="Рецепты">
-                <ScalarProperty Name="ID_Рецепта" ColumnName="ID_Рецепта" />
-                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
-                <ScalarProperty Name="Название" ColumnName="Название" />
-                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="RecipeID" ColumnName="ID_Рецепта" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Name" ColumnName="Название" />
+                <ScalarProperty Name="Description" ColumnName="Описание" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Роли_пользователей">
-            <EntityTypeMapping TypeName="BakeryDataModel.Роли_пользователей">
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="BakeryDataModel.UserRole">
               <MappingFragment StoreEntitySet="Роли пользователей">
-                <ScalarProperty Name="ID_роли" ColumnName="ID_роли" />
-                <ScalarProperty Name="Роль" ColumnName="Роль" />
+                <ScalarProperty Name="RoleID" ColumnName="ID_роли" />
+                <ScalarProperty Name="Name" ColumnName="Роль" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Состав_рецепта">
-            <EntityTypeMapping TypeName="BakeryDataModel.Состав_рецепта">
+          <EntitySetMapping Name="RecipeCompositions">
+            <EntityTypeMapping TypeName="BakeryDataModel.RecipeComposition">
               <MappingFragment StoreEntitySet="Состав рецепта">
-                <ScalarProperty Name="ID_Состава_рецепта" ColumnName="ID_Состава рецепта" />
-                <ScalarProperty Name="ID_Рецепта" ColumnName="ID_Рецепта" />
-                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
-                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
-                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="RacipeCompositionID" ColumnName="ID_Состава рецепта" />
+                <ScalarProperty Name="RecipeID" ColumnName="ID_Рецепта" />
+                <ScalarProperty Name="RawTypeID" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Units" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Count" ColumnName="Количество" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Сотрудники">
-            <EntityTypeMapping TypeName="BakeryDataModel.Сотрудники">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BakeryDataModel.Employee">
               <MappingFragment StoreEntitySet="Сотрудники">
-                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
-                <ScalarProperty Name="ID_Личности" ColumnName="ID_Личности" />
-                <ScalarProperty Name="ID_Должности" ColumnName="ID_Должности" />
-                <ScalarProperty Name="ID_Пекарни" ColumnName="ID_Пекарни" />
-                <ScalarProperty Name="Дата_заступления_на_должность" ColumnName="Дата заступления на должность" />
-                <ScalarProperty Name="Дата_увольнения" ColumnName="Дата увольнения" />
+                <ScalarProperty Name="EmployeeID" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="PersonID" ColumnName="ID_Личности" />
+                <ScalarProperty Name="PositionID" ColumnName="ID_Должности" />
+                <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="StartDate" ColumnName="Дата заступления на должность" />
+                <ScalarProperty Name="DismissalDate" ColumnName="Дата увольнения" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Сырье">
-            <EntityTypeMapping TypeName="BakeryDataModel.Сырье">
+          <EntitySetMapping Name="Raw">
+            <EntityTypeMapping TypeName="BakeryDataModel.Raw">
               <MappingFragment StoreEntitySet="Сырье">
-                <ScalarProperty Name="ID_Сырья" ColumnName="ID_Сырья" />
-                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
-                <ScalarProperty Name="Цена" ColumnName="Цена" />
-                <ScalarProperty Name="Ед__измерения" ColumnName="Ед. измерения" />
-                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="RawID" ColumnName="ID_Сырья" />
+                <ScalarProperty Name="RawTypeID" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Cost" ColumnName="Цена" />
+                <ScalarProperty Name="Units" ColumnName="Ед. измерения" />
+                <ScalarProperty Name="Name" ColumnName="Название" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Справочник_должностей">
-            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_должностей">
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="BakeryDataModel.Position">
               <MappingFragment StoreEntitySet="Справочник должностей">
-                <ScalarProperty Name="ID_Должности" ColumnName="ID_Должности" />
-                <ScalarProperty Name="Краткое_название" ColumnName="Краткое название" />
-                <ScalarProperty Name="Полное_название" ColumnName="Полное название" />
-                <ScalarProperty Name="Количество_мест" ColumnName="Количество мест" />
+                <ScalarProperty Name="PositionID" ColumnName="ID_Должности" />
+                <ScalarProperty Name="ShortName" ColumnName="Краткое название" />
+                <ScalarProperty Name="FullName" ColumnName="Полное название" />
+                <ScalarProperty Name="CountWorkplases" ColumnName="Количество мест" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Справочник_типов_операций">
-            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_операций">
+          <EntitySetMapping Name="OperationTypes">
+            <EntityTypeMapping TypeName="BakeryDataModel.OperationType">
               <MappingFragment StoreEntitySet="Справочник типов операций">
-                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
-                <ScalarProperty Name="Тип_операции" ColumnName="Тип операции" />
+                <ScalarProperty Name="OperationTypeID" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="Type" ColumnName="Тип операции" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Справочник_типов_продукции">
-            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_продукции">
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="BakeryDataModel.ProductType">
               <MappingFragment StoreEntitySet="Справочник типов продукции">
-                <ScalarProperty Name="ID_Типа_продукции" ColumnName="ID_Типа продукции" />
-                <ScalarProperty Name="Тип_продукции" ColumnName="Тип продукции" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ID_Типа продукции" />
+                <ScalarProperty Name="Type" ColumnName="Тип продукции" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Справочник_типов_сырья">
-            <EntityTypeMapping TypeName="BakeryDataModel.Справочник_типов_сырья">
+          <EntitySetMapping Name="RawTypes">
+            <EntityTypeMapping TypeName="BakeryDataModel.RawType">
               <MappingFragment StoreEntitySet="Справочник типов сырья">
-                <ScalarProperty Name="ID_Типа_сырья" ColumnName="ID_Типа сырья" />
-                <ScalarProperty Name="Тип_сырья" ColumnName="Тип сырья" />
+                <ScalarProperty Name="RawTypeID" ColumnName="ID_Типа сырья" />
+                <ScalarProperty Name="Type" ColumnName="Тип сырья" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Журнал_учета_продукции">
-            <EntityTypeMapping TypeName="BakeryDataModel.Журнал_учета_продукции">
+          <EntitySetMapping Name="ProductAccountingLogs">
+            <EntityTypeMapping TypeName="BakeryDataModel.ProductAccountingLog">
               <MappingFragment StoreEntitySet="Журнал учета продукции">
-                <ScalarProperty Name="ID_Записи_журнала_продукции" ColumnName="ID_Записи журнала продукции" />
-                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
-                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
-                <ScalarProperty Name="ID_Покупателя" ColumnName="ID_Покупателя" />
-                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
-                <ScalarProperty Name="Дата_операции" ColumnName="Дата операции" />
-                <ScalarProperty Name="Удалена" ColumnName="Удалена" />
+                <ScalarProperty Name="LogRecordID" ColumnName="ID_Записи журнала продукции" />
+                <ScalarProperty Name="OperationTypeID" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="StockID" ColumnName="ID_Склада" />
+                <ScalarProperty Name="CustomerID" ColumnName="ID_Покупателя" />
+                <ScalarProperty Name="EmployeeID" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="OperationDate" ColumnName="Дата операции" />
+                <ScalarProperty Name="IsDeleted" ColumnName="Удалена" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Журнал_учета_сырья">
-            <EntityTypeMapping TypeName="BakeryDataModel.Журнал_учета_сырья">
+          <EntitySetMapping Name="RawAccountingLogs">
+            <EntityTypeMapping TypeName="BakeryDataModel.RawAccountingLog">
               <MappingFragment StoreEntitySet="Журнал учета сырья">
-                <ScalarProperty Name="ID_Записи_журнала_сырья" ColumnName="ID_Записи журнала сырья" />
-                <ScalarProperty Name="ID_Типа_операции" ColumnName="ID_Типа операции" />
-                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
-                <ScalarProperty Name="ID_Поставщика" ColumnName="ID_Поставщика" />
-                <ScalarProperty Name="ID_Сотрудника" ColumnName="ID_Сотрудника" />
-                <ScalarProperty Name="Дата_операции" ColumnName="Дата операции" />
-                <ScalarProperty Name="Удалена" ColumnName="Удалена" />
+                <ScalarProperty Name="LogRecordID" ColumnName="ID_Записи журнала сырья" />
+                <ScalarProperty Name="OperationTypeID" ColumnName="ID_Типа операции" />
+                <ScalarProperty Name="StockID" ColumnName="ID_Склада" />
+                <ScalarProperty Name="SupplierID" ColumnName="ID_Поставщика" />
+                <ScalarProperty Name="EmployeeID" ColumnName="ID_Сотрудника" />
+                <ScalarProperty Name="OperationDate" ColumnName="Дата операции" />
+                <ScalarProperty Name="IsDeleted" ColumnName="Удалена" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Остатки_продукции_на_складе">
-            <EntityTypeMapping TypeName="BakeryDataModel.Остатки_продукции_на_складе">
+          <EntitySetMapping Name="ProductResidues">
+            <EntityTypeMapping TypeName="BakeryDataModel.ProductResidue">
               <MappingFragment StoreEntitySet="Остатки продукции на складе">
-                <ScalarProperty Name="ID_Остатка_продукции" ColumnName="ID_Остатка продукции" />
-                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
-                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
-                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="ProductResidueID" ColumnName="ID_Остатка продукции" />
+                <ScalarProperty Name="StockID" ColumnName="ID_Склада" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Count" ColumnName="Количество" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Остатки_сырья_на_складе">
-            <EntityTypeMapping TypeName="BakeryDataModel.Остатки_сырья_на_складе">
+          <EntitySetMapping Name="RawResidues">
+            <EntityTypeMapping TypeName="BakeryDataModel.RawResidue">
               <MappingFragment StoreEntitySet="Остатки сырья на складе">
-                <ScalarProperty Name="ID_Остатка_сырья" ColumnName="ID_Остатка сырья" />
-                <ScalarProperty Name="ID_Склада" ColumnName="ID_Склада" />
-                <ScalarProperty Name="ID_Сырья" ColumnName="ID_Сырья" />
-                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="RawResidueID" ColumnName="ID_Остатка сырья" />
+                <ScalarProperty Name="StockID" ColumnName="ID_Склада" />
+                <ScalarProperty Name="RawID" ColumnName="ID_Сырья" />
+                <ScalarProperty Name="Count" ColumnName="Количество" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Состав_операций_по_продукции">
-            <EntityTypeMapping TypeName="BakeryDataModel.Состав_операций_по_продукции">
+          <EntitySetMapping Name="DetailsProductOperation">
+            <EntityTypeMapping TypeName="BakeryDataModel.DetailProductOperation">
               <MappingFragment StoreEntitySet="Состав операций по продукции">
-                <ScalarProperty Name="ID_Состава_операции_по_продукции" ColumnName="ID_Состава операции по продукции" />
-                <ScalarProperty Name="ID_Записи_журнала_продукции" ColumnName="ID_Записи журнала продукции" />
-                <ScalarProperty Name="ID_Продукции" ColumnName="ID_Продукции" />
-                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="RecordID" ColumnName="ID_Состава операции по продукции" />
+                <ScalarProperty Name="ProductLogRecordID" ColumnName="ID_Записи журнала продукции" />
+                <ScalarProperty Name="ProductID" ColumnName="ID_Продукции" />
+                <ScalarProperty Name="Count" ColumnName="Количество" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

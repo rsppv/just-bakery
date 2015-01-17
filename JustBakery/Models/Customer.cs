@@ -12,9 +12,18 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Аккаунты___Роли
+    public partial class Customer
     {
-        public System.Guid ID_Аккаунта { get; set; }
-        public System.Guid ID_Роли { get; set; }
+        public Customer()
+        {
+            this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
+        }
+    
+        public System.Guid CustomerID { get; set; }
+        public System.Guid PersonID { get; set; }
+        public int Balance { get; set; }
+    
+        public virtual Person Person { get; set; }
+        public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
     }
 }

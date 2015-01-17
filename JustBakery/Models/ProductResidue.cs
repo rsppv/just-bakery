@@ -12,19 +12,14 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Пекарни
+    public partial class ProductResidue
     {
-        public Пекарни()
-        {
-            this.Cклады = new HashSet<Cклады>();
-            this.Сотрудники = new HashSet<Сотрудники>();
-        }
+        public System.Guid ProductResidueID { get; set; }
+        public System.Guid StockID { get; set; }
+        public System.Guid ProductID { get; set; }
+        public int Count { get; set; }
     
-        public System.Guid ID_Пекарни { get; set; }
-        public string Название { get; set; }
-        public string Полный_адрес { get; set; }
-    
-        public virtual ICollection<Cклады> Cклады { get; set; }
-        public virtual ICollection<Сотрудники> Сотрудники { get; set; }
+        public virtual Stock Stock { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

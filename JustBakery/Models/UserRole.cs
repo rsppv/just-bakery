@@ -12,19 +12,9 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Рецепты
+    public partial class UserRole
     {
-        public Рецепты()
-        {
-            this.Состав_рецепта = new HashSet<Состав_рецепта>();
-        }
-    
-        public System.Guid ID_Рецепта { get; set; }
-        public System.Guid ID_Продукции { get; set; }
-        public string Название { get; set; }
-        public string Описание { get; set; }
-    
-        public virtual Продукция Продукция { get; set; }
-        public virtual ICollection<Состав_рецепта> Состав_рецепта { get; set; }
+        public System.Guid RoleID { get; set; }
+        public string Name { get; set; }
     }
 }

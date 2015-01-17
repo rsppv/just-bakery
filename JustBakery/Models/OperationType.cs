@@ -12,20 +12,18 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Сырье
+    public partial class OperationType
     {
-        public Сырье()
+        public OperationType()
         {
-            this.Остатки_сырья_на_складе = new HashSet<Остатки_сырья_на_складе>();
+            this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
+            this.RawAccountingLog = new HashSet<RawAccountingLog>();
         }
     
-        public System.Guid ID_Сырья { get; set; }
-        public System.Guid ID_Типа_сырья { get; set; }
-        public Nullable<int> Цена { get; set; }
-        public string Ед__измерения { get; set; }
-        public string Название { get; set; }
+        public System.Guid OperationTypeID { get; set; }
+        public string Type { get; set; }
     
-        public virtual ICollection<Остатки_сырья_на_складе> Остатки_сырья_на_складе { get; set; }
-        public virtual Справочник_типов_сырья Справочник_типов_сырья { get; set; }
+        public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
+        public virtual ICollection<RawAccountingLog> RawAccountingLog { get; set; }
     }
 }

@@ -12,15 +12,14 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Аккаунты
+    public partial class RawResidue
     {
-        public System.Guid ID_Аккаунта { get; set; }
-        public System.Guid ID_Личности { get; set; }
-        public string Логин { get; set; }
-        public string Пароль { get; set; }
-        public System.DateTime Дата_регистрации { get; set; }
-        public string Соль { get; set; }
+        public System.Guid RawResidueID { get; set; }
+        public System.Guid StockID { get; set; }
+        public System.Guid RawID { get; set; }
+        public int Count { get; set; }
     
-        public virtual Личности Личности { get; set; }
+        public virtual Stock Stocks { get; set; }
+        public virtual Raw Raw { get; set; }
     }
 }

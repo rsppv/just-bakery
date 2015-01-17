@@ -5,28 +5,28 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f8779cbead554d52bee5464e6d70a2c8" Name="Diagram1">
-        <EntityTypeShape EntityType="BakeryDataModel.Cклады" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Аккаунты" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Аккаунты___Роли" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Личности" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Пекарни" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Покупатели" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Поставщики" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Продукция" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Рецепты" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Роли_пользователей" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Состав_рецепта" Width="1.5" PointX="6" PointY="19.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Сотрудники" Width="1.5" PointX="8" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Сырье" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Справочник_должностей" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_операций" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_продукции" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Справочник_типов_сырья" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Журнал_учета_продукции" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Журнал_учета_сырья" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Остатки_продукции_на_складе" Width="1.5" PointX="10.5" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Остатки_сырья_на_складе" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BakeryDataModel.Состав_операций_по_продукции" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Stock" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Account" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.AccountRole" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Person" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Bakery" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Customer" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Supplier" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Product" Width="1.5" PointX="8.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Recipe" Width="1.5" PointX="3.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.UserRole" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.RecipeComposition" Width="1.5" PointX="6" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Employee" Width="1.5" PointX="8" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Raw" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.Position" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.OperationType" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.ProductType" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.RawType" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.ProductAccountingLog" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.RawAccountingLog" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.ProductResidue" Width="1.5" PointX="10.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.RawResidue" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BakeryDataModel.DetailProductOperation" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
         <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_продукции_Склады" ManuallyRouted="false" />
         <AssociationConnector Association="BakeryDataModel.FK_Журнал_учета_сырья_Склады" ManuallyRouted="false" />
         <AssociationConnector Association="BakeryDataModel.FK_Остатки_продукции_на_складе_Склады" ManuallyRouted="false" />

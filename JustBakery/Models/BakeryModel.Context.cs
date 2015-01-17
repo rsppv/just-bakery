@@ -25,27 +25,27 @@ namespace JustBakery.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Cклады> Cклады { get; set; }
-        public virtual DbSet<Аккаунты> Аккаунты { get; set; }
-        public virtual DbSet<Аккаунты___Роли> Аккаунты___Роли { get; set; }
-        public virtual DbSet<Личности> Личности { get; set; }
-        public virtual DbSet<Пекарни> Пекарни { get; set; }
-        public virtual DbSet<Покупатели> Покупатели { get; set; }
-        public virtual DbSet<Поставщики> Поставщики { get; set; }
-        public virtual DbSet<Продукция> Продукция { get; set; }
-        public virtual DbSet<Рецепты> Рецепты { get; set; }
-        public virtual DbSet<Роли_пользователей> Роли_пользователей { get; set; }
-        public virtual DbSet<Состав_рецепта> Состав_рецепта { get; set; }
-        public virtual DbSet<Сотрудники> Сотрудники { get; set; }
-        public virtual DbSet<Сырье> Сырье { get; set; }
-        public virtual DbSet<Справочник_должностей> Справочник_должностей { get; set; }
-        public virtual DbSet<Справочник_типов_операций> Справочник_типов_операций { get; set; }
-        public virtual DbSet<Справочник_типов_продукции> Справочник_типов_продукции { get; set; }
-        public virtual DbSet<Справочник_типов_сырья> Справочник_типов_сырья { get; set; }
-        public virtual DbSet<Журнал_учета_продукции> Журнал_учета_продукции { get; set; }
-        public virtual DbSet<Журнал_учета_сырья> Журнал_учета_сырья { get; set; }
-        public virtual DbSet<Остатки_продукции_на_складе> Остатки_продукции_на_складе { get; set; }
-        public virtual DbSet<Остатки_сырья_на_складе> Остатки_сырья_на_складе { get; set; }
-        public virtual DbSet<Состав_операций_по_продукции> Состав_операций_по_продукции { get; set; }
+        public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AccountRole> AccountsRoles { get; set; }
+        public virtual DbSet<Person> Persons { get; set; }
+        public virtual DbSet<Bakery> Bakeries { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Recipe> Recipies { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<RecipeComposition> RecipeCompositions { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Raw> Raw { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<OperationType> OperationTypes { get; set; }
+        public virtual DbSet<ProductType> ProductTypes { get; set; }
+        public virtual DbSet<RawType> RawTypes { get; set; }
+        public virtual DbSet<ProductAccountingLog> ProductAccountingLogs { get; set; }
+        public virtual DbSet<RawAccountingLog> RawAccountingLogs { get; set; }
+        public virtual DbSet<ProductResidue> ProductResidues { get; set; }
+        public virtual DbSet<RawResidue> RawResidues { get; set; }
+        public virtual DbSet<DetailProductOperation> DetailsProductOperation { get; set; }
     }
 }

@@ -12,9 +12,14 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Роли_пользователей
+    public partial class DetailProductOperation
     {
-        public System.Guid ID_роли { get; set; }
-        public string Роль { get; set; }
+        public System.Guid RecordID { get; set; }
+        public System.Guid ProductLogRecordID { get; set; }
+        public System.Guid ProductID { get; set; }
+        public int Count { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual ProductAccountingLog ProductAccountingLog { get; set; }
     }
 }

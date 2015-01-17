@@ -12,15 +12,20 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Состав_рецепта
+    public partial class Raw
     {
-        public System.Guid ID_Состава_рецепта { get; set; }
-        public System.Guid ID_Рецепта { get; set; }
-        public System.Guid ID_Типа_сырья { get; set; }
-        public string Ед__измерения { get; set; }
-        public int Количество { get; set; }
+        public Raw()
+        {
+            this.RawResidue = new HashSet<RawResidue>();
+        }
     
-        public virtual Рецепты Рецепты { get; set; }
-        public virtual Справочник_типов_сырья Справочник_типов_сырья { get; set; }
+        public System.Guid RawID { get; set; }
+        public System.Guid RawTypeID { get; set; }
+        public Nullable<int> Cost { get; set; }
+        public string Units { get; set; }
+        public string Name { get; set; }
+    
+        public virtual ICollection<RawResidue> RawResidue { get; set; }
+        public virtual RawType RawType { get; set; }
     }
 }
