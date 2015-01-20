@@ -26,16 +26,13 @@ namespace JustBakery.Models
         }
     
         public virtual DbSet<Stock> Stocks { get; set; }
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<AccountRole> AccountsRoles { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Bakery> Bakeries { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Recipe> Recipies { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
-        public virtual DbSet<RecipeComposition> RecipeCompositions { get; set; }
+        public virtual DbSet<Ingridient> RecipeCompositions { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Raw> Raw { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
@@ -47,5 +44,6 @@ namespace JustBakery.Models
         public virtual DbSet<ProductResidue> ProductResidues { get; set; }
         public virtual DbSet<RawResidue> RawResidues { get; set; }
         public virtual DbSet<DetailProductOperation> DetailsProductOperation { get; set; }
+        public virtual DbSet<DetailRawOperation> DetailsRawOperation { get; set; }
     }
 }

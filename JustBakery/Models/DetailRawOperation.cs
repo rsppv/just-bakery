@@ -12,15 +12,14 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RecipeComposition
+    public partial class DetailRawOperation
     {
-        public System.Guid RacipeCompositionID { get; set; }
-        public System.Guid RecipeID { get; set; }
-        public System.Guid RawTypeID { get; set; }
-        public string Units { get; set; }
+        public System.Guid RecordID { get; set; }
+        public System.Guid RawLogRecordID { get; set; }
+        public System.Guid RawID { get; set; }
         public int Count { get; set; }
     
-        public virtual Recipe Recipe { get; set; }
-        public virtual RawType RawType { get; set; }
+        public virtual Raw Raw { get; set; }
+        public virtual RawAccountingLog RawAccountingLog { get; set; }
     }
 }

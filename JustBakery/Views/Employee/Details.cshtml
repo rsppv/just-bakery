@@ -1,0 +1,58 @@
+﻿@model JustBakery.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DismissalDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DismissalDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bakery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bakery.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position.ShortName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

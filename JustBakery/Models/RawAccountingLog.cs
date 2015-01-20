@@ -14,6 +14,11 @@ namespace JustBakery.Models
     
     public partial class RawAccountingLog
     {
+        public RawAccountingLog()
+        {
+            this.DetailRawOperation = new HashSet<DetailRawOperation>();
+        }
+    
         public System.Guid LogRecordID { get; set; }
         public System.Guid OperationTypeID { get; set; }
         public System.Guid StockID { get; set; }
@@ -26,5 +31,6 @@ namespace JustBakery.Models
         public virtual Supplier Supplier { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual OperationType OperationType { get; set; }
+        public virtual ICollection<DetailRawOperation> DetailRawOperation { get; set; }
     }
 }

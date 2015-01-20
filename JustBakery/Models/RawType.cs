@@ -16,14 +16,14 @@ namespace JustBakery.Models
     {
         public RawType()
         {
-            this.RecipeComposition = new HashSet<RecipeComposition>();
+            this.Ingridient = new HashSet<Ingridient>();
             this.Raw = new HashSet<Raw>();
         }
     
         public System.Guid RawTypeID { get; set; }
         public string Type { get; set; }
     
-        public virtual ICollection<RecipeComposition> RecipeComposition { get; set; }
+        public virtual ICollection<Ingridient> Ingridient { get; set; }
         public virtual ICollection<Raw> Raw { get; set; }
     }
 }

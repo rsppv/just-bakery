@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BakeryDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище BakeryDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cклады">
           <Key>
             <PropertyRef Name="ID_Склада" />
@@ -13,25 +13,6 @@
           <Property Name="Тип склада" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Адрес" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ID_Пекарни" Type="uniqueidentifier" />
-        </EntityType>
-        <EntityType Name="Аккаунты">
-          <Key>
-            <PropertyRef Name="ID_Аккаунта" />
-          </Key>
-          <Property Name="ID_Аккаунта" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ID_Личности" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Логин" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="Пароль" Type="nvarchar" MaxLength="32" Nullable="false" />
-          <Property Name="Дата регистрации" Type="datetime" Nullable="false" />
-          <Property Name="Соль" Type="nvarchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Аккаунты - Роли">
-          <Key>
-            <PropertyRef Name="ID_Аккаунта" />
-            <PropertyRef Name="ID_Роли" />
-          </Key>
-          <Property Name="ID_Аккаунта" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ID_Роли" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Личности">
           <Key>
@@ -92,13 +73,6 @@
           <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Название" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Описание" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Роли пользователей">
-          <Key>
-            <PropertyRef Name="ID_роли" />
-          </Key>
-          <Property Name="ID_роли" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Роль" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Состав рецепта">
           <Key>
@@ -212,28 +186,15 @@
           <Property Name="ID_Продукции" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Количество" Type="int" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "Bakery.dbo.СлучайнаяДатаНачалаРаботы" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="СлучайнаяДатаНачалаРаботы">
-          <Property Name="V" Type="datetime" />
-        </EntityType>-->
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "Bakery.dbo.СлучайнаяДатаРождения" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="СлучайнаяДатаРождения">
-          <Property Name="V" Type="datetime" />
-        </EntityType>-->
-        <Association Name="FK_Аккаунты_Личности">
-          <End Role="Личности" Type="Self.Личности" Multiplicity="1" />
-          <End Role="Аккаунты" Type="Self.Аккаунты" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Личности">
-              <PropertyRef Name="ID_Личности" />
-            </Principal>
-            <Dependent Role="Аккаунты">
-              <PropertyRef Name="ID_Личности" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="Состав операций по сырью">
+          <Key>
+            <PropertyRef Name="ID_Состава операции по сырью" />
+          </Key>
+          <Property Name="ID_Состава операции по сырью" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_Записи журнала сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_сырья" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Количество" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Журнал учета продукции_Покупатели">
           <End Role="Покупатели" Type="Self.Покупатели" Multiplicity="0..1" />
           <End Role="Журнал учета продукции" Type="Self.Журнал учета продукции" Multiplicity="*" />
@@ -462,6 +423,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Состав операций по сырью_Журнал учета сырья">
+          <End Role="Журнал учета сырья" Type="Self.Журнал учета сырья" Multiplicity="1" />
+          <End Role="Состав операций по сырью" Type="Self.Состав операций по сырью" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Журнал учета сырья">
+              <PropertyRef Name="ID_Записи журнала сырья" />
+            </Principal>
+            <Dependent Role="Состав операций по сырью">
+              <PropertyRef Name="ID_Записи журнала сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав операций по сырью_Сырье">
+          <End Role="Сырье" Type="Self.Сырье" Multiplicity="1" />
+          <End Role="Состав операций по сырью" Type="Self.Состав операций по сырью" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сырье">
+              <PropertyRef Name="ID_Сырья" />
+            </Principal>
+            <Dependent Role="Состав операций по сырью">
+              <PropertyRef Name="ID_сырья" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Состав рецепта_Рецепты">
           <End Role="Рецепты" Type="Self.Рецепты" Multiplicity="1" />
           <End Role="Состав рецепта" Type="Self.Состав рецепта" Multiplicity="*" />
@@ -538,15 +523,12 @@
         <Function Name="Случайная_Дата_Рождения" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Случайная Дата Рождения" ReturnType="nvarchar" />
         <EntityContainer Name="Хранилище BakeryDataModelContainer">
           <EntitySet Name="Cклады" EntityType="Self.Cклады" Schema="Class" store:Type="Tables" />
-          <EntitySet Name="Аккаунты" EntityType="Self.Аккаунты" Schema="Class" store:Type="Tables" />
-          <EntitySet Name="Аккаунты - Роли" EntityType="Self.Аккаунты - Роли" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Личности" EntityType="Self.Личности" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Пекарни" EntityType="Self.Пекарни" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Покупатели" EntityType="Self.Покупатели" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Поставщики" EntityType="Self.Поставщики" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Продукция" EntityType="Self.Продукция" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Рецепты" EntityType="Self.Рецепты" Schema="Class" store:Type="Tables" />
-          <EntitySet Name="Роли пользователей" EntityType="Self.Роли пользователей" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Состав рецепта" EntityType="Self.Состав рецепта" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="Class" store:Type="Tables" />
           <EntitySet Name="Сырье" EntityType="Self.Сырье" Schema="Class" store:Type="Tables" />
@@ -559,10 +541,7 @@
           <EntitySet Name="Остатки продукции на складе" EntityType="Self.Остатки продукции на складе" Schema="Reg" store:Type="Tables" />
           <EntitySet Name="Остатки сырья на складе" EntityType="Self.Остатки сырья на складе" Schema="Reg" store:Type="Tables" />
           <EntitySet Name="Состав операций по продукции" EntityType="Self.Состав операций по продукции" Schema="Reg" store:Type="Tables" />
-          <AssociationSet Name="FK_Аккаунты_Личности" Association="Self.FK_Аккаунты_Личности">
-            <End Role="Личности" EntitySet="Личности" />
-            <End Role="Аккаунты" EntitySet="Аккаунты" />
-          </AssociationSet>
+          <EntitySet Name="Состав операций по сырью" EntityType="Self.Состав операций по сырью" Schema="Reg" store:Type="Tables" />
           <AssociationSet Name="FK_Журнал учета продукции_Покупатели" Association="Self.FK_Журнал учета продукции_Покупатели">
             <End Role="Покупатели" EntitySet="Покупатели" />
             <End Role="Журнал учета продукции" EntitySet="Журнал учета продукции" />
@@ -639,6 +618,14 @@
             <End Role="Продукция" EntitySet="Продукция" />
             <End Role="Состав операций по продукции" EntitySet="Состав операций по продукции" />
           </AssociationSet>
+          <AssociationSet Name="FK_Состав операций по сырью_Журнал учета сырья" Association="Self.FK_Состав операций по сырью_Журнал учета сырья">
+            <End Role="Журнал учета сырья" EntitySet="Журнал учета сырья" />
+            <End Role="Состав операций по сырью" EntitySet="Состав операций по сырью" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав операций по сырью_Сырье" Association="Self.FK_Состав операций по сырью_Сырье">
+            <End Role="Сырье" EntitySet="Сырье" />
+            <End Role="Состав операций по сырью" EntitySet="Состав операций по сырью" />
+          </AssociationSet>
           <AssociationSet Name="FK_Состав рецепта_Рецепты" Association="Self.FK_Состав рецепта_Рецепты">
             <End Role="Рецепты" EntitySet="Рецепты" />
             <End Role="Состав рецепта" EntitySet="Состав рецепта" />
@@ -664,8 +651,7 @@
             <End Role="Сырье" EntitySet="Сырье" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BakeryDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -683,26 +669,6 @@
           <NavigationProperty Name="RawResidue" Relationship="Self.FK_Остатки_сырья_на_складе_Склады" FromRole="Cклады" ToRole="Остатки_сырья_на_складе" />
           <NavigationProperty Name="Bakery" Relationship="Self.FK_Склад_Пекарня" FromRole="Cклады" ToRole="Пекарни" />
         </EntityType>
-        <EntityType Name="Account">
-          <Key>
-            <PropertyRef Name="AccountID" />
-          </Key>
-          <Property Name="AccountID" Type="Guid" Nullable="false" />
-          <Property Name="PersonID" Type="Guid" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pass" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RegestrationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Salt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Аккаунты_Личности" FromRole="Аккаунты" ToRole="Личности" />
-        </EntityType>
-        <EntityType Name="AccountRole">
-          <Key>
-            <PropertyRef Name="AccountID" />
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="AccountID" Type="Guid" Nullable="false" />
-          <Property Name="RoleID" Type="Guid" Nullable="false" />
-        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="PersonID" />
@@ -714,7 +680,6 @@
           <Property Name="BirthDay" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Аккаунты_Личности" FromRole="Личности" ToRole="Аккаунты" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Покупатели_Личности" FromRole="Личности" ToRole="Покупатели" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Поставщики_Личности" FromRole="Личности" ToRole="Поставщики" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Сотрудники_Личности" FromRole="Личности" ToRole="Сотрудники" />
@@ -777,20 +742,13 @@
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Рецепты_Продукция" FromRole="Рецепты" ToRole="Продукция" />
-          <NavigationProperty Name="RecipeComposition" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Рецепты" ToRole="Состав_рецепта" />
+          <NavigationProperty Name="Ingridients" Relationship="Self.FK_Состав_рецепта_Рецепты" FromRole="Рецепты" ToRole="Состав_рецепта" />
         </EntityType>
-        <EntityType Name="UserRole">
+        <EntityType Name="Ingridient">
           <Key>
-            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="IngridientID" />
           </Key>
-          <Property Name="RoleID" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RecipeComposition">
-          <Key>
-            <PropertyRef Name="RacipeCompositionID" />
-          </Key>
-          <Property Name="RacipeCompositionID" Type="Guid" Nullable="false" />
+          <Property Name="IngridientID" Type="Guid" Nullable="false" />
           <Property Name="RecipeID" Type="Guid" Nullable="false" />
           <Property Name="RawTypeID" Type="Guid" Nullable="false" />
           <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -825,6 +783,7 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="RawResidue" Relationship="Self.FK_Остатки_сырья_на_складе_Сырье" FromRole="Сырье" ToRole="Остатки_сырья_на_складе" />
           <NavigationProperty Name="RawType" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Сырье" ToRole="Справочник_типов_сырья" />
+          <NavigationProperty Name="DetailRawOperation" Relationship="BakeryDataModel.FK_Состав_операций_по_сырью_Сырье" FromRole="Raw" ToRole="Состав_операций_по_сырью" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -859,7 +818,7 @@
           </Key>
           <Property Name="RawTypeID" Type="Guid" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="RecipeComposition" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Состав_рецепта" />
+          <NavigationProperty Name="Ingridient" Relationship="Self.FK_Состав_рецепта_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Состав_рецепта" />
           <NavigationProperty Name="Raw" Relationship="Self.FK_Сырье_Справочник_типов_сырья" FromRole="Справочник_типов_сырья" ToRole="Сырье" />
         </EntityType>
         <EntityType Name="ProductAccountingLog">
@@ -894,6 +853,7 @@
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Журнал_учета_сырья_Поставщики" FromRole="Журнал_учета_сырья" ToRole="Поставщики" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Журнал_учета_сырья_Сотрудники" FromRole="Журнал_учета_сырья" ToRole="Сотрудники" />
           <NavigationProperty Name="OperationType" Relationship="Self.FK_Журнал_учета_сырья_Справочник_типов_операций" FromRole="Журнал_учета_сырья" ToRole="Справочник_типов_операций" />
+          <NavigationProperty Name="DetailRawOperation" Relationship="BakeryDataModel.FK_Состав_операций_по_сырью_Журнал_учета_сырья" FromRole="RawAccountingLog" ToRole="Состав_операций_по_сырью" />
         </EntityType>
         <EntityType Name="ProductResidue">
           <Key>
@@ -985,18 +945,6 @@
             </Principal>
             <Dependent Role="Cклады">
               <PropertyRef Name="BakeryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Аккаунты_Личности">
-          <End Role="Личности" Type="BakeryDataModel.Person" Multiplicity="1" />
-          <End Role="Аккаунты" Type="BakeryDataModel.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Личности">
-              <PropertyRef Name="PersonID" />
-            </Principal>
-            <Dependent Role="Аккаунты">
-              <PropertyRef Name="PersonID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1122,7 +1070,7 @@
         </Association>
         <Association Name="FK_Состав_рецепта_Рецепты">
           <End Role="Рецепты" Type="BakeryDataModel.Recipe" Multiplicity="1" />
-          <End Role="Состав_рецепта" Type="BakeryDataModel.RecipeComposition" Multiplicity="*" />
+          <End Role="Состав_рецепта" Type="BakeryDataModel.Ingridient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Рецепты">
               <PropertyRef Name="RecipeID" />
@@ -1134,7 +1082,7 @@
         </Association>
         <Association Name="FK_Состав_рецепта_Справочник_типов_сырья">
           <End Role="Справочник_типов_сырья" Type="BakeryDataModel.RawType" Multiplicity="1" />
-          <End Role="Состав_рецепта" Type="BakeryDataModel.RecipeComposition" Multiplicity="*" />
+          <End Role="Состав_рецепта" Type="BakeryDataModel.Ingridient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Справочник_типов_сырья">
               <PropertyRef Name="RawTypeID" />
@@ -1242,16 +1190,13 @@
         </Association>
         <EntityContainer Name="BakeryEntitiesHome" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Stocks" EntityType="BakeryDataModel.Stock" />
-          <EntitySet Name="Accounts" EntityType="BakeryDataModel.Account" />
-          <EntitySet Name="AccountsRoles" EntityType="BakeryDataModel.AccountRole" />
           <EntitySet Name="Persons" EntityType="BakeryDataModel.Person" />
           <EntitySet Name="Bakeries" EntityType="BakeryDataModel.Bakery" />
           <EntitySet Name="Customers" EntityType="BakeryDataModel.Customer" />
           <EntitySet Name="Suppliers" EntityType="BakeryDataModel.Supplier" />
           <EntitySet Name="Products" EntityType="BakeryDataModel.Product" />
           <EntitySet Name="Recipies" EntityType="BakeryDataModel.Recipe" />
-          <EntitySet Name="UserRoles" EntityType="BakeryDataModel.UserRole" />
-          <EntitySet Name="RecipeCompositions" EntityType="BakeryDataModel.RecipeComposition" />
+          <EntitySet Name="RecipeCompositions" EntityType="BakeryDataModel.Ingridient" />
           <EntitySet Name="Employees" EntityType="BakeryDataModel.Employee" />
           <EntitySet Name="Raw" EntityType="BakeryDataModel.Raw" />
           <EntitySet Name="Positions" EntityType="BakeryDataModel.Position" />
@@ -1282,10 +1227,6 @@
           <AssociationSet Name="FK_Склад_Пекарня" Association="Self.FK_Склад_Пекарня">
             <End Role="Пекарни" EntitySet="Bakeries" />
             <End Role="Cклады" EntitySet="Stocks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Аккаунты_Личности" Association="Self.FK_Аккаунты_Личности">
-            <End Role="Личности" EntitySet="Persons" />
-            <End Role="Аккаунты" EntitySet="Accounts" />
           </AssociationSet>
           <AssociationSet Name="FK_Покупатели_Личности" Association="Self.FK_Покупатели_Личности">
             <End Role="Личности" EntitySet="Persons" />
@@ -1367,7 +1308,51 @@
             <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
             <End Role="Состав_операций_по_продукции" EntitySet="DetailsProductOperation" />
           </AssociationSet>
+          <EntitySet Name="DetailsRawOperation" EntityType="BakeryDataModel.DetailRawOperation" />
+          <AssociationSet Name="FK_Состав_операций_по_сырью_Сырье" Association="BakeryDataModel.FK_Состав_операций_по_сырью_Сырье">
+            <End Role="Raw" EntitySet="Raw" />
+            <End Role="Состав_операций_по_сырью" EntitySet="DetailsRawOperation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_операций_по_сырью_Журнал_учета_сырья" Association="BakeryDataModel.FK_Состав_операций_по_сырью_Журнал_учета_сырья">
+            <End Role="RawAccountingLog" EntitySet="RawAccountingLogs" />
+            <End Role="Состав_операций_по_сырью" EntitySet="DetailsRawOperation" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DetailRawOperation">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Guid" Nullable="false" />
+          <Property Name="RawLogRecordID" Type="Guid" Nullable="false" />
+          <Property Name="RawID" Type="Guid" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Raw" Relationship="BakeryDataModel.FK_Состав_операций_по_сырью_Сырье" FromRole="Состав_операций_по_сырью" ToRole="Raw" />
+          <NavigationProperty Name="RawAccountingLog" Relationship="BakeryDataModel.FK_Состав_операций_по_сырью_Журнал_учета_сырья" FromRole="Состав_операций_по_сырью" ToRole="RawAccountingLog" />
+        </EntityType>
+        <Association Name="FK_Состав_операций_по_сырью_Сырье">
+          <End Type="BakeryDataModel.Raw" Role="Raw" Multiplicity="1" />
+          <End Type="BakeryDataModel.DetailRawOperation" Role="Состав_операций_по_сырью" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raw">
+              <PropertyRef Name="RawID" />
+            </Principal>
+            <Dependent Role="Состав_операций_по_сырью">
+              <PropertyRef Name="RawID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_операций_по_сырью_Журнал_учета_сырья">
+          <End Type="BakeryDataModel.RawAccountingLog" Role="RawAccountingLog" Multiplicity="1" />
+          <End Type="BakeryDataModel.DetailRawOperation" Role="Состав_операций_по_сырью" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawAccountingLog">
+              <PropertyRef Name="LogRecordID" />
+            </Principal>
+            <Dependent Role="Состав_операций_по_сырью">
+              <PropertyRef Name="RawLogRecordID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1381,26 +1366,6 @@
                 <ScalarProperty Name="StockType" ColumnName="Тип склада" />
                 <ScalarProperty Name="Address" ColumnName="Адрес" />
                 <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="BakeryDataModel.Account">
-              <MappingFragment StoreEntitySet="Аккаунты">
-                <ScalarProperty Name="AccountID" ColumnName="ID_Аккаунта" />
-                <ScalarProperty Name="PersonID" ColumnName="ID_Личности" />
-                <ScalarProperty Name="Login" ColumnName="Логин" />
-                <ScalarProperty Name="Pass" ColumnName="Пароль" />
-                <ScalarProperty Name="RegestrationDate" ColumnName="Дата регистрации" />
-                <ScalarProperty Name="Salt" ColumnName="Соль" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AccountsRoles">
-            <EntityTypeMapping TypeName="BakeryDataModel.AccountRole">
-              <MappingFragment StoreEntitySet="Аккаунты - Роли">
-                <ScalarProperty Name="AccountID" ColumnName="ID_Аккаунта" />
-                <ScalarProperty Name="RoleID" ColumnName="ID_Роли" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1470,18 +1435,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserRoles">
-            <EntityTypeMapping TypeName="BakeryDataModel.UserRole">
-              <MappingFragment StoreEntitySet="Роли пользователей">
-                <ScalarProperty Name="RoleID" ColumnName="ID_роли" />
-                <ScalarProperty Name="Name" ColumnName="Роль" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RecipeCompositions">
-            <EntityTypeMapping TypeName="BakeryDataModel.RecipeComposition">
+            <EntityTypeMapping TypeName="BakeryDataModel.Ingridient">
               <MappingFragment StoreEntitySet="Состав рецепта">
-                <ScalarProperty Name="RacipeCompositionID" ColumnName="ID_Состава рецепта" />
+                <ScalarProperty Name="IngridientID" ColumnName="ID_Состава рецепта" />
                 <ScalarProperty Name="RecipeID" ColumnName="ID_Рецепта" />
                 <ScalarProperty Name="RawTypeID" ColumnName="ID_Типа сырья" />
                 <ScalarProperty Name="Units" ColumnName="Ед. измерения" />
@@ -1599,6 +1556,16 @@
                 <ScalarProperty Name="ProductLogRecordID" ColumnName="ID_Записи журнала продукции" />
                 <ScalarProperty Name="ProductID" ColumnName="ID_Продукции" />
                 <ScalarProperty Name="Count" ColumnName="Количество" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailsRawOperation">
+            <EntityTypeMapping TypeName="BakeryDataModel.DetailRawOperation">
+              <MappingFragment StoreEntitySet="Состав операций по сырью">
+                <ScalarProperty Name="Count" ColumnName="Количество" />
+                <ScalarProperty Name="RawID" ColumnName="ID_сырья" />
+                <ScalarProperty Name="RawLogRecordID" ColumnName="ID_Записи журнала сырья" />
+                <ScalarProperty Name="RecordID" ColumnName="ID_Состава операции по сырью" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

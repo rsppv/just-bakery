@@ -17,6 +17,7 @@ namespace JustBakery.Models
         public Raw()
         {
             this.RawResidue = new HashSet<RawResidue>();
+            this.DetailRawOperation = new HashSet<DetailRawOperation>();
         }
     
         public System.Guid RawID { get; set; }
@@ -27,5 +28,6 @@ namespace JustBakery.Models
     
         public virtual ICollection<RawResidue> RawResidue { get; set; }
         public virtual RawType RawType { get; set; }
+        public virtual ICollection<DetailRawOperation> DetailRawOperation { get; set; }
     }
 }

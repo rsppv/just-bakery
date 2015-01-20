@@ -16,7 +16,6 @@ namespace JustBakery.Models
     {
         public Person()
         {
-            this.Account = new HashSet<Account>();
             this.Customer = new HashSet<Customer>();
             this.Supplier = new HashSet<Supplier>();
             this.Employee = new HashSet<Employee>();
@@ -30,7 +29,6 @@ namespace JustBakery.Models
         public string Address { get; set; }
         public string Phone { get; set; }
     
-        public virtual ICollection<Account> Account { get; set; }
         public virtual ICollection<Customer> Customer { get; set; }
         public virtual ICollection<Supplier> Supplier { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }

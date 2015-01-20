@@ -12,15 +12,15 @@ namespace JustBakery.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class Ingridient
     {
-        public System.Guid AccountID { get; set; }
-        public System.Guid PersonID { get; set; }
-        public string Login { get; set; }
-        public string Pass { get; set; }
-        public System.DateTime RegestrationDate { get; set; }
-        public string Salt { get; set; }
+        public System.Guid IngridientID { get; set; }
+        public System.Guid RecipeID { get; set; }
+        public System.Guid RawTypeID { get; set; }
+        public string Units { get; set; }
+        public int Count { get; set; }
     
-        public virtual Person Person { get; set; }
+        public virtual Recipe Recipe { get; set; }
+        public virtual RawType RawType { get; set; }
     }
 }

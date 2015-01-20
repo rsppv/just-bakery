@@ -16,7 +16,7 @@ namespace JustBakery.Models
     {
         public Recipe()
         {
-            this.RecipeComposition = new HashSet<RecipeComposition>();
+            this.Ingridients = new HashSet<Ingridient>();
         }
     
         public System.Guid RecipeID { get; set; }
@@ -25,6 +25,6 @@ namespace JustBakery.Models
         public string Description { get; set; }
     
         public virtual Product Product { get; set; }
-        public virtual ICollection<RecipeComposition> RecipeComposition { get; set; }
+        public virtual ICollection<Ingridient> Ingridients { get; set; }
     }
 }
