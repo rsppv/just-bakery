@@ -810,7 +810,7 @@
           </Key>
           <Property Name="ProductTypeID" Type="Guid" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Справочник_типов_продукции" ToRole="Продукция" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Справочник_типов_продукции" ToRole="Продукция" />
         </EntityType>
         <EntityType Name="RawType">
           <Key>

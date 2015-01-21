@@ -1,57 +1,84 @@
-﻿@model IEnumerable<JustBakery.Models.Product>
+﻿@model JustBakery.Models.ProductViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Продукция";
 }
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked sidebar">
+                @foreach (var cat in Model.Categories)
+                {
+                    string selectedRow = "";
+                    if (cat.ProductTypeID == ViewBag.CategoryID)
+                    {
+                        selectedRow = "active";
+                    }
 
-<h2>Index</h2>
+                    <li class="@selectedRow">
+                        <a href="@Url.Action("Index", new { id = cat.ProductTypeID })">@cat.Type</a>
+                    </li>
+                }
+            </ul>
+            @*@Html.Action("GetCategories","Product")*@
+        </div>
+        <div class="col-md-9">
+            <h2 class="page-header">Продукция</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Units)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductType.Type)
-        </th>
-        <th></th>
-    </tr>
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Units)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductType.Type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-        </td>
-    </tr>
-}
+            @if (Model.Products != null)
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.First().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.First().Units)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.First().Image)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.First().Cost)
+                        </th>
+                        <th></th>
+                    </tr>
 
-</table>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Units)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Image)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cost)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = item.ProductID })" class="btn btn-default btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a href="@Url.Action("Details", new { id = item.ProductID })" class="btn btn-default btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.ProductID })" class="btn btn-default btn-xs" role="button">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+        </div>
+    </div>
+</div>

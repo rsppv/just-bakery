@@ -140,6 +140,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Serialization" />
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -238,6 +239,7 @@
     <Compile Include="Models\ProductType.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Raw.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
@@ -364,6 +366,7 @@
     <Content Include="Views\Raw\Details.cshtml" />
     <Content Include="Views\Raw\Edit.cshtml" />
     <Content Include="Views\Raw\Index.cshtml" />
+    <Content Include="Views\Shared\CategoriesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

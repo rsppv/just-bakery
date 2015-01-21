@@ -16,12 +16,12 @@ namespace JustBakery.Models
     {
         public ProductType()
         {
-            this.Product = new HashSet<Product>();
+            this.Products = new HashSet<Product>();
         }
     
         public System.Guid ProductTypeID { get; set; }
         public string Type { get; set; }
     
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

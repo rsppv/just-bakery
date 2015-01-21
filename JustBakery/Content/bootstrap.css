@@ -242,6 +242,20 @@ th {
   select {
     background: #fff !important;
   }
+  .sidebar {
+    position: fixed;
+    /*top: 51px;*/
+    margin-top: 10px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
   .navbar {
     display: none;
   }
