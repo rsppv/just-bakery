@@ -140,6 +140,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -163,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -183,7 +185,6 @@
       <DependentUpon>201501181706348_First.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bakery.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
@@ -239,7 +240,6 @@
     <Compile Include="Models\ProductType.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Raw.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
@@ -261,8 +261,11 @@
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ProductDetailsViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\RecipeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

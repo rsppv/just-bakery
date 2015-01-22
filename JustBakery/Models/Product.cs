@@ -16,8 +16,8 @@ namespace JustBakery.Models
     {
         public Product()
         {
-            this.ProductResidue = new HashSet<ProductResidue>();
-            this.Recipe = new HashSet<Recipe>();
+            this.ProductResidues = new HashSet<ProductResidue>();
+            this.Recipes = new HashSet<Recipe>();
             this.DetailProductOperation = new HashSet<DetailProductOperation>();
         }
     
@@ -28,9 +28,9 @@ namespace JustBakery.Models
         public byte[] Image { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<ProductResidue> ProductResidue { get; set; }
+        public virtual ICollection<ProductResidue> ProductResidues { get; set; }
         public virtual ProductType ProductType { get; set; }
-        public virtual ICollection<Recipe> Recipe { get; set; }
+        public virtual ICollection<Recipe> Recipes { get; set; }
         public virtual ICollection<DetailProductOperation> DetailProductOperation { get; set; }
     }
 }

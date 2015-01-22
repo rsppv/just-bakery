@@ -31,8 +31,8 @@ namespace JustBakery.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Recipe> Recipies { get; set; }
-        public virtual DbSet<Ingridient> RecipeCompositions { get; set; }
+        public virtual DbSet<Recipe> Recipes { get; set; }
+        public virtual DbSet<Ingridient> Ingridients { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Raw> Raw { get; set; }
         public virtual DbSet<Position> Positions { get; set; }

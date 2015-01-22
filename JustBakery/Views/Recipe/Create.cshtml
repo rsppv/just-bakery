@@ -1,25 +1,25 @@
 ﻿@model JustBakery.Models.Recipe
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Новый рецепт";
 }
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Recipe</h4>
+        <h3>Новый рецепт</h3>
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductID, "ProductID", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Product.Name, "Продукт", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ProductID", String.Empty)
+                @Html.DropDownList("ProductDropdown1", ViewBag.ProductList as SelectList)
                 @Html.ValidationMessageFor(model => model.ProductID)
             </div>
         </div>
@@ -35,8 +35,23 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description)
                 @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ingridients, "Ингридиенты", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IngridientDropdown1", ViewBag.IngridientList as SelectList)
+                @Html.TextBox("sda")
+                @Html.DropDownList("UnitsDropdown1", new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = "шт", Value = "1", Selected = true},
+                    new SelectListItem() { Text = "гр", Value = "2"},
+                    new SelectListItem() { Text = "кг", Value = "3"},
+                    new SelectListItem() { Text = "т", Value = "4"}
+                }, "Ед. изм.")
             </div>
         </div>
 

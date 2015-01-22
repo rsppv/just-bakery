@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using JustBakery.Models;
+using JustBakery.ViewModel;
 
 namespace JustBakery.Controllers
 {
@@ -18,6 +20,7 @@ namespace JustBakery.Controllers
     //  var products = db.Products.Include(p => p.ProductType).Where(p => p.ProductType.ProductTypeID == categoryId);
     //  return View(products.ToList());
     //}
+
 
     public ActionResult Index(Guid? id)
     {
@@ -46,6 +49,41 @@ namespace JustBakery.Controllers
     //}
 
 
+    //public ActionResult RecipeList()
+    //{
+    //  var Recipes = db.Recipes.Include(r => r.Ingridients);  
+    //  return View(Recipes.ToList());
+    //}
+
+    //public ActionResult ViewRecipe(Guid? productId)
+    //{
+    //  if (productId == null)
+    //  {
+    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+    //  }
+    //  var Recipes = db.Products.Find(productId).Recipes;
+    //  if (Recipes == null)
+    //  {
+    //    return HttpNotFound();
+    //  }
+
+    //  return View(Recipes.ToList());
+    //}
+
+    //public ActionResult RecipeDetails(Guid? id)
+    //{
+    //  if (id == null)
+    //  {
+    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+    //  }
+    //  Recipe recipe = db.Recipes.Find(id);
+    //  if (recipe == null)
+    //  {
+    //    return HttpNotFound();
+    //  }
+    //  return View(recipe);
+    //}
+    
     // GET: /Product/Details/5
     public ActionResult Details(Guid? id)
     {
@@ -53,12 +91,14 @@ namespace JustBakery.Controllers
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
-      Product product = db.Products.Find(id);
-      if (product == null)
+      ProductDetailsViewModel productViewModel = new ProductDetailsViewModel();
+      productViewModel.Product = db.Products.Find(id);
+      if (productViewModel.Product == null)
       {
         return HttpNotFound();
       }
-      return View(product);
+      productViewModel.Recipes = db.Recipes.Where(r => r.ProductID == id);
+      return View(productViewModel);
     }
 
     // GET: /Product/Create

@@ -1,4 +1,4 @@
-﻿@model JustBakery.Models.Product
+﻿@model JustBakery.ViewModel.ProductDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,51 +8,58 @@
 
 <div>
     <h4>Product</h4>
-	<hr />
+    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            @Html.DisplayNameFor(model => model.Product.Cost)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cost)
+            @Html.DisplayFor(model => model.Product.Cost)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Units)
+            @Html.DisplayNameFor(model => model.Product.Units)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Units)
+            @Html.DisplayFor(model => model.Product.Units)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image)
+            @Html.DisplayNameFor(model => model.Product.Image)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            @Html.DisplayFor(model => model.Product.Image)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductType.Type)
+            @Html.DisplayNameFor(model => model.Product.ProductType.Type)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductType.Type)
+            @Html.DisplayFor(model => model.Product.ProductType.Type)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.Product.ProductID }) |
+    @Html.ActionLink("Назад к списку", "Index")
 </p>
+<h4>Рецепты</h4>
+@foreach (var rec in Model.Recipes)
+{
+    <p>
+        @Html.ActionLink(rec.Name, "Details", "Recipe", htmlAttributes: new { id = rec.RecipeID })
+    </p>
+}

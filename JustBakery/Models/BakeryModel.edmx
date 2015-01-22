@@ -728,9 +728,9 @@
           <Property Name="Units" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ProductResidue" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Продукция" ToRole="Остатки_продукции_на_складе" />
+          <NavigationProperty Name="ProductResidues" Relationship="Self.FK_Остатки_продукции_на_складе_Продукция" FromRole="Продукция" ToRole="Остатки_продукции_на_складе" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_Продукция_Справочник_типов_продукции" FromRole="Продукция" ToRole="Справочник_типов_продукции" />
-          <NavigationProperty Name="Recipe" Relationship="Self.FK_Рецепты_Продукция" FromRole="Продукция" ToRole="Рецепты" />
+          <NavigationProperty Name="Recipes" Relationship="Self.FK_Рецепты_Продукция" FromRole="Продукция" ToRole="Рецепты" />
           <NavigationProperty Name="DetailProductOperation" Relationship="Self.FK_Состав_операций_по_продукции_Продукция" FromRole="Продукция" ToRole="Состав_операций_по_продукции" />
         </EntityType>
         <EntityType Name="Recipe">
@@ -1195,8 +1195,8 @@
           <EntitySet Name="Customers" EntityType="BakeryDataModel.Customer" />
           <EntitySet Name="Suppliers" EntityType="BakeryDataModel.Supplier" />
           <EntitySet Name="Products" EntityType="BakeryDataModel.Product" />
-          <EntitySet Name="Recipies" EntityType="BakeryDataModel.Recipe" />
-          <EntitySet Name="RecipeCompositions" EntityType="BakeryDataModel.Ingridient" />
+          <EntitySet Name="Recipes" EntityType="BakeryDataModel.Recipe" />
+          <EntitySet Name="Ingridients" EntityType="BakeryDataModel.Ingridient" />
           <EntitySet Name="Employees" EntityType="BakeryDataModel.Employee" />
           <EntitySet Name="Raw" EntityType="BakeryDataModel.Raw" />
           <EntitySet Name="Positions" EntityType="BakeryDataModel.Position" />
@@ -1262,19 +1262,19 @@
           </AssociationSet>
           <AssociationSet Name="FK_Рецепты_Продукция" Association="Self.FK_Рецепты_Продукция">
             <End Role="Продукция" EntitySet="Products" />
-            <End Role="Рецепты" EntitySet="Recipies" />
+            <End Role="Рецепты" EntitySet="Recipes" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_операций_по_продукции_Продукция" Association="Self.FK_Состав_операций_по_продукции_Продукция">
             <End Role="Продукция" EntitySet="Products" />
             <End Role="Состав_операций_по_продукции" EntitySet="DetailsProductOperation" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_рецепта_Рецепты" Association="Self.FK_Состав_рецепта_Рецепты">
-            <End Role="Рецепты" EntitySet="Recipies" />
-            <End Role="Состав_рецепта" EntitySet="RecipeCompositions" />
+            <End Role="Рецепты" EntitySet="Recipes" />
+            <End Role="Состав_рецепта" EntitySet="Ingridients" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_рецепта_Справочник_типов_сырья" Association="Self.FK_Состав_рецепта_Справочник_типов_сырья">
             <End Role="Справочник_типов_сырья" EntitySet="RawTypes" />
-            <End Role="Состав_рецепта" EntitySet="RecipeCompositions" />
+            <End Role="Состав_рецепта" EntitySet="Ingridients" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Сотрудники" Association="Self.FK_Журнал_учета_продукции_Сотрудники">
             <End Role="Сотрудники" EntitySet="Employees" />
@@ -1425,7 +1425,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Recipies">
+          <EntitySetMapping Name="Recipes">
             <EntityTypeMapping TypeName="BakeryDataModel.Recipe">
               <MappingFragment StoreEntitySet="Рецепты">
                 <ScalarProperty Name="RecipeID" ColumnName="ID_Рецепта" />
@@ -1435,7 +1435,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RecipeCompositions">
+          <EntitySetMapping Name="Ingridients">
             <EntityTypeMapping TypeName="BakeryDataModel.Ingridient">
               <MappingFragment StoreEntitySet="Состав рецепта">
                 <ScalarProperty Name="IngridientID" ColumnName="ID_Состава рецепта" />

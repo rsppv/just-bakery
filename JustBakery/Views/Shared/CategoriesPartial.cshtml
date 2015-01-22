@@ -1,0 +1,16 @@
+﻿@model IEnumerable<JustBakery.Models.ProductType>
+
+@{
+    var first = Model.First();
+}
+
+<ul class="nav nav-pills nav-stacked sidebar">
+    <li class="active">
+        <a href="@Url.Action("Index", "Product", new { id = first.ProductTypeID })">@first.Type<span class="sr-only">(current)</span></a>
+    </li>
+    @foreach (var model in Model.Where(model => model.ProductTypeID != first.ProductTypeID))
+    {
+        <li><a href="@Url.Action("Index", "Product", new {id = model.ProductTypeID})">model.Type</a></li>
+    }
+</ul>
+
