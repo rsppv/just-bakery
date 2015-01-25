@@ -1,0 +1,42 @@
+﻿@model JustBakery.Models.ProductResidue
+
+@{
+    ViewBag.Title = "Подробно";
+}
+
+<h2>Подробно о записи</h2>
+
+<div>
+    <h4>Остаток продукции на складе</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.StockType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Units)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Units)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditResidue", "Product", new { id = Model.ProductResidueID }, null) |
+    @Html.ActionLink("Back to List", "Residue", "Product")
+</p>

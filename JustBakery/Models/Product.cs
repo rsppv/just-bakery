@@ -7,30 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JustBakery.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Product
+  using System;
+  using System.Collections.Generic;
+
+  public partial class Product
+  {
+    public Product()
     {
-        public Product()
-        {
-            this.ProductResidues = new HashSet<ProductResidue>();
-            this.Recipes = new HashSet<Recipe>();
-            this.DetailProductOperation = new HashSet<DetailProductOperation>();
-        }
-    
-        public System.Guid ProductID { get; set; }
-        public System.Guid ProductTypeID { get; set; }
-        public Nullable<int> Cost { get; set; }
-        public string Units { get; set; }
-        public byte[] Image { get; set; }
-        public string Name { get; set; }
-    
-        public virtual ICollection<ProductResidue> ProductResidues { get; set; }
-        public virtual ProductType ProductType { get; set; }
-        public virtual ICollection<Recipe> Recipes { get; set; }
-        public virtual ICollection<DetailProductOperation> DetailProductOperation { get; set; }
+      this.ProductResidues = new HashSet<ProductResidue>();
+      this.Recipes = new HashSet<Recipe>();
+      this.DetailProductOperation = new HashSet<DetailProductOperation>();
     }
+
+    public System.Guid ProductID { get; set; }
+    [Display(Name = "Категория")]
+    public System.Guid ProductTypeID { get; set; }
+    [Display(Name = "Цена")]
+    public Nullable<int> Cost { get; set; }
+    [Display(Name = "Единицы измерния")]
+    public string Units { get; set; }
+    [Display(Name = "Изображение")]
+    public byte[] Image { get; set; }
+    [Display(Name = "Название")]
+    public string Name { get; set; }
+
+    public virtual ICollection<ProductResidue> ProductResidues { get; set; }
+    public virtual ProductType ProductType { get; set; }
+    public virtual ICollection<Recipe> Recipes { get; set; }
+    public virtual ICollection<DetailProductOperation> DetailProductOperation { get; set; }
+  }
 }

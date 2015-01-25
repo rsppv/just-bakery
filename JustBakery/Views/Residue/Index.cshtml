@@ -1,0 +1,45 @@
+﻿@model IEnumerable<JustBakery.Models.ProductResidue>
+
+@{
+    ViewBag.Title = "Остатки продукции";
+}
+
+<h2>Остатки продукции на складе</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateResidue" , "Product")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Units)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock.StockType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Units)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditResidue", "Product", new { id = item.ProductResidueID}, null) |
+            @Html.ActionLink("Details", "DetailsResidue", "Product",  new { id = item.ProductResidueID }, null) |
+            @Html.ActionLink("Delete", "DeleteResidue", "Product",  new { id = item.ProductResidueID }, null)
+        </td>
+    </tr>
+}
+
+</table>

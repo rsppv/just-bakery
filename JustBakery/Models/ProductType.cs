@@ -7,21 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JustBakery.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ProductType
+  using System;
+  using System.Collections.Generic;
+
+  public partial class ProductType
+  {
+    public ProductType()
     {
-        public ProductType()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
-        public System.Guid ProductTypeID { get; set; }
-        public string Type { get; set; }
-    
-        public virtual ICollection<Product> Products { get; set; }
+      this.Products = new HashSet<Product>();
     }
+
+    public System.Guid ProductTypeID { get; set; }
+    [Display(Name = "Категория")]
+    public string Type { get; set; }
+
+    public virtual ICollection<Product> Products { get; set; }
+  }
 }

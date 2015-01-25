@@ -42,12 +42,6 @@ namespace JustBakery.Controllers
       return View(productViewModel);
     }
 
-    //public ActionResult GetCategories()
-    //{
-    //  var categories = db.ProductTypes.OrderBy(c => c.Type);
-    //  return PartialView("CategoriesPartial", categories.ToList());
-    //}
-
 
     //public ActionResult RecipeList()
     //{
@@ -83,8 +77,119 @@ namespace JustBakery.Controllers
     //  }
     //  return View(recipe);
     //}
-    
+
     // GET: /Product/Details/5
+
+    public ActionResult Residue(Guid? productId)
+    {
+      IEnumerable<ProductResidue> residues = 
+        productId == null 
+        ? db.ProductResidues.Include(r => r.Product) 
+        : db.ProductResidues.Where(r => r.ProductID == productId).Include(r => r.Product);
+
+      return View("~/Views/Residue/Index.cshtml", residues);
+    }
+
+    public ActionResult CreateResidue()
+    {
+      ViewBag.StockID = new SelectList(db.Stocks, "StockID", "Address");
+      ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name");
+      return View("~/Views/Residue/Create.cshtml");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult CreateResidue([Bind(Include = "ProductResidueID,StockID,ProductID,Count")]ProductResidue productResidue)
+    {
+      if (ModelState.IsValid)
+      {
+        productResidue.ProductResidueID = Guid.NewGuid();
+        db.ProductResidues.Add(productResidue);
+        try
+        {
+          db.SaveChanges();
+        }
+        catch (Exception e)
+        {
+          return View("Error");
+        }
+        return RedirectToAction("Residue");
+      }
+
+      return View("~/Views/Residue/Create.cshtml", productResidue);
+    }
+
+    public ActionResult EditResidue(Guid? id)
+    {
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      ProductResidue productResidue = db.ProductResidues.Find(id);
+      if (productResidue == null)
+      {
+        return HttpNotFound();
+      }
+      ViewBag.StockID = new SelectList(db.Stocks, "StockID", "Address");
+      ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name");
+
+      return View("~/Views/Residue/Edit.cshtml", productResidue);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult EditResidue(ProductResidue productResidue)
+    {
+      if (ModelState.IsValid)
+      {
+        db.Entry(productResidue).State = EntityState.Modified;
+        db.SaveChanges();
+        return RedirectToAction("Residue");
+      }
+      ViewBag.StockID = new SelectList(db.Stocks, "StockID", "Address");
+      ViewBag.ProductID = new SelectList(db.Products, "ProductID", "Name");
+      return View("~/Views/Residue/Edit.cshtml", productResidue);
+    }
+
+    public ActionResult DetailsResidue(Guid? id)
+    {
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      
+      ProductResidue residue = db.ProductResidues.Find(id);
+      if (residue == null)
+      {
+        return HttpNotFound();
+      }
+
+      return View("~/Views/Residue/Details.cshtml", residue);
+    }
+    public ActionResult DeleteResidue(Guid? id)
+    {
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      ProductResidue productResidue = db.ProductResidues.Find(id);
+      if (productResidue == null)
+      {
+        return HttpNotFound();
+      }
+      return View("~/Views/Residue/Delete.cshtml", productResidue);
+    }
+
+    [HttpPost, ActionName("DeleteResidue")]
+    [ValidateAntiForgeryToken]
+    public ActionResult DeleteResidueConfirmed(Guid id)
+    {
+      ProductResidue productResidue = db.ProductResidues.Find(id);
+      db.ProductResidues.Remove(productResidue);
+      db.SaveChanges();
+      return RedirectToAction("Residue");
+    }
+
     public ActionResult Details(Guid? id)
     {
       if (id == null)
@@ -194,5 +299,7 @@ namespace JustBakery.Controllers
       }
       base.Dispose(disposing);
     }
+
+
   }
 }

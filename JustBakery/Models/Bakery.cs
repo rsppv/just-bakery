@@ -7,24 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace JustBakery.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Bakery
+  using System;
+  using System.Collections.Generic;
+
+  public partial class Bakery
+  {
+    public Bakery()
     {
-        public Bakery()
-        {
-            this.Stock = new HashSet<Stock>();
-            this.Employee = new HashSet<Employee>();
-        }
-    
-        public System.Guid BakeryID { get; set; }
-        public string Name { get; set; }
-        public string FullAddress { get; set; }
-    
-        public virtual ICollection<Stock> Stock { get; set; }
-        public virtual ICollection<Employee> Employee { get; set; }
+      this.Stock = new HashSet<Stock>();
+      this.Employee = new HashSet<Employee>();
     }
+
+    public System.Guid BakeryID { get; set; }
+    [Display(Name = "Название")]
+    public string Name { get; set; }
+    [Display(Name = "Адрес")]
+    public string FullAddress { get; set; }
+
+    public virtual ICollection<Stock> Stock { get; set; }
+    public virtual ICollection<Employee> Employee { get; set; }
+  }
 }

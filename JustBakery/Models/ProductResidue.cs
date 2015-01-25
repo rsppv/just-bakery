@@ -7,19 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JustBakery.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class ProductResidue
-    {
-        public System.Guid ProductResidueID { get; set; }
-        public System.Guid StockID { get; set; }
-        public System.Guid ProductID { get; set; }
-        public int Count { get; set; }
-    
-        public virtual Stock Stock { get; set; }
-        public virtual Product Product { get; set; }
-    }
+  using System;
+  using System.Collections.Generic;
+
+  public partial class ProductResidue
+  {
+    public System.Guid ProductResidueID { get; set; }
+    [Display(Name = "Склад")]
+    public System.Guid StockID { get; set; }
+    [Display(Name = "Товар")]
+    public System.Guid ProductID { get; set; }
+    [Display(Name = "Количество")]
+    public int Count { get; set; }
+
+    public virtual Stock Stock { get; set; }
+    public virtual Product Product { get; set; }
+  }
 }

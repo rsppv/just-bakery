@@ -1,0 +1,47 @@
+﻿@model JustBakery.Models.ProductResidue
+
+@{
+    ViewBag.Title = "Удалить остаток продукции";
+}
+
+<h2>Delete</h2>
+
+<h3>Вы уверены, что хотите это удалить?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.StockType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Units)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Units)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Residue", "Product")
+        </div>
+    }
+</div>

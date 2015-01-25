@@ -7,20 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JustBakery.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Ingridient
-    {
-        public System.Guid IngridientID { get; set; }
-        public System.Guid RecipeID { get; set; }
-        public System.Guid RawTypeID { get; set; }
-        public string Units { get; set; }
-        public int Count { get; set; }
-    
-        public virtual Recipe Recipe { get; set; }
-        public virtual RawType RawType { get; set; }
-    }
+  using System;
+  using System.Collections.Generic;
+
+  public partial class Ingridient
+  {
+    public System.Guid IngridientID { get; set; }
+    [Display(Name = "Рецепт")]
+    public System.Guid RecipeID { get; set; }
+    [Display(Name = "Сырье")]
+    public System.Guid RawTypeID { get; set; }
+    [Display(Name = "Единицы измерения")]
+    public string Units { get; set; }
+    [Display(Name = "Количество")]
+    public int Count { get; set; }
+
+    public virtual Recipe Recipe { get; set; }
+    public virtual RawType RawType { get; set; }
+  }
 }
