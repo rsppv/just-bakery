@@ -32,20 +32,20 @@ namespace JustBakery.Controllers
 
     public ActionResult Vacancies()
     {
-      List<Vacancies> vacancies = new List<Vacancies>();
+      List<Перечень_вакансий_по_должности_Result> vacancies = new List<Перечень_вакансий_по_должности_Result>();
       foreach (Position position in db.Positions)
       {
-        vacancies.AddRange(db.VacancyListByPosition(position.PositionID));
+        vacancies.AddRange(db.Перечень_вакансий_по_должности(position.PositionID));
       }
-      vacancies.Select(
-        v =>
-          new
-          {
-            db.Positions.Find(v.PositionID).FullName,
-            db.Bakeries.Find(v.BakeryID).Name,
-            db.Bakeries.Find(v.BakeryID).FullAddress,
-            v.VacancyCount
-          });
+      //vacancies.Select(
+      //  v =>
+      //    new
+      //    {
+      //      db.Positions.Find(v.PositionID).FullName,
+      //      db.Bakeries.Find(v.BakeryID).Name,
+      //      db.Bakeries.Find(v.BakeryID).FullAddress,
+      //      v.VacancyCount
+      //    });
       return View(vacancies);
     }
   }

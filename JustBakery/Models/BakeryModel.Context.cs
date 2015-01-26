@@ -48,13 +48,13 @@ namespace JustBakery.Models
         public virtual DbSet<DetailProductOperation> DetailsProductOperation { get; set; }
         public virtual DbSet<DetailRawOperation> DetailsRawOperation { get; set; }
     
-        public virtual ObjectResult<Vacancies> VacancyListByPosition(Nullable<System.Guid> iD_Должности)
+        public virtual ObjectResult<Перечень_вакансий_по_должности_Result> Перечень_вакансий_по_должности(Nullable<System.Guid> iD_Должности)
         {
             var iD_ДолжностиParameter = iD_Должности.HasValue ?
                 new ObjectParameter("ID_Должности", iD_Должности) :
                 new ObjectParameter("ID_Должности", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Vacancies>("VacancyListByPosition", iD_ДолжностиParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Перечень_вакансий_по_должности_Result>("Перечень_вакансий_по_должности", iD_ДолжностиParameter);
         }
     }
 }

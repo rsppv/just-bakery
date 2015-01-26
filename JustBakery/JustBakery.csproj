@@ -163,10 +163,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Vacancies.cs">
+    <Compile Include="Models\VacanciesModel.cs" />
+    <Compile Include="Models\Перечень_вакансий_по_должности_Result.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VacanciesModel.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -384,6 +384,7 @@
     <Content Include="Views\Product\EditRecord.cshtml" />
     <Content Include="Views\Product\DetailsRecord.cshtml" />
     <Content Include="Views\Product\DeleteRecord.cshtml" />
+    <Content Include="Views\Home\Vacancies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

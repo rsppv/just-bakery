@@ -1,0 +1,47 @@
+﻿@model IEnumerable<JustBakery.Models.Перечень_вакансий_по_должности_Result>
+@{
+    ViewBag.Title = "Вакансии";
+}
+
+<h2>Вакансии</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Полное_название)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Название)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Полный_адрес)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Количество_вакансий)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Полное_название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Полный_адрес)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Количество_вакансий)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1320,7 +1320,7 @@
             <End Role="RawAccountingLog" EntitySet="RawAccountingLogs" />
             <End Role="Состав_операций_по_сырью" EntitySet="DetailsRawOperation" />
           </AssociationSet>
-          <FunctionImport Name="VacancyListByPosition" ReturnType="Collection(BakeryDataModel.Vacancies)">
+          <FunctionImport Name="Перечень_вакансий_по_должности" ReturnType="Collection(BakeryDataModel.Перечень_вакансий_по_должности_Result)">
           <Parameter Name="ID_Должности" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
@@ -1359,10 +1359,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="Vacancies">
-          <Property Type="Guid" Name="PositionID" Nullable="true" />
-          <Property Type="Guid" Name="BakeryID" Nullable="true" />
-          <Property Type="Int32" Name="VacancyCount" Nullable="true" />
+        <ComplexType Name="Перечень_вакансий_по_должности_Result">
+          <Property Type="String" Name="Полное_название" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Название" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Полный_адрес" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Количество_вакансий" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1580,12 +1581,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="VacancyListByPosition" FunctionName="Хранилище BakeryDataModel.Перечень_вакансий_по_должности">
+          <FunctionImportMapping FunctionImportName="Перечень_вакансий_по_должности" FunctionName="Хранилище BakeryDataModel.Перечень_вакансий_по_должности">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="BakeryDataModel.Vacancies">
-                <ScalarProperty Name="PositionID" ColumnName="Column1" />
-                <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
-                <ScalarProperty Name="VacancyCount" ColumnName="Количество вакансий" />
+              <ComplexTypeMapping TypeName="BakeryDataModel.Перечень_вакансий_по_должности_Result">
+                <ScalarProperty Name="Полное_название" ColumnName="Полное название" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Полный_адрес" ColumnName="Полный адрес" />
+                <ScalarProperty Name="Количество_вакансий" ColumnName="Количество вакансий" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
