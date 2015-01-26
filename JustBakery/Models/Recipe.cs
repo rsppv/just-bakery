@@ -7,29 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace JustBakery.Models
 {
-  using System;
-  using System.Collections.Generic;
-
-  public partial class Recipe
-  {
-    public Recipe()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Recipe
     {
-      this.Ingridients = new HashSet<Ingridient>();
+        public Recipe()
+        {
+            this.Ingridients = new HashSet<Ingridient>();
+        }
+    
+        public System.Guid RecipeID { get; set; }
+        public System.Guid ProductID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual ICollection<Ingridient> Ingridients { get; set; }
     }
-
-    public System.Guid RecipeID { get; set; }
-    [Display(Name = "Продукт")]
-    public System.Guid ProductID { get; set; }
-    [Display(Name = "Название")]
-    public string Name { get; set; }
-    [Display(Name = "Описание")]
-    public string Description { get; set; }
-
-    public virtual Product Product { get; set; }
-    public virtual ICollection<Ingridient> Ingridients { get; set; }
-  }
 }

@@ -163,6 +163,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Vacancies.cs">
+      <DependentUpon>BakeryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VacanciesModel.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -260,6 +264,7 @@
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PAccountingLogViewModel.cs" />
     <Compile Include="ViewModel\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -374,6 +379,11 @@
     <Content Include="Views\Residue\Delete.cshtml" />
     <Content Include="Views\Residue\Details.cshtml" />
     <Content Include="Views\Residue\Edit.cshtml" />
+    <Content Include="Views\Product\AccountingLog.cshtml" />
+    <Content Include="Views\Product\AddRecordToLog.cshtml" />
+    <Content Include="Views\Product\EditRecord.cshtml" />
+    <Content Include="Views\Product\DetailsRecord.cshtml" />
+    <Content Include="Views\Product\DeleteRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

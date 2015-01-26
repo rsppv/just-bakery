@@ -7,35 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace JustBakery.Models
 {
-  using System;
-  using System.Collections.Generic;
-
-  public partial class Stock
-  {
-    public Stock()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Stock
     {
-      this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
-      this.RawAccountingLog = new HashSet<RawAccountingLog>();
-      this.ProductResidue = new HashSet<ProductResidue>();
-      this.RawResidue = new HashSet<RawResidue>();
+        public Stock()
+        {
+            this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
+            this.RawAccountingLog = new HashSet<RawAccountingLog>();
+            this.ProductResidue = new HashSet<ProductResidue>();
+            this.RawResidue = new HashSet<RawResidue>();
+        }
+    
+        public System.Guid StockID { get; set; }
+        public string StockType { get; set; }
+        public string Address { get; set; }
+        public Nullable<System.Guid> BakeryID { get; set; }
+    
+        public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
+        public virtual ICollection<RawAccountingLog> RawAccountingLog { get; set; }
+        public virtual ICollection<ProductResidue> ProductResidue { get; set; }
+        public virtual ICollection<RawResidue> RawResidue { get; set; }
+        public virtual Bakery Bakery { get; set; }
     }
-
-    public System.Guid StockID { get; set; }
-    [Display(Name = "Тип склада")]
-    public string StockType { get; set; }
-    [Display(Name = "Адрес")]
-    public string Address { get; set; }
-    [Display(Name = "Пекарня")]
-    public Nullable<System.Guid> BakeryID { get; set; }
-
-    public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
-    public virtual ICollection<RawAccountingLog> RawAccountingLog { get; set; }
-    public virtual ICollection<ProductResidue> ProductResidue { get; set; }
-    public virtual ICollection<RawResidue> RawResidue { get; set; }
-    public virtual Bakery Bakery { get; set; }
-  }
 }

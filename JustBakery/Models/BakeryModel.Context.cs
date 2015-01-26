@@ -12,6 +12,8 @@ namespace JustBakery.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BakeryEntitiesHome : DbContext
     {
@@ -39,11 +41,20 @@ namespace JustBakery.Models
         public virtual DbSet<OperationType> OperationTypes { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<RawType> RawTypes { get; set; }
-        public virtual DbSet<ProductAccountingLog> ProductAccountingLogs { get; set; }
+        public virtual DbSet<ProductAccountingLog> ProductAccountingLog { get; set; }
         public virtual DbSet<RawAccountingLog> RawAccountingLogs { get; set; }
         public virtual DbSet<ProductResidue> ProductResidues { get; set; }
         public virtual DbSet<RawResidue> RawResidues { get; set; }
         public virtual DbSet<DetailProductOperation> DetailsProductOperation { get; set; }
         public virtual DbSet<DetailRawOperation> DetailsRawOperation { get; set; }
+    
+        public virtual ObjectResult<Vacancies> VacancyListByPosition(Nullable<System.Guid> iD_Должности)
+        {
+            var iD_ДолжностиParameter = iD_Должности.HasValue ?
+                new ObjectParameter("ID_Должности", iD_Должности) :
+                new ObjectParameter("ID_Должности", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Vacancies>("VacancyListByPosition", iD_ДолжностиParameter);
+        }
     }
 }

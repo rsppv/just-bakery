@@ -7,26 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace JustBakery.Models
 {
-  using System;
-  using System.Collections.Generic;
-
-  public partial class RawType
-  {
-    public RawType()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class RawType
     {
-      this.Ingridient = new HashSet<Ingridient>();
-      this.Raw = new HashSet<Raw>();
+        public RawType()
+        {
+            this.Ingridient = new HashSet<Ingridient>();
+            this.Raw = new HashSet<Raw>();
+        }
+    
+        public System.Guid RawTypeID { get; set; }
+        public string Type { get; set; }
+    
+        public virtual ICollection<Ingridient> Ingridient { get; set; }
+        public virtual ICollection<Raw> Raw { get; set; }
     }
-
-    public System.Guid RawTypeID { get; set; }
-    [Display(Name = "Тип сырья")]
-    public string Type { get; set; }
-
-    public virtual ICollection<Ingridient> Ingridient { get; set; }
-    public virtual ICollection<Raw> Raw { get; set; }
-  }
 }

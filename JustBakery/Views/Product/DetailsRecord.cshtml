@@ -1,0 +1,66 @@
+﻿@model JustBakery.Models.ProductAccountingLog
+
+@{
+    ViewBag.Title = "Подробно о записи";
+}
+
+<h2>DetailsRecord</h2>
+
+<div>
+    <h4>Подробно о записи журнала учета продукции</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.StockType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.CustomerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.EmployeeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.EmployeeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationType.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperationType.Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "EditRecord", new { id = Model.LogRecordID }) |
+    @Html.ActionLink("Назад к списку", "AccountingLog")
+</p>

@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\VGPiP\Documents\Visual Studio 2013\Projects\JustBakery\JustBakery\Models\BakeryModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\pop\Documents\Visual Studio 2013\Projects\just-bakery\JustBakery\Models\BakeryModel.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

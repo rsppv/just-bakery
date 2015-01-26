@@ -1,0 +1,63 @@
+﻿@model IEnumerable<JustBakery.Models.ProductAccountingLog>
+
+@{
+    ViewBag.Title = "Журнал учета продукции";
+}
+
+<h2>Журнал учета продукции</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись", "AddRecordToLog")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.CustomerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.EmployeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationType.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock.StockType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.CustomerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee.EmployeeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationType.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditRecord", new { id=item.LogRecordID }) |
+            @Html.ActionLink("Details", "DetailsRecord", new { id=item.LogRecordID }) |
+            @Html.ActionLink("Delete", "DeleteRecord", new { id=item.LogRecordID })
+        </td>
+    </tr>
+}
+
+</table>

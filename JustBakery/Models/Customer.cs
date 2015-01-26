@@ -7,26 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace JustBakery.Models
 {
-  using System;
-  using System.Collections.Generic;
-
-  public partial class Customer
-  {
-    public Customer()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Customer
     {
-      this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
+        public Customer()
+        {
+            this.ProductAccountingLog = new HashSet<ProductAccountingLog>();
+        }
+    
+        public System.Guid CustomerID { get; set; }
+        public System.Guid PersonID { get; set; }
+        public int Balance { get; set; }
+    
+        public virtual Person Person { get; set; }
+        public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
     }
-
-    public System.Guid CustomerID { get; set; }
-    public System.Guid PersonID { get; set; }
-    [Display(Name = "Баланс")]
-    public int Balance { get; set; }
-
-    public virtual Person Person { get; set; }
-    public virtual ICollection<ProductAccountingLog> ProductAccountingLog { get; set; }
-  }
 }

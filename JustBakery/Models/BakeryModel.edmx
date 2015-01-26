@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище BakeryDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище BakeryDataModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cклады">
           <Key>
             <PropertyRef Name="ID_Склада" />
@@ -519,6 +519,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Перечень_вакансий_по_должности" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Перечень вакансий по должности">
+          <Parameter Name="ID_Должности" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="Случайная_Дата_Начала_Работы" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Случайная Дата Начала Работы" ReturnType="nvarchar" />
         <Function Name="Случайная_Дата_Рождения" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Случайная Дата Рождения" ReturnType="nvarchar" />
         <EntityContainer Name="Хранилище BakeryDataModelContainer">
@@ -1203,14 +1206,14 @@
           <EntitySet Name="OperationTypes" EntityType="BakeryDataModel.OperationType" />
           <EntitySet Name="ProductTypes" EntityType="BakeryDataModel.ProductType" />
           <EntitySet Name="RawTypes" EntityType="BakeryDataModel.RawType" />
-          <EntitySet Name="ProductAccountingLogs" EntityType="BakeryDataModel.ProductAccountingLog" />
+          <EntitySet Name="ProductAccountingLog" EntityType="BakeryDataModel.ProductAccountingLog" />
           <EntitySet Name="RawAccountingLogs" EntityType="BakeryDataModel.RawAccountingLog" />
           <EntitySet Name="ProductResidues" EntityType="BakeryDataModel.ProductResidue" />
           <EntitySet Name="RawResidues" EntityType="BakeryDataModel.RawResidue" />
           <EntitySet Name="DetailsProductOperation" EntityType="BakeryDataModel.DetailProductOperation" />
           <AssociationSet Name="FK_Журнал_учета_продукции_Склады" Association="Self.FK_Журнал_учета_продукции_Склады">
             <End Role="Cклады" EntitySet="Stocks" />
-            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Склады" Association="Self.FK_Журнал_учета_сырья_Склады">
             <End Role="Cклады" EntitySet="Stocks" />
@@ -1246,7 +1249,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Покупатели" Association="Self.FK_Журнал_учета_продукции_Покупатели">
             <End Role="Покупатели" EntitySet="Customers" />
-            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Поставщики" Association="Self.FK_Журнал_учета_сырья_Поставщики">
             <End Role="Поставщики" EntitySet="Suppliers" />
@@ -1278,7 +1281,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Сотрудники" Association="Self.FK_Журнал_учета_продукции_Сотрудники">
             <End Role="Сотрудники" EntitySet="Employees" />
-            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Сотрудники" Association="Self.FK_Журнал_учета_сырья_Сотрудники">
             <End Role="Сотрудники" EntitySet="Employees" />
@@ -1298,14 +1301,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_продукции_Справочник_типов_операций" Association="Self.FK_Журнал_учета_продукции_Справочник_типов_операций">
             <End Role="Справочник_типов_операций" EntitySet="OperationTypes" />
-            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Журнал_учета_сырья_Справочник_типов_операций" Association="Self.FK_Журнал_учета_сырья_Справочник_типов_операций">
             <End Role="Справочник_типов_операций" EntitySet="OperationTypes" />
             <End Role="Журнал_учета_сырья" EntitySet="RawAccountingLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Состав_операций_по_продукции_Журнал_учета_продукции" Association="Self.FK_Состав_операций_по_продукции_Журнал_учета_продукции">
-            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLogs" />
+            <End Role="Журнал_учета_продукции" EntitySet="ProductAccountingLog" />
             <End Role="Состав_операций_по_продукции" EntitySet="DetailsProductOperation" />
           </AssociationSet>
           <EntitySet Name="DetailsRawOperation" EntityType="BakeryDataModel.DetailRawOperation" />
@@ -1317,6 +1320,9 @@
             <End Role="RawAccountingLog" EntitySet="RawAccountingLogs" />
             <End Role="Состав_операций_по_сырью" EntitySet="DetailsRawOperation" />
           </AssociationSet>
+          <FunctionImport Name="VacancyListByPosition" ReturnType="Collection(BakeryDataModel.Vacancies)">
+          <Parameter Name="ID_Должности" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="DetailRawOperation">
           <Key>
@@ -1353,6 +1359,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Vacancies">
+          <Property Type="Guid" Name="PositionID" Nullable="true" />
+          <Property Type="Guid" Name="BakeryID" Nullable="true" />
+          <Property Type="Int32" Name="VacancyCount" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1503,7 +1514,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductAccountingLogs">
+          <EntitySetMapping Name="ProductAccountingLog">
             <EntityTypeMapping TypeName="BakeryDataModel.ProductAccountingLog">
               <MappingFragment StoreEntitySet="Журнал учета продукции">
                 <ScalarProperty Name="LogRecordID" ColumnName="ID_Записи журнала продукции" />
@@ -1569,6 +1580,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="VacancyListByPosition" FunctionName="Хранилище BakeryDataModel.Перечень_вакансий_по_должности">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BakeryDataModel.Vacancies">
+                <ScalarProperty Name="PositionID" ColumnName="Column1" />
+                <ScalarProperty Name="BakeryID" ColumnName="ID_Пекарни" />
+                <ScalarProperty Name="VacancyCount" ColumnName="Количество вакансий" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -7,33 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace JustBakery.Models
 {
-  using System;
-  using System.Collections.Generic;
-
-  public partial class Raw
-  {
-    public Raw()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Raw
     {
-      this.RawResidue = new HashSet<RawResidue>();
-      this.DetailRawOperation = new HashSet<DetailRawOperation>();
+        public Raw()
+        {
+            this.RawResidue = new HashSet<RawResidue>();
+            this.DetailRawOperation = new HashSet<DetailRawOperation>();
+        }
+    
+        public System.Guid RawID { get; set; }
+        public System.Guid RawTypeID { get; set; }
+        public Nullable<int> Cost { get; set; }
+        public string Units { get; set; }
+        public string Name { get; set; }
+    
+        public virtual ICollection<RawResidue> RawResidue { get; set; }
+        public virtual RawType RawType { get; set; }
+        public virtual ICollection<DetailRawOperation> DetailRawOperation { get; set; }
     }
-
-    public System.Guid RawID { get; set; }
-    [Display(Name = "Тип сырья")]
-    public System.Guid RawTypeID { get; set; }
-    [Display(Name = "Цена")]
-    public Nullable<int> Cost { get; set; }
-    [Display(Name = "Единицы измерения")]
-    public string Units { get; set; }
-    [Display(Name = "Название")]
-    public string Name { get; set; }
-
-    public virtual ICollection<RawResidue> RawResidue { get; set; }
-    public virtual RawType RawType { get; set; }
-    public virtual ICollection<DetailRawOperation> DetailRawOperation { get; set; }
-  }
 }
