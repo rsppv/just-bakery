@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JustBakery.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JustBakery.ViewModel;
@@ -17,6 +19,7 @@ namespace JustBakery.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private BakeryEntitiesHome db = new BakeryEntitiesHome(); 
 
         public AccountController()
         {
@@ -51,6 +54,8 @@ namespace JustBakery.Controllers
                 _userManager = value;
             }
         }
+
+
 
         //
         // GET: /Account/Login
@@ -151,7 +156,19 @@ namespace JustBakery.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                  UserName = model.Email, 
+                  Email = model.Email,
+                  PersonId = Guid.NewGuid()
+                };
+                Person person = new Person{PersonID = user.PersonId, LastName = model.LastName, FirstName = model.FirstName, BirthDay = model.BirthDay};
+                db.Persons.Add(person);
+                db.SaveChanges();
+              var managerRole = new IdentityRole {Name = "manager"};
+              var adminRole = new IdentityRole { Name = "admin" };
+              var customerRole = new IdentityRole { Name = "customer" };
+              
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

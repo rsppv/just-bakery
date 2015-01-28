@@ -168,6 +168,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Migrations\201501281855490_Init.cs" />
+    <Compile Include="Migrations\201501281855490_Init.Designer.cs">
+      <DependentUpon>201501281855490_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501281902284_sec.cs" />
+    <Compile Include="Migrations\201501281902284_sec.Designer.cs">
+      <DependentUpon>201501281902284_sec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DetailsProductOperationMD.cs" />
     <Compile Include="Models\DetailsRawOperationMD.cs" />
     <Compile Include="Models\ProductAccountigLogMD.cs" />
@@ -407,6 +416,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201501281855490_Init.resx">
+      <DependentUpon>201501281855490_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501281902284_sec.resx">
+      <DependentUpon>201501281902284_sec.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
