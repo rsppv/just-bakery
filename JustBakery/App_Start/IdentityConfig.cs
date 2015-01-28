@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
+using JustBakery.Models;
 using JustBakery.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -102,5 +105,47 @@ namespace JustBakery
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+    }
+
+    public class AppDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+      protected override void Seed(ApplicationDbContext context)
+      {
+        InitializeIdentityForEF(context);
+        base.Seed(context);
+      }
+
+      public static void InitializeIdentityForEF(ApplicationDbContext context)
+      {
+        var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+        const string name = "customer@cus.com";
+        const string password = "customer";
+        const string roleName = "customer";
+
+        var role = roleManager.FindByName(roleName);
+        if (role == null)
+        {
+          role = new IdentityRole(roleName);
+          var roleresult = roleManager.Create(role);
+        }
+
+        var user = userManager.FindByName(name);
+        if (user == null)
+        {
+          user = new ApplicationUser { UserName = name, Email = name, PersonId = Guid.Parse("2E6C8B29-9DF5-49A6-A9FC-30DAB2E3E3AE") };
+          var result = userManager.Create(user, password);
+          result = userManager.SetLockoutEnabled(user.Id, false);
+        }
+
+        // Add user admin to Role Admin if not already added
+        var rolesForUser = userManager.GetRoles(user.Id);
+        if (!rolesForUser.Contains(role.Name))
+        {
+          var result = userManager.AddToRole(user.Id, role.Name);
+        }
+
+      }
     }
 }

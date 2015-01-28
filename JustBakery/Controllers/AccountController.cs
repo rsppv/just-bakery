@@ -62,6 +62,7 @@ namespace JustBakery.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            AppDbInitializer.InitializeIdentityForEF(ApplicationDbContext.Create());
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<JustBakery.Models.Bakery>
+
+@{
+    ViewBag.Title = "Кафе-Пекарни \"Бон Аппетит\"";
+}
+
+<h2>"Бон Аппетит" - сеть современных кафе-пекарен, сочетающая в себе лучшие европейские традиции и предпочтения российского потребителя.</h2>
+
+<h3>Кафе-пекарня Бон Аппетит - Это сок мясо пушка</h3>
+<br />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p>@Html.DisplayFor(modelItem => item.FullAddress)</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = item.BakeryID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.BakeryID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.BakeryID })
+    </p>*@

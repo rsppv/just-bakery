@@ -30,6 +30,11 @@ namespace JustBakery.Controllers
       return View();
     }
 
+    public ActionResult Bakeries()
+    {
+      return View(db.Bakeries.ToList());
+    }
+
     public ActionResult Vacancies()
     {
       List<Перечень_вакансий_по_должности_Result> vacancies = new List<Перечень_вакансий_по_должности_Result>();
