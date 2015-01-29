@@ -1,39 +1,46 @@
 ﻿@model IEnumerable<JustBakery.Models.Bakery>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Кафе-Пекарни";
 }
 
-<h2>Index</h2>
+<h2 class="page-header">Кафе-Пекарни</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить пекарню", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-striped table-bordered table-hover">
+    <tr class="info">
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Название
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullAddress)
+            Полный адрес
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullAddress)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BakeryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BakeryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BakeryID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullAddress)
+            </td>
+            <td class="center-block text-center col-md-2">
+                <a href="@Url.Action("Edit", new { id = item.BakeryID })" class="btn btn-default btn-xs" role="button">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="@Url.Action("Details", new { id = item.BakeryID })" class="btn btn-default btn-xs" role="button">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </a>
+                <a href="@Url.Action("Delete", new { id = item.BakeryID })" class="btn btn-default btn-xs" role="button">
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>

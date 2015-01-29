@@ -290,13 +290,18 @@
     <Compile Include="ViewModel\RecipeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Image\About1.gif" />
-    <Content Include="App_Data\Image\About2.gif" />
-    <Content Include="App_Data\Image\About3.gif" />
+    <Content Include="Content\Image\About1.gif" />
+    <Content Include="Content\Image\About2.gif" />
+    <Content Include="Content\Image\About3.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\carusel_1.jpeg" />
+    <Content Include="Content\Image\carusel_2.jpg" />
+    <Content Include="Content\Image\carusel_3.jpg" />
+    <Content Include="Content\Image\carusel_4.JPG" />
+    <Content Include="Content\Image\carusel_5.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -428,7 +433,9 @@
     <Content Include="Views\Bakeries\Edit.cshtml" />
     <Content Include="Views\Bakeries\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

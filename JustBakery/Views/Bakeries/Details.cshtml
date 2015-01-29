@@ -1,17 +1,17 @@
 ﻿@model JustBakery.Models.Bakery
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о пекарне " + @Model.Name;
 }
 
-<h2>Details</h2>
+<h2>@Model.Name</h2>
 
 <div>
-    <h4>Bakery</h4>
+    <h4>Информация о пекарне</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Название
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FullAddress)
+            Адрес
         </dt>
 
         <dd>
@@ -29,6 +29,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BakeryID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.BakeryID }) |
+    @Html.ActionLink("Назад к списку", "Index")
 </p>
