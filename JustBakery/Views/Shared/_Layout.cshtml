@@ -28,6 +28,29 @@
                     <li>@Html.ActionLink("Меню", "Index", "Product")</li>
                     <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Вакансии", "Vacancies", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("manager") || User.IsInRole("admin"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Управление <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Склады", "Index", "Stock")</li>
+                                    <li>@Html.ActionLink("Сотрудники", "Index", "Employee")</li>
+                                    <li>@Html.ActionLink("Покупатели", "Index", "Customer")</li>
+                                    <li>@Html.ActionLink("Поставщики", "Index", "Supplier")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Журнал учета продукции", "AccountingLog", "Product")</li>
+                                    <li>@Html.ActionLink("Остатки продукции", "Residue", "Product")</li>
+                                    <li class="divider"></li>
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <li>@Html.ActionLink("Админка", "Index", "Admin")</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,0 +1,42 @@
+﻿@model JustBakery.Models.Stock
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bakery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bakery.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StockID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -10,114 +10,114 @@ using JustBakery.Models;
 
 namespace JustBakery.Controllers
 {
-    [Authorize(Roles = "admin")]
-    public class RawController : Controller
+    [Authorize(Roles = "admin,manager")]
+    public class StockController : Controller
     {
         private BakeryEntitiesHome db = new BakeryEntitiesHome();
 
-        // GET: /Raw/
+        // GET: Stock
         public ActionResult Index()
         {
-            var raw = db.Raw.Include(r => r.RawType);
-            return View(raw.ToList());
+            var stocks = db.Stocks.Include(s => s.Bakery);
+            return View(stocks.ToList());
         }
 
-        // GET: /Raw/Details/5
+        // GET: Stock/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Raw raw = db.Raw.Find(id);
-            if (raw == null)
+            Stock stock = db.Stocks.Find(id);
+            if (stock == null)
             {
                 return HttpNotFound();
             }
-            return View(raw);
+            return View(stock);
         }
 
-        // GET: /Raw/Create
+        // GET: Stock/Create
         public ActionResult Create()
         {
-            ViewBag.RawTypeID = new SelectList(db.RawTypes, "RawTypeID", "Type");
+            ViewBag.BakeryID = new SelectList(db.Bakeries, "BakeryID", "Name");
             return View();
         }
 
-        // POST: /Raw/Create
+        // POST: Stock/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="RawID,RawTypeID,Cost,Units,Name")] Raw raw)
+        public ActionResult Create([Bind(Include = "StockID,StockType,Address,BakeryID")] Stock stock)
         {
             if (ModelState.IsValid)
             {
-                raw.RawID = Guid.NewGuid();
-                db.Raw.Add(raw);
+                stock.StockID = Guid.NewGuid();
+                db.Stocks.Add(stock);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RawTypeID = new SelectList(db.RawTypes, "RawTypeID", "Type", raw.RawTypeID);
-            return View(raw);
+            ViewBag.BakeryID = new SelectList(db.Bakeries, "BakeryID", "Name", stock.BakeryID);
+            return View(stock);
         }
 
-        // GET: /Raw/Edit/5
+        // GET: Stock/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Raw raw = db.Raw.Find(id);
-            if (raw == null)
+            Stock stock = db.Stocks.Find(id);
+            if (stock == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RawTypeID = new SelectList(db.RawTypes, "RawTypeID", "Type", raw.RawTypeID);
-            return View(raw);
+            ViewBag.BakeryID = new SelectList(db.Bakeries, "BakeryID", "Name", stock.BakeryID);
+            return View(stock);
         }
 
-        // POST: /Raw/Edit/5
+        // POST: Stock/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="RawID,RawTypeID,Cost,Units,Name")] Raw raw)
+        public ActionResult Edit([Bind(Include = "StockID,StockType,Address,BakeryID")] Stock stock)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(raw).State = EntityState.Modified;
+                db.Entry(stock).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RawTypeID = new SelectList(db.RawTypes, "RawTypeID", "Type", raw.RawTypeID);
-            return View(raw);
+            ViewBag.BakeryID = new SelectList(db.Bakeries, "BakeryID", "Name", stock.BakeryID);
+            return View(stock);
         }
 
-        // GET: /Raw/Delete/5
+        // GET: Stock/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Raw raw = db.Raw.Find(id);
-            if (raw == null)
+            Stock stock = db.Stocks.Find(id);
+            if (stock == null)
             {
                 return HttpNotFound();
             }
-            return View(raw);
+            return View(stock);
         }
 
-        // POST: /Raw/Delete/5
+        // POST: Stock/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Raw raw = db.Raw.Find(id);
-            db.Raw.Remove(raw);
+            Stock stock = db.Stocks.Find(id);
+            db.Stocks.Remove(stock);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -7,9 +7,12 @@ using System.Net;
 using System.Web.Mvc;
 using JustBakery.Models;
 using JustBakery.ViewModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JustBakery.Controllers
 {
+
   public class ProductController : Controller
   {
     private BakeryEntitiesHome db = new BakeryEntitiesHome();
@@ -24,7 +27,7 @@ namespace JustBakery.Controllers
 
 
     #region Продукты
-
+    
     public ActionResult Index(Guid? id)
     {
       var productViewModel = new ProductViewModel();
@@ -45,6 +48,7 @@ namespace JustBakery.Controllers
       return View(productViewModel);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult Details(Guid? id)
     {
       if (id == null)
@@ -61,6 +65,7 @@ namespace JustBakery.Controllers
       return View(productViewModel);
     }
 
+    [Authorize(Roles = "admin,manager")]
     // GET: /Product/Create
     public ActionResult Create()
     {
@@ -73,6 +78,7 @@ namespace JustBakery.Controllers
     // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult Create([Bind(Include = "ProductID,ProductTypeID,Cost,Units,Image,Name")] Product product)
     {
       if (ModelState.IsValid)
@@ -87,6 +93,7 @@ namespace JustBakery.Controllers
       return View(product);
     }
 
+    [Authorize(Roles = "admin,manager")]
     // GET: /Product/Edit/5
     public ActionResult Edit(Guid? id)
     {
@@ -108,6 +115,7 @@ namespace JustBakery.Controllers
     // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult Edit([Bind(Include = "ProductID,ProductTypeID,Cost,Units,Image,Name")] Product product)
     {
       if (ModelState.IsValid)
@@ -121,6 +129,7 @@ namespace JustBakery.Controllers
     }
 
     // GET: /Product/Delete/5
+    [Authorize(Roles = "admin,manager")]
     public ActionResult Delete(Guid? id)
     {
       if (id == null)
@@ -138,6 +147,7 @@ namespace JustBakery.Controllers
     // POST: /Product/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult DeleteConfirmed(Guid id)
     {
       Product product = db.Products.Find(id);
@@ -186,7 +196,7 @@ namespace JustBakery.Controllers
     // GET: /Product/Details/5
 
     #region Остатки
-
+    [Authorize(Roles = "admin,manager")]
     public ActionResult Residue(Guid? productId)
     {
       IEnumerable<ProductResidue> residues =
@@ -197,6 +207,7 @@ namespace JustBakery.Controllers
       return View("~/Views/Residue/Index.cshtml", residues);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult CreateResidue()
     {
       ViewBag.StockID = new SelectList(db.Stocks, "StockID", "Address");
@@ -206,6 +217,7 @@ namespace JustBakery.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult CreateResidue(
       [Bind(Include = "ProductResidueID,StockID,ProductID,Count")] ProductResidue productResidue)
     {
@@ -227,6 +239,7 @@ namespace JustBakery.Controllers
       return View("~/Views/Residue/Create.cshtml", productResidue);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult EditResidue(Guid? id)
     {
       if (id == null)
@@ -246,6 +259,7 @@ namespace JustBakery.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult EditResidue(ProductResidue productResidue)
     {
       if (ModelState.IsValid)
@@ -259,6 +273,7 @@ namespace JustBakery.Controllers
       return View("~/Views/Residue/Edit.cshtml", productResidue);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult DetailsResidue(Guid? id)
     {
       if (id == null)
@@ -275,6 +290,7 @@ namespace JustBakery.Controllers
       return View("~/Views/Residue/Details.cshtml", residue);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult DeleteResidue(Guid? id)
     {
       if (id == null)
@@ -291,6 +307,7 @@ namespace JustBakery.Controllers
 
     [HttpPost, ActionName("DeleteResidue")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult DeleteResidueConfirmed(Guid id)
     {
       ProductResidue productResidue = db.ProductResidues.Find(id);
@@ -303,6 +320,90 @@ namespace JustBakery.Controllers
 
     #region Журнал учета
 
+    [Authorize(Roles = "customer")]
+    public ActionResult OrderList()
+    {
+      throw new NotImplementedException();
+      var UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>());
+      var orders = db.ProductAccountingLog.Where(p => p.Customer.PersonID == UserManager.FindById(User.Identity.GetUserId()).PersonId);
+      //Просмотр своих заказов
+      return View(orders);
+    }
+
+
+    [Authorize(Roles = "customer")]
+    public ActionResult Purchase(Guid? productId, Guid? stockId, int count)
+    {
+      throw new NotImplementedException();
+      if (productId == null || stockId == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      var UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>());
+      var customer = db.Customers.Single(r => r.PersonID == UserManager.FindById(User.Identity.GetUserId()).PersonId);
+      var product = db.Products.Find(productId);
+      //Добавляем запись в журнал учета прордукции
+      var order = new ProductAccountingLog
+      {
+        Customer = customer,
+        IsDeleted = false,
+        LogRecordID = Guid.NewGuid(),
+        OperationDate = DateTime.Now,
+        OperationType = db.OperationTypes.Single(r => r.Type == "Продажа продукции"),
+        Stock = db.Stocks.Single(s=>s.StockID == stockId)
+      };
+      db.ProductAccountingLog.Add(order);
+      order.DetailProductOperation.Add(new DetailProductOperation{Count = count, Product = product, ProductAccountingLog = order});
+      db.SaveChanges();
+      //Добавляем продукцию в заказ
+      
+      //Снимаем нужную сумму со счета
+      customer.Balance = order.DetailProductOperation.Sum(t => t.Count)*product.Cost.Value;
+      db.Entry(customer).State = EntityState.Modified;
+      db.SaveChanges();
+      //Пересчитываем остатки
+      var residue = db.ProductResidues.Single(r => r.ProductID == productId && r.StockID == stockId);
+      residue.Count -= order.DetailProductOperation.Sum(t => t.Count);
+      db.Entry(residue).State = EntityState.Modified;
+      db.SaveChanges();
+
+      return RedirectToAction("OrderList");
+    }
+
+    [Authorize(Roles = "customer,manager,admin")]
+    public ActionResult CancelPurchase(Guid? orderId)
+    {
+      throw new NotImplementedException();
+      if (orderId == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      ProductAccountingLog order = db.ProductAccountingLog.Find(orderId);
+      if (order == null)
+      {
+        return HttpNotFound();
+      }
+      order.IsDeleted = true;
+      db.Entry(order).State = EntityState.Modified;
+      db.SaveChanges();
+      return RedirectToAction("OrderList");
+    }
+
+    [Authorize(Roles = "customer,manager,admin")]
+    public ActionResult PurchaseDetails(Guid? purchaseId)
+    {
+      // Показывает детали заказа, айтемы в списке
+      throw new NotImplementedException();
+      if (purchaseId == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      var order = db.ProductAccountingLog.Find(purchaseId);
+      ViewBag.Order = order;
+      return View(order.DetailProductOperation.ToList());
+    }
+
+    [Authorize(Roles = "admin,manager")]
     public ActionResult AccountingLog(Guid? productId, bool withDeleted = false)
     {
       IEnumerable<ProductAccountingLog> logs;
@@ -330,6 +431,7 @@ namespace JustBakery.Controllers
       return View(logs);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult AddRecordToLog()
     {
 
@@ -357,6 +459,7 @@ namespace JustBakery.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult AddRecordToLog(ProductAccountingLog record)
     {
       if (ModelState.IsValid)
@@ -396,6 +499,7 @@ namespace JustBakery.Controllers
       return View(record);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult EditRecord(Guid? id)
     {
       if (id == null)
@@ -431,6 +535,7 @@ namespace JustBakery.Controllers
   
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "admin,manager")]
     public ActionResult EditRecord(ProductAccountingLog productLog)
     {
             if (ModelState.IsValid)
@@ -460,6 +565,7 @@ namespace JustBakery.Controllers
       return View(productLog);
     }
 
+    [Authorize(Roles = "admin,manager,customer")]
     public ActionResult DetailsRecord(Guid? id)
     {
       if (id == null)
@@ -476,6 +582,7 @@ namespace JustBakery.Controllers
       return View(productLog);
     }
 
+    [Authorize(Roles = "admin,manager")]
     public ActionResult DeleteRecord(Guid? id)
     {
       if (id == null)
@@ -490,6 +597,7 @@ namespace JustBakery.Controllers
       return View(productLog);
     }
 
+    [Authorize(Roles = "admin,manager")]
     [HttpPost, ActionName("DeleteRecord")]
     [ValidateAntiForgeryToken]
     public ActionResult DeleteRecordConfirmed(Guid id)

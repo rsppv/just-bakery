@@ -12,6 +12,7 @@ using JustBakery.ViewModel;
 
 namespace JustBakery.Controllers
 {
+  [Authorize(Roles = "admin")]
   public class RecipeController : Controller
   {
     private BakeryEntitiesHome db = new BakeryEntitiesHome();

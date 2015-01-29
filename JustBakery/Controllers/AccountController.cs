@@ -62,7 +62,7 @@ namespace JustBakery.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            AppDbInitializer.InitializeIdentityForEF(ApplicationDbContext.Create());
+            //AppDbInitializer.InitializeIdentityForEF(ApplicationDbContext.Create());
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -140,6 +140,15 @@ namespace JustBakery.Controllers
             }
         }
 
+        private async Task AddUserToRoleAsync(ApplicationUser user, string role)
+        {
+          using (ApplicationDbContext dbc = new ApplicationDbContext())
+          {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dbc));
+            var result = await userManager.AddToRoleAsync(user.Id, role);
+          }
+        }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -166,13 +175,12 @@ namespace JustBakery.Controllers
                 Person person = new Person{PersonID = user.PersonId, LastName = model.LastName, FirstName = model.FirstName, BirthDay = model.BirthDay};
                 db.Persons.Add(person);
                 db.SaveChanges();
-              var managerRole = new IdentityRole {Name = "manager"};
-              var adminRole = new IdentityRole { Name = "admin" };
-              var customerRole = new IdentityRole { Name = "customer" };
               
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    await AddUserToRoleAsync(user, "customer");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771

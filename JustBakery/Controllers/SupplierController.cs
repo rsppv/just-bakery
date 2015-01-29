@@ -10,6 +10,7 @@ using JustBakery.Models;
 
 namespace JustBakery.Controllers
 {
+    [Authorize(Roles = "admin,manager")]
     public class SupplierController : Controller
     {
         private BakeryEntitiesHome db = new BakeryEntitiesHome();
