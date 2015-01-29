@@ -42,9 +42,9 @@
                                     <li class="divider"></li>
                                     <li>@Html.ActionLink("Журнал учета продукции", "AccountingLog", "Product")</li>
                                     <li>@Html.ActionLink("Остатки продукции", "Residue", "Product")</li>
-                                    <li class="divider"></li>
                                     @if (User.IsInRole("admin"))
                                     {
+                                        <li class="divider"></li>
                                         <li>@Html.ActionLink("Админка", "Index", "Admin")</li>
                                     }
                                 </ul>

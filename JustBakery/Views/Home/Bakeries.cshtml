@@ -4,28 +4,44 @@
     ViewBag.Title = "Кафе-Пекарни \"Бон Аппетит\"";
 }
 
-<h2>"Бон Аппетит" - сеть современных кафе-пекарен, сочетающая в себе лучшие европейские традиции и предпочтения российского потребителя.</h2>
+<div class="jumbotron">
+    <h1>Бон Аппетит</h1>
+    <p class="lead">сеть современных кафе-пекарен, сочетающая в себе лучшие европейские традиции и предпочтения российского потребителя</p>
+    <p><a href="@Url.Action("Index","Product")" class="btn btn-primary btn-large">Ознакомиться с меню &raquo;</a></p>
+</div>
 
-<h3>Кафе-пекарня Бон Аппетит - Это сок мясо пушка</h3>
-<br />
+<p>
+    Кафе-пекарня Бон Аппетит – это по-домашнему уютный интерьер кафе, выполненный в стиле европейской пекарни.
+    Заходите к нам на чашку кофе, назначайте встречи друзьям и партнерам,  или приходите всей семьей.
+</p>
+<p>Кафе-пекарня Бон Аппетит – высокий уровень обслуживания, внимательный и доброжелательный персонал. </p>
+<p>
+    Кафе-пекарня Бон Аппетит – это cамый свежий хлеб и выпечка, самые вкусные торты и пирожные. А так же сэндвичи, пиццы, рапы, салаты и супы.
+    Мы постоянно находимся в поиске новых рецептур, чтобы каждый нашел  для себя что-нибудь по душе и захотел вернуться снова.
+</p>
+
 
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                    <p>@Html.DisplayFor(modelItem => item.FullAddress)</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
+        <div class="col-md-4">
+            <h4>Кафе-Пекарня @Html.DisplayFor(modelItem => item.Name)</h4>
+            <p>
+                @Html.DisplayFor(modelItem => item.FullAddress)
+            </p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("manager") || User.IsInRole("admin"))
+                {
+                    <p><a class="btn btn-default" href="@Url.Action("Edit", "Bakeries", new {id = item.BakeryID})">Редактировать &raquo;</a></p>
+                }
+            }
+
         </div>
     }
 </div>
 
-
+<br />
 
 
 @*<p>

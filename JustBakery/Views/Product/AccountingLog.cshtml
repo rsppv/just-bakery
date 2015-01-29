@@ -6,58 +6,99 @@
 
 <h2>Журнал учета продукции</h2>
 
-<p>
-    @Html.ActionLink("Добавить запись", "AddRecordToLog")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OperationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock.StockType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer.CustomerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OperationType.Type)
-        </th>
-        <th></th>
-    </tr>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("manager") || User.IsInRole("admin"))
+    {
+        <p>
+            @Html.ActionLink("Добавить операцию", "AddRecordToLog")
+        </p>
+    }
+}
+@if (Model.Count() != 0)
+{
+    <table class="table table-striped table-bordered table-hover">
+        <tr class="info">
+            <th>
+                Дата операции
+            </th>
+            <th>
+                Время
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationTypeID)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("manager") || User.IsInRole("admin"))
+                {
+                    <th></th>
+                }
+            }
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OperationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDeleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock.StockType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.CustomerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee.EmployeeID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OperationType.Type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditRecord", new { id=item.LogRecordID }) |
-            @Html.ActionLink("Details", "DetailsRecord", new { id=item.LogRecordID }) |
-            @Html.ActionLink("Delete", "DeleteRecord", new { id=item.LogRecordID })
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.OperationDate.Day.ToString("00").@item.OperationDate.Month.ToString("00").@item.OperationDate.Year
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperationDate.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperationType.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Person.ShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Person.ShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock.Address)<br/>
+                    <text>Пекарня </text>@Html.DisplayFor(modelItem => item.Stock.Bakery.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("manager") || User.IsInRole("admin"))
+                    {
+                        <td class="center-block text-center col-md-2">
+                            <a href="@Url.Action("EditRecord", new { id = item.LogRecordID })" class="btn btn-default btn-sm" role="button">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a href="@Url.Action("DetailsRecord", new { id = item.LogRecordID })" class="btn btn-default btn-sm" role="button">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </a>
+                            <a href="@Url.Action("DeleteRecord", new { id = item.LogRecordID })" class="btn btn-default btn-sm" role="button">
+                                <span class="glyphicon glyphicon-minus-sign"></span>
+                            </a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <p class="alert-warning">Записи в журнале не найдены</p>
 }
 
-</table>

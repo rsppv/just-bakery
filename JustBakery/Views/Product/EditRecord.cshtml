@@ -1,10 +1,10 @@
 ﻿@model JustBakery.Models.ProductAccountingLog
 
 @{
-    ViewBag.Title = "EditRecord";
+    ViewBag.Title = "Редактирование записи - Журнал учета продукции";
 }
 
-<h2>EditRecord</h2>
+<h2>@Model.OperationType.Type</h2>
 
 
 @using (Html.BeginForm())
@@ -12,48 +12,48 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProductAccountingLog</h4>
+        <h4>Редактирование записи в журнале [@Model.OperationDate.ToShortDateString()]</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.LogRecordID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OperationTypeID, "OperationTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.OperationTypeID, "Операция", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("OperationTypeID", Model.OperationType.Type)
+                @Html.DropDownList("OperationTypeID")
                 @Html.ValidationMessageFor(model => model.OperationTypeID)
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StockID, "StockID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StockID", Model.Stock.Address)
-                @Html.ValidationMessageFor(model => model.StockID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, "CustomerID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CustomerID")
-                @Html.ValidationMessageFor(model => model.CustomerID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeID, "EmployeeID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("EmployeeID")
-                @Html.ValidationMessageFor(model => model.EmployeeID)
-            </div>
-        </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.OperationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.OperationDate)
                 @Html.ValidationMessageFor(model => model.OperationDate)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, "Покупатель", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CustomerID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CustomerID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeID, "Сотрудник", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EmployeeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.EmployeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StockID, "Склад", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StockID")
+                @Html.ValidationMessageFor(model => model.StockID)
             </div>
         </div>
 
@@ -67,7 +67,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
     </div>

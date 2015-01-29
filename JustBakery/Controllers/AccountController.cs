@@ -175,7 +175,10 @@ namespace JustBakery.Controllers
                 Person person = new Person{PersonID = user.PersonId, LastName = model.LastName, FirstName = model.FirstName, BirthDay = model.BirthDay};
                 db.Persons.Add(person);
                 db.SaveChanges();
-              
+                Customer customer = new Customer {Balance = 0, CustomerID = Guid.NewGuid(), Person = person};
+                db.Customers.Add(customer);
+                db.SaveChanges();
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

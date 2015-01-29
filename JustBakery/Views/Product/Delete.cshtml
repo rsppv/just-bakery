@@ -1,16 +1,30 @@
 ﻿@model JustBakery.Models.Product
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Удаление продукта";
 }
 
-<h2>Delete</h2>
+<h2>Удаление продукта</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Вы уверены что хотите удалить продукт?</h3>
 <div>
-    <h4>Product</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductType.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductType.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Cost)
         </dt>
@@ -35,30 +49,14 @@
             @Html.DisplayFor(model => model.Image)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductType.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductType.Type)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад к списку", "Index")
         </div>
     }
 </div>

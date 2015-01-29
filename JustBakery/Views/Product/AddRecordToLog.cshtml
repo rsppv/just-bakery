@@ -1,10 +1,10 @@
 ﻿@model JustBakery.Models.ProductAccountingLog
 
 @{
-    ViewBag.Title = "Добавление записи в журнал";
+    ViewBag.Title = "Добавление записи - Журнал учета продукции";
 }
 
-<h2>Новая запись</h2>
+<h2>Добавление записи</h2>
 
 
 @using (Html.BeginForm()) 
@@ -13,6 +13,7 @@
     
     <div class="form-horizontal">
         <h4>Журнал учета продукции</h4>
+        <h4>Заполните поля и нажмите кнопку "Создать"</h4>
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
@@ -24,13 +25,13 @@
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.StockID, "Склад", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.OperationDate, "Дата операции", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("StockID", String.Empty)
-                @Html.ValidationMessageFor(model => model.StockID)
+                @Html.EditorFor(model => model.OperationDate)
+                @Html.ValidationMessageFor(model => model.OperationDate)
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, "Покупатель", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,19 +47,18 @@
                 @Html.ValidationMessageFor(model => model.EmployeeID)
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.OperationDate, "Дата операции", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StockID, "Склад", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.OperationDate)
-                @Html.ValidationMessageFor(model => model.OperationDate)
+                @Html.DropDownList("StockID", String.Empty)
+                @Html.ValidationMessageFor(model => model.StockID)
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </div>
     </div>

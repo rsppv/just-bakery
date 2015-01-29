@@ -1,21 +1,53 @@
 ﻿@model JustBakery.Models.ProductAccountingLog
 
 @{
-    ViewBag.Title = "Подробно о записи";
+    ViewBag.Title = "Информация о записи";
 }
 
-<h2>DetailsRecord</h2>
+<h2>@Model.OperationType.Type</h2>
 
 <div>
-    <h4>Подробно о записи журнала учета продукции</h4>
+    <h4>Информация по записи в журнале [@Model.OperationDate.ToShortDateString()]</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OperationType.Type)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OperationDate)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.OperationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Person.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Person.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.StockType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.StockType)
+            пекарни "@Html.DisplayFor(model => model.Stock.Bakery.Name)",
+            @Html.DisplayFor(model => model.Stock.Address)
+
         </dd>
 
         <dt>
@@ -25,39 +57,6 @@
         <dd>
             @Html.DisplayFor(model => model.IsDeleted)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Stock.StockType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Stock.StockType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer.CustomerID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Customer.CustomerID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee.EmployeeID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Employee.EmployeeID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OperationType.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OperationType.Type)
-        </dd>
-
     </dl>
 </div>
 <p>

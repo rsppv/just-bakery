@@ -27,7 +27,7 @@ namespace JustBakery.Controllers
 
 
     #region Продукты
-    
+
     public ActionResult Index(Guid? id)
     {
       var productViewModel = new ProductViewModel();
@@ -350,15 +350,15 @@ namespace JustBakery.Controllers
         LogRecordID = Guid.NewGuid(),
         OperationDate = DateTime.Now,
         OperationType = db.OperationTypes.Single(r => r.Type == "Продажа продукции"),
-        Stock = db.Stocks.Single(s=>s.StockID == stockId)
+        Stock = db.Stocks.Single(s => s.StockID == stockId)
       };
       db.ProductAccountingLog.Add(order);
-      order.DetailProductOperation.Add(new DetailProductOperation{Count = count, Product = product, ProductAccountingLog = order});
+      order.DetailProductOperation.Add(new DetailProductOperation { Count = count, Product = product, ProductAccountingLog = order });
       db.SaveChanges();
       //Добавляем продукцию в заказ
-      
+
       //Снимаем нужную сумму со счета
-      customer.Balance = order.DetailProductOperation.Sum(t => t.Count)*product.Cost.Value;
+      customer.Balance = order.DetailProductOperation.Sum(t => t.Count) * product.Cost.Value;
       db.Entry(customer).State = EntityState.Modified;
       db.SaveChanges();
       //Пересчитываем остатки
@@ -472,6 +472,7 @@ namespace JustBakery.Controllers
         }
         catch (Exception e)
         {
+          ViewBag.Exception = e;
           return View("Error");
         }
         return RedirectToAction("AccountingLog");
@@ -532,13 +533,13 @@ namespace JustBakery.Controllers
       ViewBag.StockID = new SelectList(db.Stocks, "StockID", "Address");
       return View(productLog);
     }
-  
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = "admin,manager")]
     public ActionResult EditRecord(ProductAccountingLog productLog)
     {
-            if (ModelState.IsValid)
+      if (ModelState.IsValid)
       {
         db.Entry(productLog).State = EntityState.Modified;
         db.SaveChanges();
