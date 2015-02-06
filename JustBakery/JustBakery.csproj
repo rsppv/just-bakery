@@ -282,6 +282,7 @@
     </Compile>
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="ViewModel\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />

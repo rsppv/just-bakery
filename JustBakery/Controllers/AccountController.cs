@@ -172,7 +172,16 @@ namespace JustBakery.Controllers
                   Email = model.Email,
                   PersonId = Guid.NewGuid()
                 };
-                Person person = new Person{PersonID = user.PersonId, LastName = model.LastName, FirstName = model.FirstName, BirthDay = model.BirthDay};
+                Person person = new Person
+                {
+                  PersonID = user.PersonId, 
+                  LastName = model.LastName, 
+                  FirstName = model.FirstName, 
+                  BirthDay = model.BirthDay, 
+                  MiddleName = model.MiddleName,
+                  Phone = model.Phone,
+                  Address = model.Address
+                };
                 db.Persons.Add(person);
                 db.SaveChanges();
                 Customer customer = new Customer {Balance = 0, CustomerID = Guid.NewGuid(), Person = person};

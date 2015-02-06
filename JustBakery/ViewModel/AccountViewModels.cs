@@ -67,30 +67,43 @@ namespace JustBakery.ViewModel
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Адрес электронной почты")]
+        [Display(Name = "Адрес электронной почты(*)")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "Фамилия(*)")]
+        [StringLength(150)]
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Имя")]
+        [Display(Name = "Имя(*)")]
+        [StringLength(150)]
         public string FirstName { get; set; }
+
+        [Display(Name = "Отчество")]
+        [StringLength(150)]
+        public string MiddleName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Дата рождения(*)")]
         public DateTime BirthDay { get; set; }
+
+        [Display(Name = "Телефон")]
+        [StringLength(11,  ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 5)]
+        public string Phone { get; set; }
+
+        [Display(Name = "Адрес")]
+        public string Address { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 3)]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Пароль(*)")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение пароля")]
+        [Display(Name = "Подтверждение пароля(*)")]
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
     }

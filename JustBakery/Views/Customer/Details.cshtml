@@ -1,23 +1,15 @@
 ﻿@model JustBakery.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о покупателе";
 }
 
-<h2>Details</h2>
+<h2>@Model.Person.FullName</h2>
 
 <div>
-    <h4>Customer</h4>
+    <h4>Информация о покупателе</h4>
 	<hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Person.LastName)
         </dt>
@@ -26,9 +18,57 @@
             @Html.DisplayFor(model => model.Person.LastName)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.BirthDay)
+        </dt>
+
+        <dd>
+            @Model.Person.BirthDay.ToShortDateString()
+        </dd>
+
+        <dt>
+            Баланс
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.CustomerID }) |
+    @Html.ActionLink("Назад к списку", "Index")
 </p>

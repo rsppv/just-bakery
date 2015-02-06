@@ -1,39 +1,83 @@
 ﻿@model IEnumerable<JustBakery.Models.Customer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Клиенты";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Balance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Person.LastName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Balance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Person.LastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
-        </td>
-    </tr>
+<h2>Клиенты</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("admin"))
+    {
+        <p>
+            @Html.ActionLink("Добавить нового клиента", "Create")
+        </p>
+    }
 }
+
+<hr />
+<table class="table table-striped table-bordered table-hover">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.Person.ShortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.BirthDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.Phone)
+        </th>
+        <th>
+            Баланс
+        </th>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("manager") || User.IsInRole("admin"))
+            {
+                <th></th>
+            }
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.ShortName)
+            </td>
+            <td>
+                @item.Person.BirthDay.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("manager") || User.IsInRole("admin"))
+                {
+                    <td class="center-block text-center col-md-2">
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a href="@Url.Action("Edit", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a href="@Url.Action("Delete", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
+                                <span class="glyphicon glyphicon-minus-sign"></span>
+                            </a>
+                        }
+
+                        <a href="@Url.Action("Details", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </a>
+
+                    </td>
+                }
+            }
+
+        </tr>
+    }
 
 </table>
