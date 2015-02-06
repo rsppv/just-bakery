@@ -188,6 +188,7 @@
     <Compile Include="Models\ProductTypeMD.cs" />
     <Compile Include="Models\RowAccountigLogMD.cs" />
     <Compile Include="Models\StockMD.cs" />
+    <Compile Include="Models\SupplierMD.cs" />
     <Compile Include="Models\Перечень_вакансий_по_должности_Result.cs">
       <DependentUpon>BakeryModel.tt</DependentUpon>
     </Compile>
@@ -283,12 +284,14 @@
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="ViewModel\ProductDetailsViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\RecipeViewModel.cs" />
+    <Compile Include="ViewModel\SupplierViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Image\About1.gif" />

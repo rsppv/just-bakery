@@ -1,23 +1,16 @@
 ﻿@model JustBakery.Models.Supplier
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о поставщике";
 }
 
-<h2>Details</h2>
+<h2>@Model.ShortName</h2>
 
 <div>
-    <h4>Supplier</h4>
+    <h4>Информация о поставщике</h4>
 	<hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.INN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.INN)
-        </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.ShortName)
         </dt>
@@ -32,6 +25,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INN)
         </dd>
 
         <dt>
@@ -51,16 +52,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Person.LastName)
+            @Html.DisplayNameFor(model => model.ContactPersonID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Person.LastName)
+            @Html.DisplayFor(model => model.Person.FullName) 
+            @if (!string.IsNullOrEmpty(@Model.Person.Phone))
+            {
+                <text> (@Model.Person.Phone)</text>
+            }
         </dd>
+        
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SupplierID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.SupplierID }) |
+    @Html.ActionLink("Назад к списку", "Index")
 </p>
