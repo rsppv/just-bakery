@@ -182,6 +182,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DetailsProductOperationMD.cs" />
     <Compile Include="Models\DetailsRawOperationMD.cs" />
+    <Compile Include="Models\EmployeeMD.cs" />
     <Compile Include="Models\PersonMD.cs" />
     <Compile Include="Models\ProductAccountigLogMD.cs" />
     <Compile Include="Models\ProductMD.cs" />

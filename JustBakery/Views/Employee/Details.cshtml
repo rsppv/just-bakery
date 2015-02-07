@@ -1,15 +1,64 @@
 ﻿@model JustBakery.Models.Employee
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о сотруднике";
 }
 
-<h2>Details</h2>
+<h2>@Model.Person.ShortName</h2>
 
 <div>
-    <h4>Employee</h4>
+    <h4>Информация о сотруднике</h4>
 	<hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.FullName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Position.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position.ShortName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Bakery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bakery.Name) -
+            @Html.DisplayFor(model => model.Bakery.FullAddress)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Address)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.BirthDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.BirthDay)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Phone)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
@@ -26,33 +75,9 @@
             @Html.DisplayFor(model => model.DismissalDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Person.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Person.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bakery.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bakery.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Position.ShortName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Position.ShortName)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.EmployeeID }) |
+    @Html.ActionLink("Назад к списку", "Index")
 </p>

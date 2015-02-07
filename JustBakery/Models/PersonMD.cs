@@ -30,7 +30,7 @@ namespace JustBakery.Models
     [Display(Name = "Отчество")]
     public string MiddleName { get; set; }
     [Display(Name = "Дата рождения")]
-    public System.DateTime BirthDay { get; set; }
+    public DateTime BirthDay { get; set; }
     [Display(Name = "Адрес")]
     public string Address { get; set; }
     [Display(Name = "Телефон")]
