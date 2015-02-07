@@ -1,13 +1,13 @@
 ﻿@model JustBakery.Models.ProductResidue
 
 @{
-    ViewBag.Title = "Подробно";
+    ViewBag.Title = "Информация об остатках";
 }
 
-<h2>Подробно о записи</h2>
+<h2>@Model.Product.Name</h2>
 
 <div>
-    <h4>Остаток продукции на складе</h4>
+    <h4>Остаток продукции на складе по адрессу @Model.Stock.Address</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>

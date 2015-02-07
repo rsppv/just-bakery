@@ -1,10 +1,10 @@
 ﻿@model JustBakery.Models.ProductResidue
 
 @{
-    ViewBag.Title = "Редактирование остатка продукции";
+    ViewBag.Title = "Редактирование остатков "+@Model.Product.Name;
 }
 
-<h2>Изменить запись об остатке продукции на складе</h2>
+<h2>@Model.Product.Name</h2>
 
 
 @using (Html.BeginForm())
@@ -12,28 +12,31 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>Редактирование записи об остатках продукции</h4>
+        <h4>Измените поля и нажмите "Сохранить"</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ProductResidueID)
+        @Html.HiddenFor(model => model.ProductID)
+        @Html.HiddenFor(model => model.StockID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StockID, "StockID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Продукт", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("StockID", String.Empty)
-                @Html.ValidationMessageFor(model => model.StockID)
+                @Model.Product.Name
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductID, "ProductID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StockID, "Склад", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ProductID", String.Empty)
-                @Html.ValidationMessageFor(model => model.ProductID)
+                @Model.Stock.Address <br/> 
+                @Model.Stock.Bakery.Name
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Count, "Количество", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Count)
                 @Html.ValidationMessageFor(model => model.Count)
@@ -42,14 +45,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Residue", "Product")
+    @Html.ActionLink("Назад к списку", "Residue", "Product")
 </div>
 
 @section Scripts {

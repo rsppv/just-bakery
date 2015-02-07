@@ -1,10 +1,10 @@
 ﻿@model JustBakery.Models.ProductResidue
 
 @{
-    ViewBag.Title = "Создать остаток продукции";
+    ViewBag.Title = "Добавление записи - Журнал остатков продукции";
 }
 
-<h2>Создать остаток продукции</h2>
+<h2>Добавление записи</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,19 +12,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProductResidue</h4>
+        <h4>Журнал остатков продукции на складах</h4>
+        <h4>Заполните поля и нажмите кнопку "Создать"</h4>
         <hr />
         @Html.ValidationSummary(true)
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.StockID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StockID", String.Empty)
-                @Html.ValidationMessageFor(model => model.StockID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProductID, "Продукция",htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ProductID", String.Empty)
                 @Html.ValidationMessageFor(model => model.ProductID)
@@ -32,23 +26,44 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StockID, "Склад", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StockID", String.Empty)
+                @Html.ValidationMessageFor(model => model.StockID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, "Количество", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Count)
                 @Html.ValidationMessageFor(model => model.Count)
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.Units, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UnitsDropdown1", new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = "шт", Value = "1", Selected = true},
+                    new SelectListItem() { Text = "гр", Value = "2"},
+                    new SelectListItem() { Text = "кг", Value = "3"},
+                    new SelectListItem() { Text = "т", Value = "4"}
+                }, string.Empty)
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Residue", "Product")
+    @Html.ActionLink("Назад к списку", "Residue", "Product")
 </div>
 
 @section Scripts {

@@ -1,45 +1,56 @@
 ﻿@model IEnumerable<JustBakery.Models.ProductResidue>
 
 @{
-    ViewBag.Title = "Остатки продукции";
+    ViewBag.Title = "Остатки продукции на складах";
 }
 
-<h2>Остатки продукции на складе</h2>
+<h2>Остатки продукции на складах</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateResidue" , "Product")
+    @Html.ActionLink("Добавить запись в журнал", "CreateResidue" , "Product")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-striped table-bordered table-hover">
+    <tr class="info">
         <th>
-            @Html.DisplayNameFor(model => model.Count)
+            Продукция
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stock.StockType)
+            Склад
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Product.Units)
+            Количество
+        </th>
+        <th>
+            Ед. изм.
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock.StockType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.Units)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditResidue", "Product", new { id = item.ProductResidueID}, null) |
-            @Html.ActionLink("Details", "DetailsResidue", "Product",  new { id = item.ProductResidueID }, null) |
-            @Html.ActionLink("Delete", "DeleteResidue", "Product",  new { id = item.ProductResidueID }, null)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock.Address) -
+                @Html.DisplayFor(modelItem => item.Stock.Bakery.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Units)
+            </td>
+            <td class="center-block text-center col-md-2">
+                <a href="@Url.Action("EditResidue","Product", new { id = item.ProductResidueID })" class="btn btn-default btn-sm" role="button">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="@Url.Action("DeleteResidue", "Product", new { id = item.ProductResidueID })" class="btn btn-default btn-sm" role="button">
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>

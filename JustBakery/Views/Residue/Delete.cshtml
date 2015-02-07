@@ -1,29 +1,39 @@
 ﻿@model JustBakery.Models.ProductResidue
 
 @{
-    ViewBag.Title = "Удалить остаток продукции";
+    ViewBag.Title = "Удалить запись об остатке";
 }
 
-<h2>Delete</h2>
+<h2>Удалить запись об остатке продукции</h2>
 
-<h3>Вы уверены, что хотите это удалить?</h3>
+<h3>Вы уверены, что хотите удалить запись?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Count)
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.Address) <br/>
+            @Html.DisplayFor(model => model.Stock.Bakery.Name)
+        </dd>
+        
+        <dt>
+            Количество
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Count)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Stock.StockType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Stock.StockType)
         </dd>
 
         <dt>
@@ -40,8 +50,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Residue", "Product")
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад к списку", "Residue", "Product")
         </div>
     }
 </div>
