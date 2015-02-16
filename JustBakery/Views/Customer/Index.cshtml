@@ -67,11 +67,17 @@
                             <a href="@Url.Action("Delete", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
                                 <span class="glyphicon glyphicon-minus-sign"></span>
                             </a>
+                            <a href="@Url.Action("Details", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </a>
+                        }
+                        @if (User.IsInRole("manager"))
+                        {
+                            <a href="@Url.Action("Details", new {id = item.CustomerID})">
+                                Подробнее
+                            </a>
                         }
 
-                        <a href="@Url.Action("Details", new {id = item.CustomerID})" class="btn btn-default btn-xs" role="button">
-                            <span class="glyphicon glyphicon-th-list"></span>
-                        </a>
 
                     </td>
                 }
