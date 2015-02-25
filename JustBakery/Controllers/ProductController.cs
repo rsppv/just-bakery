@@ -28,8 +28,8 @@ namespace JustBakery.Controllers
 
     public ProductController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
     {
-        UserManager = userManager;
-            
+      UserManager = userManager;
+
     }
 
     public ApplicationUserManager UserManager
@@ -363,8 +363,6 @@ namespace JustBakery.Controllers
     [Authorize(Roles = "customer")]
     public async Task<ActionResult> AddItemToOrder(Guid? operationId, Guid? productId)
     {
-      //if (!Request.IsAjaxRequest()) return RedirectToAction("Index");
-      //throw new NotImplementedException();
       if (productId == null)
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -380,36 +378,29 @@ namespace JustBakery.Controllers
       increment = product.Units == "гр" ? 100 : 1;
 
       var stock = db.Stocks.FirstOrDefault(s => s.ProductResidue.FirstOrDefault(r => r.ProductID == productId).Count > 0);
+
       if (stock == null)
       {
-        ViewBag.Message = "Товара нет на складе";
+        TempData["Message"] = "Товара нет на складе";
         return RedirectToAction("Index");
       }
 
-      #region temp
+      if (!product.Cost.HasValue)
+      {
+        TempData["Message"] = "Отсутствует цена продукции. Сделайте заказ по телефону";
+        return RedirectToAction("Index");
+      }
 
-      //if (order != null)
-      //{
-      //  if (order.OrderItems.Count(d => d.ProductId == productId) == 0)
-      //    order.OrderItems.Add(new OrderItem(productId.Value,1));
-      //  else
-      //  {
-      //    order.OrderItems.Single(o => o.ProductId == productId).Count ++;
-      //  }
-      //  ViewBag.Order = order;
-      //}
-      //else
-      //{
-      //  Order newOrder = new Order() {Customer = customer, OrderItems = new List<OrderItem>()};
-      //  newOrder.OrderItems.Add(new OrderItem(productId.Value, 1));
-      //  ViewBag.Order = newOrder;
-      //}
+      if (customer.Balance < product.Cost.Value)
+      {
+        TempData["Message"] = "Недостаточно средств на счете";
+        return RedirectToAction("Index");
+      }
 
-      #endregion
+      #region Добавляем запись в журнал учета продукции
 
-      //Добавляем запись в журнал учета продукции
-      ProductAccountingLog rowProductLog; 
-      if (operationId != Guid.Empty && operationId != null) 
+      ProductAccountingLog rowProductLog;
+      if (operationId != Guid.Empty && operationId != null)
         rowProductLog = db.ProductAccountingLog.Find(operationId);
       else
       {
@@ -427,14 +418,17 @@ namespace JustBakery.Controllers
         db.ProductAccountingLog.Add(rowProductLog);
         db.SaveChanges();
       }
-      
-      //Добавляем продукцию в заказ
+
+      #endregion
+
+
+      #region Добавляем продукцию в заказ
 
       if (rowProductLog.DetailProductOperation.Any(i => i.ProductID == productId))
       {
         var operationItem = rowProductLog.DetailProductOperation.FirstOrDefault(i => i.ProductID == productId);
         operationItem.Count += increment;
-        db.Entry(operationItem).State = EntityState.Modified;          
+        db.Entry(operationItem).State = EntityState.Modified;
       }
       else
       {
@@ -447,20 +441,41 @@ namespace JustBakery.Controllers
       }
       db.SaveChanges();
 
-      //Снимаем нужную сумму со счета
+      #endregion
 
-      //Пересчитываем остатки
+
+      #region Снимаем нужную сумму со счета
+
+      customer.Balance -= product.Cost.Value;
+      db.Entry(customer).State = EntityState.Modified;
+      db.SaveChanges();
+
+      #endregion
+
+
+      #region Пересчитываем остатки
+
+      var residue = db.ProductResidues.FirstOrDefault(r => r.ProductID == productId && r.StockID == stock.StockID);
+      if (residue != null)
+      {
+        residue.Count -= increment;
+        db.Entry(residue).State = EntityState.Modified;
+      }
+      db.SaveChanges();
+
+      #endregion
+
 
       TempData["OperationID"] = rowProductLog.LogRecordID;
-      //ViewBag.OperationID = rowProductLog.LogRecordID;
       return RedirectToAction("Index");
     }
+
 
     [Authorize(Roles = "customer,manager,admin")]
     public ActionResult CancelPurchase(Guid? orderId)
     {
-      throw new NotImplementedException();
-      if (orderId == null)
+
+      if (!orderId.HasValue)
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
@@ -472,21 +487,21 @@ namespace JustBakery.Controllers
       order.IsDeleted = true;
       db.Entry(order).State = EntityState.Modified;
       db.SaveChanges();
-      return RedirectToAction("OrderList");
+      return RedirectToAction("Index");
     }
+
 
     [Authorize(Roles = "customer,manager,admin")]
     public ActionResult PurchaseDetails(Guid? purchaseId)
     {
       // Показывает детали заказа, айтемы в списке
-      throw new NotImplementedException();
-      if (purchaseId == null)
+      if (!purchaseId.HasValue)
       {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        TempData["Message"] = "Все ваши заказы уже оформлены";
+        return RedirectToAction("Index");
       }
-      var order = db.ProductAccountingLog.Find(purchaseId);
-      ViewBag.Order = order;
-      return View(order.DetailProductOperation.ToList());
+      ViewBag.OrderId = purchaseId;
+      return View(db.ProductAccountingLog.Find(purchaseId).DetailProductOperation.ToList());
     }
 
     [Authorize(Roles = "admin,manager")]

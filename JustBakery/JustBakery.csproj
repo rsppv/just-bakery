@@ -183,7 +183,6 @@
     <Compile Include="Models\DetailsProductOperationMD.cs" />
     <Compile Include="Models\DetailsRawOperationMD.cs" />
     <Compile Include="Models\EmployeeMD.cs" />
-    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PersonMD.cs" />
     <Compile Include="Models\ProductAccountigLogMD.cs" />
     <Compile Include="Models\ProductMD.cs" />
@@ -440,6 +439,7 @@
     <Content Include="Views\Bakeries\Details.cshtml" />
     <Content Include="Views\Bakeries\Edit.cshtml" />
     <Content Include="Views\Bakeries\Index.cshtml" />
+    <Content Include="Views\Product\PurchaseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
