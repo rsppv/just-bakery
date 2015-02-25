@@ -17,6 +17,7 @@ namespace JustBakery.Models
     public System.Guid RecordID { get; set; }
     public System.Guid ProductLogRecordID { get; set; }
     public System.Guid ProductID { get; set; }
+    [Display(Name = "Количество")]
     public int Count { get; set; }
 
     public virtual Product Product { get; set; }

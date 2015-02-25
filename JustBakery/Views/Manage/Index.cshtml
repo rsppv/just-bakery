@@ -23,6 +23,17 @@
             }
             ]
         </dd>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("customer"))
+            {
+                <dt>Баланс:</dt>
+                <dd>
+                    @ViewBag.Balance
+                </dd>
+            }
+        }
+
         <dt>Внешний вход:</dt>
         <dd>
             @Model.Logins.Count [
@@ -30,13 +41,13 @@
         </dd>
         @*
             Номера телефонов можно использовать в качестве второго проверочного фактора для системы двухфакторной проверки подлинности.
-             
+
              В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
                 вы можете узнать, как настроить для этого приложения ASP.NET двухфакторную проверку подлинности с использованием SMS.
-             
+
              Настроив двухфакторную проверку подлинности, раскомментируйте следующий блок.
         *@
-        @*  
+        @*
             <dt>Номер телефона:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "Нет") [
@@ -54,31 +65,31 @@
             </dd>
         *@
         @*<dt>Двухфакторная проверка подлинности:</dt>
-    <dd>
-        <p>
-            Поставщики двухфакторной проверки подлинности не настроены. В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
-            вы можете узнать, как настроить двухфакторную проверку подлинности в этом приложении ASP.NET.
-        </p>*@
-            @*@if (Model.TwoFactor)
+            <dd>
+                <p>
+                    Поставщики двухфакторной проверки подлинности не настроены. В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
+                    вы можете узнать, как настроить двухфакторную проверку подлинности в этом приложении ASP.NET.
+                </p>*@
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Включено
-                        <input type="submit" value="Отключить" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>Включено
+                    <input type="submit" value="Отключить" class="btn btn-link" />
+                    </text>
                 }
-                else
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Отключено
-                        <input type="submit" value="Включить" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        
+                    @Html.AntiForgeryToken()
+                    <text>Отключено
+                    <input type="submit" value="Включить" class="btn btn-link" />
+                    </text>
+                }
+            }*@
+
     </dl>
 </div>

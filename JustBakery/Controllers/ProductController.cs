@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using JustBakery.Models;
 using JustBakery.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace JustBakery.Controllers
 {
@@ -16,7 +20,29 @@ namespace JustBakery.Controllers
   public class ProductController : Controller
   {
     private BakeryEntitiesHome db = new BakeryEntitiesHome();
+    private ApplicationUserManager _userManager;
 
+    public ProductController()
+    {
+    }
+
+    public ProductController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+    {
+      UserManager = userManager;
+
+    }
+
+    public ApplicationUserManager UserManager
+    {
+      get
+      {
+        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+      }
+      private set
+      {
+        _userManager = value;
+      }
+    }
     // GET: /Product/
     //public ActionResult Index(Guid? categoryId = null)
     //{
@@ -28,7 +54,7 @@ namespace JustBakery.Controllers
 
     #region Продукты
 
-    public ActionResult Index(Guid? id)
+    public ActionResult Index(Guid? id, Guid? operationId)
     {
       var productViewModel = new ProductViewModel();
       productViewModel.Categories = db.ProductTypes
@@ -41,6 +67,9 @@ namespace JustBakery.Controllers
           .OrderBy(c => c.Type)
           .First().ProductTypeID;
       }
+
+      if (operationId.HasValue)
+        TempData["OperationID"] = operationId;
 
       ViewBag.CategoryID = id.Value;
       productViewModel.Products = productViewModel.Categories.Single(c => c.ProductTypeID == id.Value).Products;
@@ -332,49 +361,121 @@ namespace JustBakery.Controllers
 
 
     [Authorize(Roles = "customer")]
-    public ActionResult Purchase(Guid? productId, Guid? stockId, int count)
+    public async Task<ActionResult> AddItemToOrder(Guid? operationId, Guid? productId)
     {
-      throw new NotImplementedException();
-      if (productId == null || stockId == null)
+      if (productId == null)
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
-      var UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>());
-      var customer = db.Customers.Single(r => r.PersonID == UserManager.FindById(User.Identity.GetUserId()).PersonId);
-      var product = db.Products.Find(productId);
-      //Добавляем запись в журнал учета прордукции
-      var order = new ProductAccountingLog
-      {
-        Customer = customer,
-        IsDeleted = false,
-        LogRecordID = Guid.NewGuid(),
-        OperationDate = DateTime.Now,
-        OperationType = db.OperationTypes.Single(r => r.Type == "Продажа продукции"),
-        Stock = db.Stocks.Single(s => s.StockID == stockId)
-      };
-      db.ProductAccountingLog.Add(order);
-      order.DetailProductOperation.Add(new DetailProductOperation { Count = count, Product = product, ProductAccountingLog = order });
-      db.SaveChanges();
-      //Добавляем продукцию в заказ
+      var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+      if (user == null)
+        return RedirectToAction("Index");
+      Customer customer = db.Customers.Single(r => r.PersonID == user.PersonId);
 
-      //Снимаем нужную сумму со счета
-      customer.Balance = order.DetailProductOperation.Sum(t => t.Count) * product.Cost.Value;
+      var product = db.Products.Find(productId);
+
+      int increment = 0;
+      increment = product.Units == "гр" ? 100 : 1;
+
+      var stock = db.Stocks.FirstOrDefault(s => s.ProductResidue.FirstOrDefault(r => r.ProductID == productId).Count > 0);
+
+      if (stock == null)
+      {
+        TempData["Message"] = "Товара нет на складе";
+        return RedirectToAction("Index");
+      }
+
+      if (!product.Cost.HasValue)
+      {
+        TempData["Message"] = "Отсутствует цена продукции. Сделайте заказ по телефону";
+        return RedirectToAction("Index");
+      }
+
+      if (customer.Balance < product.Cost.Value)
+      {
+        TempData["Message"] = "Недостаточно средств на счете";
+        return RedirectToAction("Index");
+      }
+
+      #region Добавляем запись в журнал учета продукции
+
+      ProductAccountingLog rowProductLog;
+      if (operationId != Guid.Empty && operationId != null)
+        rowProductLog = db.ProductAccountingLog.Find(operationId);
+      else
+      {
+        rowProductLog = new ProductAccountingLog
+        {
+          LogRecordID = Guid.NewGuid(),
+          Customer = customer,
+          Employee = null,
+          IsDeleted = false,
+          OperationDate = DateTime.Now,
+          OperationType = db.OperationTypes.Find(Guid.Parse("2f4f3629-1c56-41b6-848a-8716b80245e0")),
+          Stock = stock,
+          DetailProductOperation = new List<DetailProductOperation>()
+        };
+        db.ProductAccountingLog.Add(rowProductLog);
+        db.SaveChanges();
+      }
+
+      #endregion
+
+
+      #region Добавляем продукцию в заказ
+
+      if (rowProductLog.DetailProductOperation.Any(i => i.ProductID == productId))
+      {
+        var operationItem = rowProductLog.DetailProductOperation.FirstOrDefault(i => i.ProductID == productId);
+        operationItem.Count += increment;
+        db.Entry(operationItem).State = EntityState.Modified;
+      }
+      else
+      {
+        db.ProductAccountingLog.Find(rowProductLog.LogRecordID).DetailProductOperation.Add(new DetailProductOperation
+        {
+          Product = product,
+          RecordID = Guid.NewGuid(),
+          Count = increment
+        });
+      }
+      db.SaveChanges();
+
+      #endregion
+
+
+      #region Снимаем нужную сумму со счета
+
+      customer.Balance -= product.Cost.Value;
       db.Entry(customer).State = EntityState.Modified;
       db.SaveChanges();
-      //Пересчитываем остатки
-      var residue = db.ProductResidues.Single(r => r.ProductID == productId && r.StockID == stockId);
-      residue.Count -= order.DetailProductOperation.Sum(t => t.Count);
-      db.Entry(residue).State = EntityState.Modified;
+
+      #endregion
+
+
+      #region Пересчитываем остатки
+
+      var residue = db.ProductResidues.FirstOrDefault(r => r.ProductID == productId && r.StockID == stock.StockID);
+      if (residue != null)
+      {
+        residue.Count -= increment;
+        db.Entry(residue).State = EntityState.Modified;
+      }
       db.SaveChanges();
 
-      return RedirectToAction("OrderList");
+      #endregion
+
+
+      TempData["OperationID"] = rowProductLog.LogRecordID;
+      return RedirectToAction("Index");
     }
+
 
     [Authorize(Roles = "customer,manager,admin")]
     public ActionResult CancelPurchase(Guid? orderId)
     {
-      throw new NotImplementedException();
-      if (orderId == null)
+
+      if (!orderId.HasValue)
       {
         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
       }
@@ -386,21 +487,21 @@ namespace JustBakery.Controllers
       order.IsDeleted = true;
       db.Entry(order).State = EntityState.Modified;
       db.SaveChanges();
-      return RedirectToAction("OrderList");
+      return RedirectToAction("Index");
     }
+
 
     [Authorize(Roles = "customer,manager,admin")]
     public ActionResult PurchaseDetails(Guid? purchaseId)
     {
       // Показывает детали заказа, айтемы в списке
-      throw new NotImplementedException();
-      if (purchaseId == null)
+      if (!purchaseId.HasValue)
       {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        TempData["Message"] = "Все ваши заказы уже оформлены";
+        return RedirectToAction("Index");
       }
-      var order = db.ProductAccountingLog.Find(purchaseId);
-      ViewBag.Order = order;
-      return View(order.DetailProductOperation.ToList());
+      ViewBag.OrderId = purchaseId;
+      return View(db.ProductAccountingLog.Find(purchaseId).DetailProductOperation.ToList());
     }
 
     [Authorize(Roles = "admin,manager")]

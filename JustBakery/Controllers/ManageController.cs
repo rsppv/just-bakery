@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JustBakery.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -64,6 +65,14 @@ namespace JustBakery.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user != null && UserManager.IsInRole(userId,"customer"))
+            {
+              using (BakeryEntitiesHome db = new BakeryEntitiesHome())
+              {
+                ViewBag.Balance = db.Customers.Single(c => c.PersonID == user.PersonId).Balance;
+              }
+            }
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
