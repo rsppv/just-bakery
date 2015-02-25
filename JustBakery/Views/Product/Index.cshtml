@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = currentCategory + " - Продукция";
+    var idid = TempData["OperationID"] as Guid?;
 }
 <div class="container-fluid">
     <div class="row">
@@ -17,7 +18,7 @@
                     }
 
                     <li class="@selectedRow">
-                        <a href="@Url.Action("Index", new { id = cat.ProductTypeID })">@cat.Type</a>
+                        <a href="@Url.Action("Index", new { id = cat.ProductTypeID, operationId = TempData["OperationID"]})">@cat.Type</a>
                     </li>
                 }
             </ul>
@@ -25,6 +26,9 @@
         </div>
         <div class="col-md-9">
             <h2 class="page-header">@currentCategory</h2>
+
+                idid.Value;
+
 
             @if (User.Identity.IsAuthenticated)
             {
@@ -41,7 +45,7 @@
                         <button type="button" class="btn btn-primary navbar-right">
                             <span class="glyphicon glyphicon-shopping-cart " aria-hidden="true"></span> Оформить заказ
                         </button>
-                    </p> 
+                    </p>
                 }
             }
 
@@ -104,10 +108,11 @@
                                 else
                                 {
                                     <td class="col-md-1">
-                                        <a href="#" class="btn btn-default btn-xs center-block text-center" role="button">
-                                            @*<a href="@Url.Action("#", new { id = item.ProductID })" class="btn btn-default btn-xs" role="button">*@
-                                            <span class="glyphicon glyphicon-usd"></span> Купить
-                                        </a>
+                                        @Ajax.ActionLink("Купить", "AddItemToOrder", "Product", new { operationId = TempData["OperationID"], productId = item.ProductID }, new AjaxOptions { })
+                                        @*<a href="@Url.Action("AddItemToOrder", new { ViewBag.Operation, productId = item.ProductID })" class="btn btn-default btn-xs center-block text-center" role="button">
+                                            <a href="@Url.Action("#", new { id = item.ProductID })" class="btn btn-default btn-xs" role="button">
+                                                                                    <span class="glyphicon glyphicon-usd"></span> Купить
+                                            </a>*@
                                     </td>
                                 }
                             }
